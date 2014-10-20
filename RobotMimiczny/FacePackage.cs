@@ -13,6 +13,8 @@ namespace RobotMimiczny
         //potrzeba zestawu dla miny neutralnej
         //potrzeba zestawu min domyślnych
         //na uC każda mina ma swój IP przyporządkowany do fizycznego przycisku
+
+        //da się zrobić:)
         struct Face
         {
             public string faceName;
