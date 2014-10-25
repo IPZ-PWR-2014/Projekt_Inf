@@ -4,24 +4,21 @@ using System.Threading;
 
 namespace Komunikacja
 {
-    // Klasa służąca do nawiązania komunikacji, odbioru i wysyłania danych do mikroKontrolera
     class COM
     {
-        //dobrzby było poopisywać parametry klasy?
         static bool _continue;
         static SerialPort _serialPort;
 
-        string name;        //nie używana
-        string message;     //nie używana
+        string name;
+        string message;
 
-        string dataBits = "8";
+        string dataBits = "8";                  //parametry transmisji
         string parity = "none";
         string stopBits = "1";
         string handshake = "none";
         string baudRate = "9600";
 
-        // Inicjalizacja połączenia z wybranymi parametrami
-        public void initialization()
+        public void initialization()            //inicjalizacja połączenia z wybranymi parametrami
         {
             _serialPort = new SerialPort();
 
@@ -31,31 +28,25 @@ namespace Komunikacja
             _serialPort.DataBits = int.Parse(dataBits.ToUpperInvariant());
             _serialPort.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopBits, true);
             _serialPort.Handshake = (Handshake)Enum.Parse(typeof(Handshake), handshake, true);
-            //Wyszukanie nazwy portu
-            _serialPort.PortName = SetPortName();
+            _serialPort.PortName = SetPortName();  //wyszukiwanie nazwy portu
 
-            //Set the read/write timeouts
+            // Set the read/write timeouts
             _serialPort.ReadTimeout = 500;
             _serialPort.WriteTimeout = 500;
-            //Znak konca lini potrzebne do ReadLine
-            _serialPort.NewLine = "B";
+            _serialPort.NewLine = "B";              // znak konca lini potrzebne do ReadLine
             _serialPort.Open();
         }
 
-        // Zamknięcie połączenia
         public void close()
         {
             _serialPort.Close();
         }
-
-        // Odczyt danych
-        // Zwraca wektor znaków w kodzie ASCII
         public int[] Read() //to musze zmienić bo mi ReadLine nie działało przez brak zanku konca lini
         {
             int[] tab = new int[0];
             int[] tab1 = new int[200000];
-            int temp;       //nie używana
-            int i = 1;      //nie używana
+            int temp;
+            int i = 1;
             _continue = true;
             Send(tab, 1);
             while (_continue)
@@ -74,8 +65,7 @@ namespace Komunikacja
             return tab;
         }
 
-        // Display Port values and prompt user to enter a port
-        // Zwraca wektor char-ów z nazwą portu
+        // Display Port values and prompt user to enter a port.
         public static string SetPortName()  
         {
             string portName = "Nie ma urządzenia";
@@ -123,10 +113,6 @@ namespace Komunikacja
             return portName;
         }
 
-        // Wysyłanie danych
-        // "set"        - Wektor danych typu int
-        // "nrCommand"  - Numer Komendy
-        // Zwraca zero
         public int Send(int[] set, int nrCommand)   //moge zmienić na tablice dwuwymiarowa nie wiem jak lepiej
         {
             _serialPort.WriteLine("$FF$01$AF$00$0A");

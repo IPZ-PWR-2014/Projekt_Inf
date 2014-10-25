@@ -7,6 +7,7 @@ using System.IO;
 
 namespace RobotMimiczny
 {
+    // Klasa służąca do obsługi głównego okna
     class FacePackage
     {
 
@@ -14,7 +15,7 @@ namespace RobotMimiczny
         //potrzeba zestawu min domyślnych
         //na uC każda mina ma swój IP przyporządkowany do fizycznego przycisku
 
-        //da się zrobić:)
+        //Struktura przechowująca dane dotyczące miny
         struct Face
         {
             public string faceName;
