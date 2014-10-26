@@ -4,83 +4,85 @@ using System.Threading;
 
 namespace Komunikacja
 {
-    // Klasa służąca do nawiązania komunikacji, odbioru i wysyłania danych do mikroKontrolera
     class COM
     {
-        //dobrzby było poopisywać parametry klasy?
         static bool _continue;
         static SerialPort _serialPort;
 
-        string name;        //nie używana
-        string message;     //nie używana
 
-        string dataBits = "8";
+        string dataBits = "8";      //parametry połączenia ->ustawić zgodnie z elektronikami
         string parity = "none";
         string stopBits = "1";
         string handshake = "none";
         string baudRate = "9600";
 
-        // Inicjalizacja połączenia z wybranymi parametrami
-        public void initialization()
+        // Inicjalizacja połączenia
+        // Funkcja bez parametrów
+        // Zwraca nazwę portu lub komunikat "Nie ma urządzenia"
+        public string initialization()
         {
+            string name;
             _serialPort = new SerialPort();
-
 
             _serialPort.BaudRate = int.Parse(baudRate);
             _serialPort.Parity = (Parity)Enum.Parse(typeof(Parity), parity, true);
             _serialPort.DataBits = int.Parse(dataBits.ToUpperInvariant());
             _serialPort.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopBits, true);
             _serialPort.Handshake = (Handshake)Enum.Parse(typeof(Handshake), handshake, true);
-            //Wyszukanie nazwy portu
-            _serialPort.PortName = SetPortName();
 
-            //Set the read/write timeouts
-            _serialPort.ReadTimeout = 500;
-            _serialPort.WriteTimeout = 500;
-            //Znak konca lini potrzebne do ReadLine
-            _serialPort.NewLine = "B";
-            _serialPort.Open();
+            name = SetPortName();
+            if (name != "Nie ma urządzenia")    //sprawdzanie czy odnaleziono odpowiedni port 
+            {
+                _serialPort.PortName = name;
+
+                _serialPort.ReadTimeout = 500;  //czasy oczekiwania
+                _serialPort.WriteTimeout = 500;
+                _serialPort.NewLine = "B";      //sprawdzić czy ustawiono odpowiedni znak konca lini ->ustawić zgodnie z elektronikami
+                _serialPort.Open(); 
+            }
+            return name;
         }
 
-        // Zamknięcie połączenia
+        // Zamykanie połączenia z portem
+        // Funkcja bez parametrów
+        // Funkcja nic nie zwraca
         public void close()
         {
             _serialPort.Close();
         }
 
         // Odczyt danych
-        // Zwraca wektor znaków w kodzie ASCII
-        public int[] Read() //to musze zmienić bo mi ReadLine nie działało przez brak zanku konca lini
+        // Funkcja bez parametrów
+        // Zwraca odczytaną linie lub error ("brak odpowiedzi")
+        public string Read()
         {
-            int[] tab = new int[0];
-            int[] tab1 = new int[200000];
-            int temp;       //nie używana
-            int i = 1;      //nie używana
+            int iloscZapytan = 0;
+            string message="brak odpowiedzi";
             _continue = true;
-            Send(tab, 1);
             while (_continue)
             {
                 try
                 {
-                    //temp = _serialPort.ReadByte();
-                    //Console.WriteLine(temp);
-
-                    string message = _serialPort.ReadLine();
-                    Console.WriteLine(message);
-
+                    message = _serialPort.ReadLine();
                 }
                 catch (TimeoutException) { }
+                iloscZapytan++;
+                if (iloscZapytan == 3)
+                {
+                    iloscZapytan = 0;
+                    _continue = false;
+                }
             }
-            return tab;
+            return message;
         }
 
-        // Display Port values and prompt user to enter a port
-        // Zwraca wektor char-ów z nazwą portu
-        public static string SetPortName()  
+        // Wyszukiwanie portu pod które podpięte jest urządzenie
+        // Funkcja bez parametrów
+        // Zwraca nazwę portu lub komunikat "Nie ma urządzenia"
+        public static string SetPortName()
         {
             string portName = "Nie ma urządzenia";
             int iloscZapytan = 0;
-            int odpowiedz = 0;
 
             foreach (string s in SerialPort.GetPortNames())
             {
@@ -88,22 +90,18 @@ namespace Komunikacja
                 _serialPort.PortName = s;
                 _serialPort.ReadTimeout = 500;
                 _serialPort.WriteTimeout = 500;
+                _serialPort.NewLine = "B";          //Pamiętać ustawić odpowiedni znak konca lini ->ustawić zgodnie z elektronikami
 
-                if (s != "COM4") //do wyrzucenia, uzywane przy termianalu
+                if (s != "COM8") //do wyrzucenia, uzywane przy termianalu
                 {
                     _serialPort.Open();
                     Console.WriteLine(s);
-                    _serialPort.WriteLine("$FF$01$AF$00$0A");
+                    _serialPort.WriteLine("$FF$01$AF$00$0A");       //Kim jestem ->ustawić zgodnie z elektronikami
                     while (_continue)
                     {
                         try
                         {
-                            for (int i = 0; i < 5; i++)
-                            {
-                                odpowiedz += _serialPort.ReadByte();
-                            }
-
-                            if (odpowiedz == 335)
+                            if (_serialPort.ReadLine() == "0x1F")
                             {
                                 portName = s;
                             }
@@ -125,18 +123,25 @@ namespace Komunikacja
 
         // Wysyłanie danych
         // "set"        - Wektor danych typu int
-        // "nrCommand"  - Numer Komendy
+        // "commandNr"  - Numer Komendy
         // Zwraca zero
-        public int Send(int[] set, int nrCommand)   //moge zmienić na tablice dwuwymiarowa nie wiem jak lepiej
+        public int Send(int[] set, int commandNr)
         {
-            _serialPort.WriteLine("$FF$01$AF$00$0A");
-            _serialPort.WriteLine(Convert.ToString(nrCommand));
+            _serialPort.NewLine = "$";              //zmiana znaku konca lini na czas wysyłania w celu zachowania formatu ramki
+            _serialPort.WriteLine("$FF$01$AF$00$0A");       //format ramki ->ustawić zgodnie z elektronikami
+            _serialPort.WriteLine(Convert.ToString(commandNr));
             for (int i = 0; i < set.Length; i++)
             {
                 _serialPort.WriteLine(Convert.ToString(set[i]));
             }
+            _serialPort.NewLine = "/x$";            //powrót do starego znaku konca lini ->ustawić zgodnie z elektronikami
             return 0;
         }
     }
 }
+
+
+
+
+
 
