@@ -36,13 +36,9 @@
             this.menuItemExportPackageToDevice = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemImportPackageFromDevice = new System.Windows.Forms.ToolStripMenuItem();
             this.pomocToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cBxChooseFace = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSaveSettings = new System.Windows.Forms.Button();
             this.btnExecuteFace = new System.Windows.Forms.Button();
-            this.btnAddFace = new System.Windows.Forms.Button();
-            this.btnRemoveFace = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
@@ -50,6 +46,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnFace1 = new System.Windows.Forms.Button();
+            this.btnFace2 = new System.Windows.Forms.Button();
+            this.btnFace3 = new System.Windows.Forms.Button();
+            this.btnFace4 = new System.Windows.Forms.Button();
+            this.btnFace5 = new System.Windows.Forms.Button();
+            this.btnFace6 = new System.Windows.Forms.Button();
+            this.btnFace7 = new System.Windows.Forms.Button();
+            this.btnFace8 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
@@ -119,15 +123,6 @@
             this.pomocToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.pomocToolStripMenuItem.Text = "Pomoc";
             // 
-            // cBxChooseFace
-            // 
-            this.cBxChooseFace.Enabled = false;
-            this.cBxChooseFace.Location = new System.Drawing.Point(12, 60);
-            this.cBxChooseFace.Name = "cBxChooseFace";
-            this.cBxChooseFace.Size = new System.Drawing.Size(216, 21);
-            this.cBxChooseFace.TabIndex = 1;
-            this.cBxChooseFace.SelectedIndexChanged += new System.EventHandler(this.cBxChooseFace_SelectedIndexChanged);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -140,7 +135,7 @@
             // btnSaveSettings
             // 
             this.btnSaveSettings.Enabled = false;
-            this.btnSaveSettings.Location = new System.Drawing.Point(513, 87);
+            this.btnSaveSettings.Location = new System.Drawing.Point(619, 320);
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(148, 23);
             this.btnSaveSettings.TabIndex = 3;
@@ -151,43 +146,13 @@
             // btnExecuteFace
             // 
             this.btnExecuteFace.Enabled = false;
-            this.btnExecuteFace.Location = new System.Drawing.Point(348, 87);
+            this.btnExecuteFace.Location = new System.Drawing.Point(619, 291);
             this.btnExecuteFace.Name = "btnExecuteFace";
             this.btnExecuteFace.Size = new System.Drawing.Size(148, 23);
             this.btnExecuteFace.TabIndex = 4;
             this.btnExecuteFace.Text = "Wykonaj minę";
             this.btnExecuteFace.UseVisualStyleBackColor = true;
             this.btnExecuteFace.Click += new System.EventHandler(this.btnExecuteFace_Click);
-            // 
-            // btnAddFace
-            // 
-            this.btnAddFace.Enabled = false;
-            this.btnAddFace.Location = new System.Drawing.Point(12, 87);
-            this.btnAddFace.Name = "btnAddFace";
-            this.btnAddFace.Size = new System.Drawing.Size(148, 23);
-            this.btnAddFace.TabIndex = 5;
-            this.btnAddFace.Text = "Dodaj minę";
-            this.btnAddFace.UseVisualStyleBackColor = true;
-            this.btnAddFace.Click += new System.EventHandler(this.btnAddFace_Click);
-            // 
-            // btnRemoveFace
-            // 
-            this.btnRemoveFace.Enabled = false;
-            this.btnRemoveFace.Location = new System.Drawing.Point(180, 87);
-            this.btnRemoveFace.Name = "btnRemoveFace";
-            this.btnRemoveFace.Size = new System.Drawing.Size(148, 23);
-            this.btnRemoveFace.TabIndex = 6;
-            this.btnRemoveFace.Text = "Usuń minę";
-            this.btnRemoveFace.UseVisualStyleBackColor = true;
-            this.btnRemoveFace.Click += new System.EventHandler(this.btnRemoveFace_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(12, 116);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(148, 20);
-            this.textBox1.TabIndex = 7;
             // 
             // openFileDialog1
             // 
@@ -235,23 +200,102 @@
             this.label4.TabIndex = 12;
             this.label4.Text = "motor2";
             // 
+            // btnFace1
+            // 
+            this.btnFace1.Location = new System.Drawing.Point(16, 70);
+            this.btnFace1.Name = "btnFace1";
+            this.btnFace1.Size = new System.Drawing.Size(70, 60);
+            this.btnFace1.TabIndex = 13;
+            this.btnFace1.Text = "button1";
+            this.btnFace1.UseVisualStyleBackColor = true;
+            this.btnFace1.Click += new System.EventHandler(this.btnFace1_Click);
+            // 
+            // btnFace2
+            // 
+            this.btnFace2.AccessibleDescription = "";
+            this.btnFace2.Location = new System.Drawing.Point(103, 70);
+            this.btnFace2.Name = "btnFace2";
+            this.btnFace2.Size = new System.Drawing.Size(70, 60);
+            this.btnFace2.TabIndex = 14;
+            this.btnFace2.Text = "button2";
+            this.btnFace2.UseVisualStyleBackColor = true;
+            this.btnFace2.Click += new System.EventHandler(this.btnFace2_Click);
+            // 
+            // btnFace3
+            // 
+            this.btnFace3.Location = new System.Drawing.Point(191, 70);
+            this.btnFace3.Name = "btnFace3";
+            this.btnFace3.Size = new System.Drawing.Size(70, 60);
+            this.btnFace3.TabIndex = 15;
+            this.btnFace3.Text = "button3";
+            this.btnFace3.UseVisualStyleBackColor = true;
+            // 
+            // btnFace4
+            // 
+            this.btnFace4.Location = new System.Drawing.Point(282, 70);
+            this.btnFace4.Name = "btnFace4";
+            this.btnFace4.Size = new System.Drawing.Size(70, 60);
+            this.btnFace4.TabIndex = 16;
+            this.btnFace4.Text = "button4";
+            this.btnFace4.UseVisualStyleBackColor = true;
+            // 
+            // btnFace5
+            // 
+            this.btnFace5.Location = new System.Drawing.Point(375, 70);
+            this.btnFace5.Name = "btnFace5";
+            this.btnFace5.Size = new System.Drawing.Size(70, 60);
+            this.btnFace5.TabIndex = 17;
+            this.btnFace5.Text = "button5";
+            this.btnFace5.UseVisualStyleBackColor = true;
+            // 
+            // btnFace6
+            // 
+            this.btnFace6.Location = new System.Drawing.Point(463, 70);
+            this.btnFace6.Name = "btnFace6";
+            this.btnFace6.Size = new System.Drawing.Size(70, 60);
+            this.btnFace6.TabIndex = 18;
+            this.btnFace6.Text = "button6";
+            this.btnFace6.UseVisualStyleBackColor = true;
+            // 
+            // btnFace7
+            // 
+            this.btnFace7.Location = new System.Drawing.Point(551, 70);
+            this.btnFace7.Name = "btnFace7";
+            this.btnFace7.Size = new System.Drawing.Size(70, 60);
+            this.btnFace7.TabIndex = 19;
+            this.btnFace7.Text = "button7";
+            this.btnFace7.UseVisualStyleBackColor = true;
+            // 
+            // btnFace8
+            // 
+            this.btnFace8.Location = new System.Drawing.Point(638, 70);
+            this.btnFace8.Name = "btnFace8";
+            this.btnFace8.Size = new System.Drawing.Size(70, 60);
+            this.btnFace8.TabIndex = 20;
+            this.btnFace8.Text = "button8";
+            this.btnFace8.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(779, 419);
+            this.Controls.Add(this.btnFace8);
+            this.Controls.Add(this.btnFace7);
+            this.Controls.Add(this.btnFace6);
+            this.Controls.Add(this.btnFace5);
+            this.Controls.Add(this.btnFace4);
+            this.Controls.Add(this.btnFace3);
+            this.Controls.Add(this.btnFace2);
+            this.Controls.Add(this.btnFace1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.trackBar2);
             this.Controls.Add(this.trackBar1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.btnRemoveFace);
-            this.Controls.Add(this.btnAddFace);
             this.Controls.Add(this.btnExecuteFace);
             this.Controls.Add(this.btnSaveSettings);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.cBxChooseFace);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -275,13 +319,9 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemExportPackageToDevice;
         private System.Windows.Forms.ToolStripMenuItem menuItemImportPackageFromDevice;
         private System.Windows.Forms.ToolStripMenuItem pomocToolStripMenuItem;
-        private System.Windows.Forms.ComboBox cBxChooseFace;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSaveSettings;
         private System.Windows.Forms.Button btnExecuteFace;
-        private System.Windows.Forms.Button btnAddFace;
-        private System.Windows.Forms.Button btnRemoveFace;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.TrackBar trackBar1;
@@ -289,6 +329,14 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnFace1;
+        private System.Windows.Forms.Button btnFace2;
+        private System.Windows.Forms.Button btnFace3;
+        private System.Windows.Forms.Button btnFace4;
+        private System.Windows.Forms.Button btnFace5;
+        private System.Windows.Forms.Button btnFace6;
+        private System.Windows.Forms.Button btnFace7;
+        private System.Windows.Forms.Button btnFace8;
     }
 }
 

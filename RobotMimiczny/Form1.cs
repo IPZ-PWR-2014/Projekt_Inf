@@ -15,32 +15,19 @@ namespace RobotMimiczny
     {
 
         FacePackage openedFacePackage;
-        int numberOfServos = 5;
+        string currentFace;
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void cBxChooseFace_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (String.IsNullOrWhiteSpace(cBxChooseFace.SelectedItem.ToString()))
-            {
-                btnRemoveFace.Enabled = false;
-                btnExecuteFace.Enabled = false;
-            }
-            else
-            {
-                trackBar1.Value = openedFacePackage.GetSetting(cBxChooseFace.SelectedItem.ToString(), 1);
-                trackBar2.Value = openedFacePackage.GetSetting(cBxChooseFace.SelectedItem.ToString(), 2);
-                btnRemoveFace.Enabled = true;
-                btnExecuteFace.Enabled = true;
-            }
-        }
+        
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
-
+            openedFacePackage.SetSetting(currentFace, 1, trackBar1.Value);
+            openedFacePackage.SetSetting(currentFace, 2, trackBar2.Value);
         }
 
         private void btnExecuteFace_Click(object sender, EventArgs e)
@@ -51,11 +38,6 @@ namespace RobotMimiczny
         private void menuItemNewPackage_Click(object sender, EventArgs e)
         {
             openedFacePackage = new FacePackage();
-            cBxChooseFace.Items.Clear();
-
-            cBxChooseFace.Enabled = true;
-            btnAddFace.Enabled = true;
-            textBox1.Enabled = true;
             ResetTrackBarValues();
         }
 
@@ -75,20 +57,15 @@ namespace RobotMimiczny
                 {
                     if ((myStream = openFileDialog1.OpenFile()) != null)
                     {
-                        cBxChooseFace.Items.Clear();
-                        cBxChooseFace.Text = "";
+                        
                         openedFacePackage = new FacePackage();
                         openedFacePackage.ReadFromFile(myStream);
+                        List<string> faceList = new List<string>();
+                        faceList = openedFacePackage.GetFacesNameList();
+                        btnFace1.Text = faceList[0];
+                        btnFace2.Text = faceList[1];
 
-                        string[] faceList = openedFacePackage.GetFacesNameList();
-                        foreach (string name in faceList)
-                        {
-                            cBxChooseFace.Items.Add(name);
-                        }
-
-                        cBxChooseFace.Enabled = true;
-                        btnAddFace.Enabled = true;
-                        textBox1.Enabled = true;
+                        btnSaveSettings.Enabled = true;
 
                     }
                 }
@@ -114,38 +91,7 @@ namespace RobotMimiczny
 
         }
 
-        private void btnAddFace_Click(object sender, EventArgs e)
-        {
-            if (String.IsNullOrWhiteSpace(textBox1.Text))
-            {
-                MessageBox.Show("Wprowadź nazwę miny");
-                return;
-            }
-            foreach (string name in cBxChooseFace.Items)
-            {
-                if (name.Contains(textBox1.Text))
-                {
-                    MessageBox.Show("Istnieje już mina o danej nazwie");
-                    return;
-                }
-            }
-            int [] newSettings= new int [numberOfServos];
-            for (int i=0;i<newSettings.Length;i++)
-            {
-                newSettings[i]=0;
-            }
-            openedFacePackage.AddFace(textBox1.Text, newSettings);
-            cBxChooseFace.Items.Add(textBox1.Text);
-            textBox1.Clear();
-        }
-
-        private void btnRemoveFace_Click(object sender, EventArgs e)
-        {
-            openedFacePackage.RemoveFace(cBxChooseFace.SelectedItem.ToString());
-            cBxChooseFace.Items.Remove(cBxChooseFace.SelectedItem.ToString());
-            ResetTrackBarValues();
-
-        }
+        
 
         private void ResetTrackBarValues()
         {
@@ -160,13 +106,31 @@ namespace RobotMimiczny
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            openedFacePackage.SetSetting(cBxChooseFace.SelectedItem.ToString(), 1, trackBar1.Value);
+            //openedFacePackage.SetSetting(cBxChooseFace.SelectedItem.ToString(), 1, trackBar1.Value);
         }
 
 
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
-            openedFacePackage.SetSetting(cBxChooseFace.SelectedItem.ToString(), 2, trackBar2.Value);
+            //openedFacePackage.SetSetting(cBxChooseFace.SelectedItem.ToString(), 2, trackBar2.Value);
         }
+
+        private void btnFace1_Click(object sender, EventArgs e)
+        {
+            setTrackBarsValue(btnFace1.Text);
+        }
+
+        private void btnFace2_Click(object sender, EventArgs e)
+        {
+            setTrackBarsValue(btnFace2.Text);
+        }
+
+        private void setTrackBarsValue(string faceName)
+        {
+            currentFace = faceName;
+            trackBar1.Value = openedFacePackage.GetSetting(faceName,1);
+            trackBar2.Value = openedFacePackage.GetSetting(faceName, 2);
+        }
+
     }
 }

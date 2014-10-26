@@ -33,22 +33,23 @@ namespace RobotMimiczny
 
         }
 
-        List<Face> faceList;
+        Face [] faces;
 
         public FacePackage()
         {
-            faceList = new List<Face>();
+            faces = new Face[8];
         }
 
-        public string[] GetFacesNameList()
+        public List<string> GetFacesNameList()
         {
-            string[] nameList = new string[faceList.Count];
+            List<string> nameList = new List<string>();
 
-            int i = 0;
-            foreach (Face face in faceList)
+            foreach (Face face in faces)
             {
-                nameList[i] = face.faceName;
-                i++;
+                if (!String.IsNullOrEmpty(face.faceName))
+                {
+                    nameList.Add(face.faceName);
+                }
             }
             return nameList;
         }
@@ -62,6 +63,7 @@ namespace RobotMimiczny
         {
             StreamReader reader = new StreamReader(myStream);
             string line;
+            int counter = 0;
             while ((line = reader.ReadLine()) != null)
             {
                 string[] data = line.Split(';');
@@ -74,30 +76,24 @@ namespace RobotMimiczny
                 {
                     settingsFromFile[i - 1] = Int32.Parse(data[i]);
                 }
-                AddFace(faceNameFromFile, settingsFromFile);
+                AddFace(faceNameFromFile, settingsFromFile,counter);
+                counter++;
             }
         }
 
-        public void AddFace(string name, int[] settings)
+        public void AddFace(string name, int[] settings, int number)
         {
-            faceList.Add(new Face(name, settings));
+            faces[number] = new Face(name, settings);
         }
-        
+
         public void RemoveFace(string name)
         {
-            foreach (Face face in faceList)
-            {
-                if (face.faceName.Contains(name))
-                {
-                    faceList.Remove(face);
-                    break;
-                }
-            }
+            
         }
 
         public int GetSetting(string name, int numberOfMotor)
         {
-            foreach (Face face in faceList)
+            foreach (Face face in faces)
             {
                 if (face.faceName.Contains(name))
                 {
@@ -109,7 +105,7 @@ namespace RobotMimiczny
 
         public void SetSetting(string name, int numberOfMotor, int newValue)
         {
-            foreach (Face face in faceList)
+            foreach (Face face in faces)
             {
                 if (face.faceName.Contains(name))
                 {
