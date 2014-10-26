@@ -21,6 +21,7 @@ namespace RobotMimiczny
             public string faceName;
             public int[] servoSetting;
 
+            //funkcja umożliwiająca tworzenie miny i wypełnianie ustawień silników
             public Face(string nFaceName, int[] nServoSetting)
             {
                 faceName=nFaceName;
@@ -35,11 +36,13 @@ namespace RobotMimiczny
 
         Face [] faces;
 
+        //funkcja tworząca zestaw ośmiu min
         public FacePackage()
         {
             faces = new Face[8];
         }
 
+        //funkcja zwracająca listę nazw min
         public List<string> GetFacesNameList()
         {
             List<string> nameList = new List<string>();
@@ -54,11 +57,13 @@ namespace RobotMimiczny
             return nameList;
         }
 
-
+        //funkcja zapisująca zestaw min do pliku
         public void SaveToFile(string filePath)
         {
         }
-            
+        
+        //funkcja odczytująca zestaw min z pliku
+        //format pliku: ???
         public void ReadFromFile(Stream myStream)
         {
             StreamReader reader = new StreamReader(myStream);
@@ -81,16 +86,19 @@ namespace RobotMimiczny
             }
         }
 
+        //
         public void AddFace(string name, int[] settings, int number)
         {
             faces[number] = new Face(name, settings);
         }
 
+        //
         public void RemoveFace(string name)
         {
             
         }
 
+        //funkcja zwracająca wektor ustawień silników dla danej miny lub 0
         public int GetSetting(string name, int numberOfMotor)
         {
             foreach (Face face in faces)
@@ -103,6 +111,7 @@ namespace RobotMimiczny
             return 0;
         }
 
+        //funkcja ustawiająca dany silnik w danej minie
         public void SetSetting(string name, int numberOfMotor, int newValue)
         {
             foreach (Face face in faces)
