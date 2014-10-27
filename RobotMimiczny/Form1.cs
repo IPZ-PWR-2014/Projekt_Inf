@@ -22,8 +22,6 @@ namespace RobotMimiczny
             InitializeComponent();
         }
 
-        
-
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
             openedFacePackage.SetSetting(currentFace, 1, trackBar1.Value);
@@ -64,6 +62,12 @@ namespace RobotMimiczny
                         faceList = openedFacePackage.GetFacesNameList();
                         btnFace1.Text = faceList[0];
                         btnFace2.Text = faceList[1];
+                        //btnFace3.Text = faceList[2];
+                        //btnFace4.Text = faceList[3];
+                        //btnFace5.Text = faceList[4];
+                        //btnFace6.Text = faceList[5];
+                        //btnFace7.Text = faceList[6];
+                        //btnFace8.Text = faceList[7];
 
                         btnSaveSettings.Enabled = true;
 
@@ -128,8 +132,17 @@ namespace RobotMimiczny
         private void setTrackBarsValue(string faceName)
         {
             currentFace = faceName;
-            trackBar1.Value = openedFacePackage.GetSetting(faceName,1);
+            trackBar1.Value = openedFacePackage.GetSetting(faceName, 1);
             trackBar2.Value = openedFacePackage.GetSetting(faceName, 2);
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnFace1.Text = textBox1.Text;
+                textBox1.Clear();
+            }
         }
 
     }

@@ -54,6 +54,7 @@
             this.btnFace6 = new System.Windows.Forms.Button();
             this.btnFace7 = new System.Windows.Forms.Button();
             this.btnFace8 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
@@ -160,7 +161,7 @@
             // 
             // trackBar1
             // 
-            this.trackBar1.Location = new System.Drawing.Point(77, 156);
+            this.trackBar1.Location = new System.Drawing.Point(78, 180);
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(201, 45);
             this.trackBar1.TabIndex = 8;
@@ -168,7 +169,7 @@
             // 
             // trackBar2
             // 
-            this.trackBar2.Location = new System.Drawing.Point(77, 207);
+            this.trackBar2.Location = new System.Drawing.Point(78, 231);
             this.trackBar2.Name = "trackBar2";
             this.trackBar2.Size = new System.Drawing.Size(201, 45);
             this.trackBar2.TabIndex = 9;
@@ -185,7 +186,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 156);
+            this.label3.Location = new System.Drawing.Point(13, 180);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(39, 13);
             this.label3.TabIndex = 11;
@@ -194,7 +195,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 207);
+            this.label4.Location = new System.Drawing.Point(14, 231);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(39, 13);
             this.label4.TabIndex = 12;
@@ -275,11 +276,20 @@
             this.btnFace8.Text = "button8";
             this.btnFace8.UseVisualStyleBackColor = true;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(16, 145);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(69, 20);
+            this.textBox1.TabIndex = 21;
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(779, 419);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnFace8);
             this.Controls.Add(this.btnFace7);
             this.Controls.Add(this.btnFace6);
@@ -337,6 +347,7 @@
         private System.Windows.Forms.Button btnFace6;
         private System.Windows.Forms.Button btnFace7;
         private System.Windows.Forms.Button btnFace8;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
