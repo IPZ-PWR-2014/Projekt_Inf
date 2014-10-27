@@ -25,7 +25,7 @@ namespace RobotMimiczny
             public Face(string nFaceName, int[] nServoSetting)
             {
                 faceName=nFaceName;
-                servoSetting= new int [nServoSetting.Length];   //tu zawsze stała wartość - 16 silników
+                servoSetting= new int [nServoSetting.Length];
                 for (int i=0;i<nServoSetting.Length;i++)
                 {
                     servoSetting[i]=nServoSetting[i];
@@ -90,7 +90,6 @@ namespace RobotMimiczny
         public void AddFace(string name, int[] settings, int number)
         {
             faces[number] = new Face(name, settings);
-
         }
 
         //
