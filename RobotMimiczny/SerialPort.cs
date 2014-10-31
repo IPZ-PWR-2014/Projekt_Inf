@@ -124,25 +124,25 @@ namespace Komunikacja
                 _serialPort.PortName = s;
                 _serialPort.ReadTimeout = 500;
                 _serialPort.WriteTimeout = 500;
-                _serialPort.NewLine = "B";          //Pamiętać ustawić odpowiedni znak konca lini ->ustawić zgodnie z elektronikami
+                _serialPort.NewLine = "0xA0";          //Pamiętać ustawić odpowiedni znak konca lini ->ustawić zgodnie z elektronikami
 
-                if (s != "COM8") //do wyrzucenia, uzywane przy termianalu
+                if (s != "COM15") //do wyrzucenia, uzywane przy termianalu
                 {
                     _serialPort.Open();
                     Console.WriteLine(s);
-                    _serialPort.WriteLine("$FF$01$AF$00$0A");       //Kim jestem ->ustawić zgodnie z elektronikami
+                    _serialPort.WriteLine("$FF$01$AF");       //Kim jestem ->ustawić zgodnie z elektronikami
                     while (_continue)
                     {
                         try
                         {
-                            if (_serialPort.ReadLine() == "0x1F")
+                            if (_serialPort.ReadLine() == "1x")//$FF$01$FF")
                             {
                                 portName = s;
                             }
                         }
                         catch (TimeoutException) { }
                         iloscZapytan++;
-                        if (iloscZapytan == 5)
+                        if (iloscZapytan == 3)
                         {
                             iloscZapytan = 0;
                             _continue = false;
@@ -183,17 +183,17 @@ namespace Komunikacja
         //              - 9 -> zapis 8 min na raz
         //              - 10 -> tryb RUN
         // Zwraca zero
-        public int sendFace(int[][] sets, int commandNr)
+        public int sendFace(int[,] sets, int commandNr)
         {
             string[] command = { "0A", "0B", "0C", "0D", "0F", "10", "11", "AA", "1A" };
             int blad = 0;
 
-            _serialPort.NewLine = "$";              //zmiana znaku konca lini na czas wysyłania w celu zachowania formatu ramki
-            _serialPort.WriteLine("$FF$01");       //format ramki ->ustawić zgodnie z elektronikami
 
-            for (int j = 0; j < sets.GetLength(1); j++)
+            for (int j = 0; j < sets.GetLength(0); j++)
             {
-                _serialPort.NewLine = "$";
+                _serialPort.NewLine = "$";              //zmiana znaku konca lini na czas wysyłania w celu zachowania formatu ramki
+                _serialPort.WriteLine("$FF$01");       //format ramki ->ustawić zgodnie z elektronikami
+
                 if (commandNr == 10)
                 {
                     _serialPort.WriteLine(command[j]);
@@ -203,13 +203,13 @@ namespace Komunikacja
                     _serialPort.WriteLine(command[commandNr]);
                 }
 
-                for (int i = 0; i < sets.GetLength(0); i++)
+                for (int i = 0; i < sets.GetLength(1); i++)
                 {
-                    if (i == sets.GetLength(0) - 1)
+                    if (i == sets.GetLength(1) - 1)
                     {
                         _serialPort.NewLine = "$A0";            //powrót do starego znaku konca lini ->ustawić zgodnie z elektronikami
                     }
-                    _serialPort.WriteLine(Convert.ToString(sets[j][i]));
+                    _serialPort.WriteLine(Convert.ToString(sets[j, i]));
                 }
             }
             if (Read(1) == "brak odpowiedzi")
