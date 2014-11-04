@@ -37,6 +37,7 @@ namespace RobotMimiczny
         {
             openedFacePackage = new FacePackage();
             ResetTrackBarValues();
+            EnableAllButtons();
         }
 
         private void menuItemOpenPackageFromFile_Click(object sender, EventArgs e)
@@ -55,22 +56,11 @@ namespace RobotMimiczny
                 {
                     if ((myStream = openFileDialog1.OpenFile()) != null)
                     {
-                        
                         openedFacePackage = new FacePackage();
                         openedFacePackage.ReadFromFile(myStream);
-                        List<string> faceList = new List<string>();
-                        faceList = openedFacePackage.GetFacesNameList();
-                        btnFace1.Text = faceList[0];
-                        btnFace2.Text = faceList[1];
-                        //btnFace3.Text = faceList[2];
-                        //btnFace4.Text = faceList[3];
-                        //btnFace5.Text = faceList[4];
-                        //btnFace6.Text = faceList[5];
-                        //btnFace7.Text = faceList[6];
-                        //btnFace8.Text = faceList[7];
-
+                        GetFacesName();
+                        EnableAllButtons();
                         btnSaveSettings.Enabled = true;
-
                     }
                 }
                 catch (Exception ex)
@@ -78,6 +68,14 @@ namespace RobotMimiczny
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
             }
+        }
+
+        private void GetFacesName()
+        {
+            List<string> faceList = new List<string>();
+            faceList = openedFacePackage.GetFacesNameList();
+            textBox1.Text = faceList[0];
+            textBox2.Text = faceList[1];
         }
 
         private void menuItemSavePackageToFile_Click(object sender, EventArgs e)
@@ -94,8 +92,6 @@ namespace RobotMimiczny
         {
 
         }
-
-        
 
         private void ResetTrackBarValues()
         {
@@ -121,28 +117,101 @@ namespace RobotMimiczny
 
         private void btnFace1_Click(object sender, EventArgs e)
         {
-            setTrackBarsValue(btnFace1.Text);
+            SetTrackBarsValue(textBox1.Text);
+            BlockAllTextBoxes();
+            textBox1.Enabled = true;
         }
 
         private void btnFace2_Click(object sender, EventArgs e)
         {
-            setTrackBarsValue(btnFace2.Text);
+            SetTrackBarsValue(textBox2.Text);
+            BlockAllTextBoxes();
+            textBox2.Enabled = true;
         }
 
-        private void setTrackBarsValue(string faceName)
+        private void SetTrackBarsValue(string faceName)
         {
             currentFace = faceName;
             trackBar1.Value = openedFacePackage.GetSetting(faceName, 1);
             trackBar2.Value = openedFacePackage.GetSetting(faceName, 2);
         }
 
+        private void BlockAllTextBoxes()
+        {
+            textBox1.Enabled = false;
+            textBox2.Enabled = false;
+            textBox3.Enabled = false;
+            textBox4.Enabled = false;
+            textBox5.Enabled = false;
+            textBox6.Enabled = false;
+            textBox7.Enabled = false;
+            textBox8.Enabled = false;
+        }
+
+        private void EnableAllButtons()
+        {
+            btnFace1.Enabled = true;
+            btnFace2.Enabled = true;
+            btnFace3.Enabled = true;
+            btnFace4.Enabled = true;
+            btnFace5.Enabled = true;
+            btnFace6.Enabled = true;
+            btnFace7.Enabled = true;
+            btnFace8.Enabled = true;
+        }
+
+
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btnFace1.Text = textBox1.Text;
-                textBox1.Clear();
-            }
+            //if (e.KeyCode == Keys.Enter)
+            //{
+            //    btnFace1.Text = textBox1.Text;
+            //    textBox1.Clear();
+            //}
+        }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void btnFace3_Click(object sender, EventArgs e)
+        {
+            BlockAllTextBoxes();
+            textBox3.Enabled = true;
+            
+        }
+
+        private void btnFace4_Click(object sender, EventArgs e)
+        {
+            BlockAllTextBoxes();
+            textBox4.Enabled = true;
+            
+        }
+
+        private void btnFace5_Click(object sender, EventArgs e)
+        {
+            BlockAllTextBoxes();
+            textBox5.Enabled = true;
+            
+        }
+
+        private void btnFace6_Click(object sender, EventArgs e)
+        {
+            BlockAllTextBoxes();
+            textBox6.Enabled = true;
+        }
+
+        private void btnFace7_Click(object sender, EventArgs e)
+        {
+            BlockAllTextBoxes();
+            textBox7.Enabled = true;
+        }
+
+        private void btnFace8_Click(object sender, EventArgs e)
+        {
+            BlockAllTextBoxes();
+            textBox8.Enabled = true;
         }
 
     }

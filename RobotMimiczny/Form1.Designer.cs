@@ -55,6 +55,13 @@
             this.btnFace7 = new System.Windows.Forms.Button();
             this.btnFace8 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.textBox8 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
@@ -203,92 +210,163 @@
             // 
             // btnFace1
             // 
+            this.btnFace1.Enabled = false;
             this.btnFace1.Location = new System.Drawing.Point(16, 70);
             this.btnFace1.Name = "btnFace1";
             this.btnFace1.Size = new System.Drawing.Size(70, 60);
             this.btnFace1.TabIndex = 13;
-            this.btnFace1.Text = "button1";
             this.btnFace1.UseVisualStyleBackColor = true;
             this.btnFace1.Click += new System.EventHandler(this.btnFace1_Click);
             // 
             // btnFace2
             // 
             this.btnFace2.AccessibleDescription = "";
+            this.btnFace2.Enabled = false;
             this.btnFace2.Location = new System.Drawing.Point(103, 70);
             this.btnFace2.Name = "btnFace2";
             this.btnFace2.Size = new System.Drawing.Size(70, 60);
             this.btnFace2.TabIndex = 14;
-            this.btnFace2.Text = "button2";
             this.btnFace2.UseVisualStyleBackColor = true;
             this.btnFace2.Click += new System.EventHandler(this.btnFace2_Click);
             // 
             // btnFace3
             // 
+            this.btnFace3.Enabled = false;
             this.btnFace3.Location = new System.Drawing.Point(191, 70);
             this.btnFace3.Name = "btnFace3";
             this.btnFace3.Size = new System.Drawing.Size(70, 60);
             this.btnFace3.TabIndex = 15;
-            this.btnFace3.Text = "button3";
             this.btnFace3.UseVisualStyleBackColor = true;
+            this.btnFace3.Click += new System.EventHandler(this.btnFace3_Click);
             // 
             // btnFace4
             // 
+            this.btnFace4.Enabled = false;
             this.btnFace4.Location = new System.Drawing.Point(282, 70);
             this.btnFace4.Name = "btnFace4";
             this.btnFace4.Size = new System.Drawing.Size(70, 60);
             this.btnFace4.TabIndex = 16;
-            this.btnFace4.Text = "button4";
             this.btnFace4.UseVisualStyleBackColor = true;
+            this.btnFace4.Click += new System.EventHandler(this.btnFace4_Click);
             // 
             // btnFace5
             // 
+            this.btnFace5.Enabled = false;
             this.btnFace5.Location = new System.Drawing.Point(375, 70);
             this.btnFace5.Name = "btnFace5";
             this.btnFace5.Size = new System.Drawing.Size(70, 60);
             this.btnFace5.TabIndex = 17;
-            this.btnFace5.Text = "button5";
             this.btnFace5.UseVisualStyleBackColor = true;
+            this.btnFace5.Click += new System.EventHandler(this.btnFace5_Click);
             // 
             // btnFace6
             // 
+            this.btnFace6.Enabled = false;
             this.btnFace6.Location = new System.Drawing.Point(463, 70);
             this.btnFace6.Name = "btnFace6";
             this.btnFace6.Size = new System.Drawing.Size(70, 60);
             this.btnFace6.TabIndex = 18;
-            this.btnFace6.Text = "button6";
             this.btnFace6.UseVisualStyleBackColor = true;
+            this.btnFace6.Click += new System.EventHandler(this.btnFace6_Click);
             // 
             // btnFace7
             // 
+            this.btnFace7.Enabled = false;
             this.btnFace7.Location = new System.Drawing.Point(551, 70);
             this.btnFace7.Name = "btnFace7";
             this.btnFace7.Size = new System.Drawing.Size(70, 60);
             this.btnFace7.TabIndex = 19;
-            this.btnFace7.Text = "button7";
             this.btnFace7.UseVisualStyleBackColor = true;
+            this.btnFace7.Click += new System.EventHandler(this.btnFace7_Click);
             // 
             // btnFace8
             // 
+            this.btnFace8.Enabled = false;
             this.btnFace8.Location = new System.Drawing.Point(638, 70);
             this.btnFace8.Name = "btnFace8";
             this.btnFace8.Size = new System.Drawing.Size(70, 60);
             this.btnFace8.TabIndex = 20;
-            this.btnFace8.Text = "button8";
             this.btnFace8.UseVisualStyleBackColor = true;
+            this.btnFace8.Click += new System.EventHandler(this.btnFace8_Click);
             // 
             // textBox1
             // 
+            this.textBox1.Enabled = false;
             this.textBox1.Location = new System.Drawing.Point(16, 145);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(69, 20);
             this.textBox1.TabIndex = 21;
             this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
+            // textBox2
+            // 
+            this.textBox2.Enabled = false;
+            this.textBox2.Location = new System.Drawing.Point(104, 145);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(69, 20);
+            this.textBox2.TabIndex = 22;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Enabled = false;
+            this.textBox3.Location = new System.Drawing.Point(192, 145);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(69, 20);
+            this.textBox3.TabIndex = 23;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Enabled = false;
+            this.textBox4.Location = new System.Drawing.Point(283, 145);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(69, 20);
+            this.textBox4.TabIndex = 24;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Enabled = false;
+            this.textBox5.Location = new System.Drawing.Point(375, 145);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(69, 20);
+            this.textBox5.TabIndex = 25;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Enabled = false;
+            this.textBox6.Location = new System.Drawing.Point(463, 145);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(69, 20);
+            this.textBox6.TabIndex = 26;
+            // 
+            // textBox7
+            // 
+            this.textBox7.Enabled = false;
+            this.textBox7.Location = new System.Drawing.Point(551, 145);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(69, 20);
+            this.textBox7.TabIndex = 27;
+            this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
+            // 
+            // textBox8
+            // 
+            this.textBox8.Enabled = false;
+            this.textBox8.Location = new System.Drawing.Point(638, 145);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(69, 20);
+            this.textBox8.TabIndex = 28;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(779, 419);
+            this.Controls.Add(this.textBox8);
+            this.Controls.Add(this.textBox7);
+            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnFace8);
             this.Controls.Add(this.btnFace7);
@@ -348,6 +426,13 @@
         private System.Windows.Forms.Button btnFace7;
         private System.Windows.Forms.Button btnFace8;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox textBox8;
     }
 }
 
