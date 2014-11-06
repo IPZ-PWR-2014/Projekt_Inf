@@ -2,7 +2,7 @@
 using System.IO.Ports;
 using System.Threading;
 
-namespace Komunikacja
+namespace RobotMimiczny
 {
     class COM
     {
@@ -41,6 +41,7 @@ namespace Komunikacja
             baudRate = Convert.ToString(newBaudRate);
             return 0;
         }
+
         public int defaultSet()
         {
             dataBits = "8";
@@ -180,8 +181,8 @@ namespace Komunikacja
         // "set"        - Wektor danych typu int
         // "commandNr"  - Numer Komendy
         //              - 0-7 -> zapis min 1-8
-        //              - 9 -> zapis 8 min na raz
-        //              - 10 -> tryb RUN
+        //              - 10 -> zapis 8 min na raz
+        //              - 9 -> tryb RUN
         // Zwraca zero
         public int sendFace(int[,] sets, int commandNr)
         {
