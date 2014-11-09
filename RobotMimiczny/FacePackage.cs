@@ -4,37 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows.Forms;
 
 namespace RobotMimiczny
 {
     // Klasa służąca do obsługi głównego okna
     class FacePackage
     {
-
-        //potrzeba zestawu dla miny neutralnej
-        //potrzeba zestawu min domyślnych
-        //na uC każda mina ma swój IP przyporządkowany do fizycznego przycisku
-
         //Struktura przechowująca dane dotyczące miny
         struct Face
         {
             public string faceName;
             public int[] servoSetting;
 
-            //funkcja umożliwiająca tworzenie miny i wypełnianie ustawień silników
+            //Funkcja umożliwiająca tworzenie miny i wypełnianie ustawień silników
             public Face(string nFaceName, int[] nServoSetting)
             {
-                faceName=nFaceName;
-                servoSetting= new int [nServoSetting.Length];
-                for (int i=0;i<nServoSetting.Length;i++)
+                faceName = nFaceName;
+                servoSetting = new int[nServoSetting.Length];
+                for (int i = 0; i < nServoSetting.Length; i++)
                 {
-                    servoSetting[i]=nServoSetting[i];
+                    servoSetting[i] = nServoSetting[i];
                 }
             }
 
         }
 
-        Face [] faces;
+        Face[] faces;
 
         //funkcja tworząca zestaw ośmiu min
         public FacePackage()
@@ -42,94 +38,137 @@ namespace RobotMimiczny
             faces = new Face[8];
         }
 
-        //funkcja zwracająca listę nazw min
-        public List<string> GetFacesNameList()
-        {
-            List<string> nameList = new List<string>();
 
-            foreach (Face face in faces)
+        //Funkcja wypełniajaca zestaw domyślnymi nazwami i zerowymi ustawieniami
+        public void NewEmpyFacePackage()
+        {
+            for (int j = 0; j < 8; j++)
             {
-                if (!String.IsNullOrEmpty(face.faceName))
+                string faceName = "Mina "+j.ToString();
+                int[] settings = new int[16];
+
+                for (int i = 0; i < 16; i++)
                 {
-                    nameList.Add(face.faceName);
+                    settings[i] = 0;
                 }
+                AddFace(faceName, settings, j);
+            }
+        }
+
+        //Funkcja zwracająca tablicę nazw min
+        public string[] GetFacesTable()
+        {
+            string[] nameList = new string[8];
+
+            for (int i=0;i<8;i++) 
+            {
+                nameList[i] = faces[i].faceName;
             }
             return nameList;
         }
 
-        //funkcja zapisująca zestaw min do pliku
-        public void SaveToFile(string filePath)
-        {
-        }
-        
-        //funkcja odczytująca zestaw min z pliku
-        //format pliku: ???
-        public void ReadFromFile(Stream myStream)
+
+        //Funkcja odczytująca zestaw min z pliku (.txt)
+        public bool ReadFromFile(Stream myStream)
         {
             StreamReader reader = new StreamReader(myStream);
             string line;
             int counter = 0;
-            while ((line = reader.ReadLine()) != null)
+            try
             {
-                string[] data = line.Split(';');
-                int[] settingsFromFile = new int[data.Length - 1];
-                string faceNameFromFile;
-
-                faceNameFromFile = data[0];
-
-                for (int i = 1; i < data.Length; i++)
+                while ((line = reader.ReadLine()) != null)
                 {
-                    settingsFromFile[i - 1] = Int32.Parse(data[i]);
+                    string[] data = line.Split(';');
+                    int[] settingsFromFile = new int[16];
+                    string faceNameFromFile;
+
+                    faceNameFromFile = data[0];
+
+                    for (int i = 1; i < 17; i++)
+                    {
+                        settingsFromFile[i - 1] = Int32.Parse(data[i]);
+                    }
+                    AddFace(faceNameFromFile, settingsFromFile, counter);
+                    counter++;
                 }
-                AddFace(faceNameFromFile, settingsFromFile,counter);
-                counter++;
+                for (int j = counter; j < 8; j++)
+                {
+                    string faceName = "Mina " + j.ToString();
+                    int[] settings = new int[16];
+
+                    for (int i = 0; i < 16; i++)
+                    {
+                        settings[i] = 0;
+                    }
+                    AddFace(faceName, settings, j);
+                }
+                return true;
+            }
+            catch 
+            {
+                MessageBox.Show("Niepoprawna zawartość pliku", "Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                return false;
             }
         }
 
-        //
+        //Dodanie nowej miny 
         public void AddFace(string name, int[] settings, int number)
         {
             faces[number] = new Face(name, settings);
         }
 
-        //
-        public void RemoveFace(string name)
+
+        //Funkcja zwracająca tablicę ustawień serw dla danej miny
+        public int[] GetSettingsList(string name)
         {
-            
+            foreach (Face face in faces)
+            {
+                if (face.faceName.Contains(name))
+                {
+                    return face.servoSetting;
+                }
+            }
+            return null;
         }
 
-        //funkcja zwracająca wektor ustawień silników dla danej miny lub 0
+        //Funkcja zwracająca ustawienie danego silnika dla danej miny
         public int GetSetting(string name, int numberOfMotor)
         {
             foreach (Face face in faces)
             {
                 if (face.faceName.Contains(name))
                 {
-                    return face.servoSetting[numberOfMotor-1];
+                    return face.servoSetting[numberOfMotor - 1];
                 }
             }
             return 0;
         }
 
-        //funkcja ustawiająca dany silnik w danej minie
-        public void SetSetting(string name, int numberOfMotor, int newValue)
+        //Funkcja ustawiająca dany silnik w danej minie
+        public void SetSetting(int numberOfName, int numberOfMotor, int newValue)
         {
-            foreach (Face face in faces)
-            {
-                if (face.faceName.Contains(name))
-                {
-                    face.servoSetting[numberOfMotor - 1]=newValue;
-                    return;
-                }
-            }
+            faces[numberOfName].servoSetting[numberOfMotor - 1] = newValue;
         }
 
+        //Funkcja ustawiająca nazwę miny na danej pozycji
+        public void SetName(string newName, int numberOfName)
+        {
+            faces[numberOfName].faceName = newName;
+        }
 
-
-
-
+        //Pobranie numeru miny o danej nazwie
+        public int GetFaceNumber(string name)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                if (faces[i].faceName.Contains(name))
+                {
+                    return i;
+                }
+            }
+            return 0;
+        }
 
     }
-
 
 }

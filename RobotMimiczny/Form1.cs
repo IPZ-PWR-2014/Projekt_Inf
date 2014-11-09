@@ -16,38 +16,107 @@ namespace RobotMimiczny
 
         FacePackage openedFacePackage;
         string currentFace;
+        int clickedButton;
+        bool saved = true;
+        bool savedToFile = true;
 
         public Form1()
         {
             InitializeComponent();
         }
 
+
+        //Funkcja wywoływana po kliknięciu przycisku "Zapisz
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
-            openedFacePackage.SetSetting(currentFace, 1, trackBar1.Value);
-            openedFacePackage.SetSetting(currentFace, 2, trackBar2.Value);
+            openedFacePackage.SetName(currentFace, clickedButton);
+            openedFacePackage.SetSetting(clickedButton, 1, trackBar1.Value);
+            openedFacePackage.SetSetting(clickedButton, 2, trackBar2.Value);
+            openedFacePackage.SetSetting(clickedButton, 3, trackBar3.Value);
+            openedFacePackage.SetSetting(clickedButton, 4, trackBar4.Value);
+            openedFacePackage.SetSetting(clickedButton, 5, trackBar5.Value);
+            openedFacePackage.SetSetting(clickedButton, 6, trackBar6.Value);
+            openedFacePackage.SetSetting(clickedButton, 7, trackBar7.Value);
+            openedFacePackage.SetSetting(clickedButton, 8, trackBar8.Value);
+
+            savedToFile = false;
+            saved = true;
         }
 
+        //Sprawdzenie czy bieżące ustawienie są zapisane dla aktualnie edytowanego zestawu, wywoływana przed zmianą edytowanej miny
+        private void SaveControl()
+        {
+            if (!saved)
+            {
+                const string message = "Bieżące ustawienia serw, nie zostały zapisane, czy chcesz je zapisać?";
+                const string caption = "";
+                var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    btnSaveSettings_Click(null, null);
+                }
+                saved = true;
+            }
+        }
+
+        //Sprawdzenie czy bieżąca konfiguracja została zapamietana w pliku
+        private void SaveControlForNewPackage()
+        {
+            if (!savedToFile)
+            {
+                const string message = "Bieżąca konfiguracja nie została zapisana do pliku, czy chcesz to zrobić teraz?";
+                const string caption = "";
+                var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    menuItemSavePackageToFile_Click(null, null);
+                    
+                }
+                savedToFile = true;   
+            }
+        }
+
+
+        //Funkcja wykonująca bieżące ustawienia na podłączonym zestawie
         private void btnExecuteFace_Click(object sender, EventArgs e)
         {
 
         }
 
+
+        //Funkcja wywoływana po wybraniu z menu opcji nowego zestawu, tworzy nową, pustą konfigurację
         private void menuItemNewPackage_Click(object sender, EventArgs e)
         {
+            SaveControl();
+            SaveControlForNewPackage();
+
             openedFacePackage = new FacePackage();
-            ResetTrackBarValues();
+            openedFacePackage.NewEmpyFacePackage();
+
             EnableAllButtons();
+            EnableAllTrackBars();
+            btnSaveSettings.Enabled = true;
+            menuItemSavePackageToFile.Enabled = true;
+
+            btnFace1_Click(sender, e);
+
+            saved = true;
+            savedToFile = false;
         }
 
+        //Funkcja wywoływana po wybraniu z menu opcji wczytania zestawu z pliku, tworzy konfigurację na podstawie jego zawartości
         private void menuItemOpenPackageFromFile_Click(object sender, EventArgs e)
         {
+            SaveControlForNewPackage();
+
             Stream myStream = null;
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
-            openFileDialog1.InitialDirectory = "c:\\";
+            openFileDialog1.InitialDirectory = "C:\\Users\\Agnieszka\\Desktop";
             openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.FilterIndex = 1;
             openFileDialog1.RestoreDirectory = true;
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -57,10 +126,19 @@ namespace RobotMimiczny
                     if ((myStream = openFileDialog1.OpenFile()) != null)
                     {
                         openedFacePackage = new FacePackage();
-                        openedFacePackage.ReadFromFile(myStream);
-                        GetFacesName();
-                        EnableAllButtons();
-                        btnSaveSettings.Enabled = true;
+                        if (openedFacePackage.ReadFromFile(myStream))
+                        {
+                            EnableAllButtons();
+                            EnableAllTrackBars();
+
+                            btnSaveSettings.Enabled = true;
+                            menuItemSavePackageToFile.Enabled = true;
+
+                            btnFace1_Click(sender, e);
+
+                            saved = true;
+                            savedToFile = true;
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -70,17 +148,52 @@ namespace RobotMimiczny
             }
         }
 
+        //Funkcja pobierająca tablicę nazw aktualnie otwartego zestawu i wpisująca je jako podpisy przycisków
         private void GetFacesName()
         {
-            List<string> faceList = new List<string>();
-            faceList = openedFacePackage.GetFacesNameList();
-            textBox1.Text = faceList[0];
-            textBox2.Text = faceList[1];
+            string []faceTable = openedFacePackage.GetFacesTable();
+            textBox1.Text = faceTable[0];
+            textBox2.Text = faceTable[1];
+            textBox3.Text = faceTable[2];
+            textBox4.Text = faceTable[3];
+            textBox5.Text = faceTable[4];
+            textBox6.Text = faceTable[5];
+            textBox7.Text = faceTable[6];
+            textBox8.Text = faceTable[7];
         }
 
+
+        //Funkcja wywoływana po wybraniu z menu opcji zapisu do pliku, zapisuje aktualnie otwartą konfigurację do pliku tekstowego
         private void menuItemSavePackageToFile_Click(object sender, EventArgs e)
         {
+            SaveControl();
+            Stream myStream;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
+            saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            saveFileDialog1.FilterIndex = 1;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if ((myStream = saveFileDialog1.OpenFile()) != null)
+                {
+                    using (StreamWriter writer = new StreamWriter(myStream))
+                    {
+                        foreach (string name in openedFacePackage.GetFacesTable())
+                        {
+                            writer.Write(name + ";");
+                            int[] settingsList = openedFacePackage.GetSettingsList(name);
+                            foreach (int oneSetting in settingsList)
+                            {
+                                writer.Write(oneSetting + ";");
+                            }
+                            writer.WriteLine();
+                        }
+                        savedToFile = true;
+                    }
+                }
+            }
         }
 
         private void menuItemExportPackageToDevice_Click(object sender, EventArgs e)
@@ -93,10 +206,18 @@ namespace RobotMimiczny
 
         }
 
+
+        //Funkcja ustawiająca wartości wszystkich suwaków na 0
         private void ResetTrackBarValues()
         {
             trackBar1.Value = 0;
             trackBar2.Value = 0;
+            trackBar3.Value = 0;
+            trackBar4.Value = 0;
+            trackBar5.Value = 0;
+            trackBar6.Value = 0;
+            trackBar7.Value = 0;
+            trackBar8.Value = 0;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -104,38 +225,24 @@ namespace RobotMimiczny
 
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
-            //openedFacePackage.SetSetting(cBxChooseFace.SelectedItem.ToString(), 1, trackBar1.Value);
-        }
-
-
-        private void trackBar2_Scroll(object sender, EventArgs e)
-        {
-            //openedFacePackage.SetSetting(cBxChooseFace.SelectedItem.ToString(), 2, trackBar2.Value);
-        }
-
-        private void btnFace1_Click(object sender, EventArgs e)
-        {
-            SetTrackBarsValue(textBox1.Text);
-            BlockAllTextBoxes();
-            textBox1.Enabled = true;
-        }
-
-        private void btnFace2_Click(object sender, EventArgs e)
-        {
-            SetTrackBarsValue(textBox2.Text);
-            BlockAllTextBoxes();
-            textBox2.Enabled = true;
-        }
 
         private void SetTrackBarsValue(string faceName)
         {
             currentFace = faceName;
             trackBar1.Value = openedFacePackage.GetSetting(faceName, 1);
             trackBar2.Value = openedFacePackage.GetSetting(faceName, 2);
+            trackBar3.Value = openedFacePackage.GetSetting(faceName, 3);
+            trackBar4.Value = openedFacePackage.GetSetting(faceName, 4);
+            trackBar5.Value = openedFacePackage.GetSetting(faceName, 5);
+            trackBar6.Value = openedFacePackage.GetSetting(faceName, 6);
+            trackBar7.Value = openedFacePackage.GetSetting(faceName, 7);
+            trackBar8.Value = openedFacePackage.GetSetting(faceName, 8);
+
+
         }
 
+
+        //Zablokowanie textBoxes dla podpisów min
         private void BlockAllTextBoxes()
         {
             textBox1.Enabled = false;
@@ -148,6 +255,20 @@ namespace RobotMimiczny
             textBox8.Enabled = false;
         }
 
+        //Udostępnienie edycji suwaków
+        private void EnableAllTrackBars()
+        {
+            trackBar1.Enabled = true;
+            trackBar2.Enabled = true;
+            trackBar3.Enabled = true;
+            trackBar4.Enabled = true;
+            trackBar5.Enabled = true;
+            trackBar6.Enabled = true;
+            trackBar7.Enabled = true;
+            trackBar8.Enabled = true;
+        }
+
+        //Udostępnienie przycisków
         private void EnableAllButtons()
         {
             btnFace1.Enabled = true;
@@ -161,58 +282,181 @@ namespace RobotMimiczny
         }
 
 
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+
+        //Grupa funkcji obsługująca kliknięcia przycisków, ustawia na suwakach wartości dla aktualnie wybranej miny
+        private void btnFace1_Click(object sender, EventArgs e)
         {
-            //if (e.KeyCode == Keys.Enter)
-            //{
-            //    btnFace1.Text = textBox1.Text;
-            //    textBox1.Clear();
-            //}
+            SaveControl();
+            GetFacesName();
+            SetTrackBarsValue(textBox1.Text);
+            BlockAllTextBoxes();
+            textBox1.Enabled = true;
+            clickedButton = 0; 
         }
 
-        private void textBox7_TextChanged(object sender, EventArgs e)
+        private void btnFace2_Click(object sender, EventArgs e)
         {
-           
+            SaveControl();
+            GetFacesName();
+            SetTrackBarsValue(textBox2.Text);
+            BlockAllTextBoxes();
+            textBox2.Enabled = true;
+            clickedButton = 1;
         }
 
         private void btnFace3_Click(object sender, EventArgs e)
         {
+            SaveControl();
+            GetFacesName();
+            SetTrackBarsValue(textBox3.Text);
             BlockAllTextBoxes();
             textBox3.Enabled = true;
-            
+            clickedButton = 2;
         }
 
         private void btnFace4_Click(object sender, EventArgs e)
         {
+            SaveControl();
+            GetFacesName();
+            SetTrackBarsValue(textBox4.Text);
             BlockAllTextBoxes();
             textBox4.Enabled = true;
-            
+            clickedButton = 3;
         }
 
         private void btnFace5_Click(object sender, EventArgs e)
         {
+            SaveControl();
+            GetFacesName();
+            SetTrackBarsValue(textBox5.Text);
             BlockAllTextBoxes();
             textBox5.Enabled = true;
-            
+            clickedButton = 4;
         }
 
         private void btnFace6_Click(object sender, EventArgs e)
         {
+            SaveControl();
+            GetFacesName();
+            SetTrackBarsValue(textBox6.Text);
             BlockAllTextBoxes();
             textBox6.Enabled = true;
+            clickedButton = 5;
         }
 
         private void btnFace7_Click(object sender, EventArgs e)
         {
+            SaveControl();
+            GetFacesName();
+            SetTrackBarsValue(textBox7.Text);
             BlockAllTextBoxes();
             textBox7.Enabled = true;
+            clickedButton = 6;
         }
 
         private void btnFace8_Click(object sender, EventArgs e)
         {
+            SaveControl();
+            GetFacesName();
+            SetTrackBarsValue(textBox8.Text);
             BlockAllTextBoxes();
             textBox8.Enabled = true;
+            clickedButton = 7; 
         }
+
+
+        //Grupa funkcji obsługujących zmiany położenia suwaków
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            saved = false;
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            saved = false;
+        }
+
+        private void trackBar3_Scroll(object sender, EventArgs e)
+        {
+            saved = false;
+        }
+
+        private void trackBar4_Scroll(object sender, EventArgs e)
+        {
+            saved = false;
+        }
+
+        private void trackBar5_Scroll(object sender, EventArgs e)
+        {
+            saved = false;
+        }
+
+        private void trackBar6_Scroll(object sender, EventArgs e)
+        {
+            saved = false;
+        }
+
+        private void trackBar7_Scroll(object sender, EventArgs e)
+        {
+            saved = false;
+        }
+
+        private void trackBar8_Scroll(object sender, EventArgs e)
+        {
+            saved = false;
+        }
+
+
+        //Grupa funkcji obsługująca zmianę podpisu pod przyciskiem
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            saved = false;
+            currentFace = textBox1.Text;
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            saved = false;
+            currentFace = textBox2.Text;
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            saved = false;
+            currentFace = textBox3.Text;
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            saved = false;
+            currentFace = textBox4.Text;
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            saved = false;
+            currentFace = textBox5.Text;
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            saved = false;
+            currentFace = textBox6.Text;
+        }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+            saved = false;
+            currentFace = textBox7.Text;
+        }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+            saved = false;
+            currentFace = textBox8.Text;
+        }
+
+
 
     }
 }
