@@ -96,6 +96,7 @@ namespace RobotMimiczny
             openedFacePackage.NewEmpyFacePackage();
 
             EnableAllButtons();
+            EnableTextBoxesForTrackBars();
             EnableAllTrackBars();
             btnSaveSettings.Enabled = true;
             menuItemSavePackageToFile.Enabled = true;
@@ -130,6 +131,7 @@ namespace RobotMimiczny
                         {
                             EnableAllButtons();
                             EnableAllTrackBars();
+                            EnableTextBoxesForTrackBars();
 
                             btnSaveSettings.Enabled = true;
                             menuItemSavePackageToFile.Enabled = true;
@@ -143,7 +145,7 @@ namespace RobotMimiczny
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                    MessageBox.Show("Nie można otworzyć pliku. Komunikat błędu: " + ex.Message);
                 }
             }
         }
@@ -237,6 +239,7 @@ namespace RobotMimiczny
             trackBar6.Value = openedFacePackage.GetSetting(faceName, 6);
             trackBar7.Value = openedFacePackage.GetSetting(faceName, 7);
             trackBar8.Value = openedFacePackage.GetSetting(faceName, 8);
+            SetValuesInTextBoxesFromTrackBars();
 
 
         }
@@ -279,6 +282,32 @@ namespace RobotMimiczny
             btnFace6.Enabled = true;
             btnFace7.Enabled = true;
             btnFace8.Enabled = true;
+        }
+
+        //Udostępnienie pól do zmiany suwaków
+        private void EnableTextBoxesForTrackBars()
+        {
+            txtBxTrackBar1.Enabled=true;
+            txtBxTrackBar2.Enabled=true;
+            txtBxTrackBar3.Enabled=true;
+            txtBxTrackBar4.Enabled=true;
+            txtBxTrackBar5.Enabled=true;
+            txtBxTrackBar6.Enabled=true;
+            txtBxTrackBar7.Enabled=true;
+            txtBxTrackBar8.Enabled=true;
+        }
+            
+        //Ustawienie wartości w opisach suwaków
+        private void SetValuesInTextBoxesFromTrackBars()
+        {
+            txtBxTrackBar1.Text = trackBar1.Value.ToString();
+            txtBxTrackBar2.Text = trackBar2.Value.ToString();
+            txtBxTrackBar3.Text = trackBar3.Value.ToString();
+            txtBxTrackBar4.Text = trackBar4.Value.ToString();
+            txtBxTrackBar5.Text = trackBar5.Value.ToString();
+            txtBxTrackBar6.Text = trackBar6.Value.ToString();
+            txtBxTrackBar7.Text = trackBar7.Value.ToString();
+            txtBxTrackBar8.Text = trackBar8.Value.ToString();
         }
 
 
@@ -368,41 +397,49 @@ namespace RobotMimiczny
         //Grupa funkcji obsługujących zmiany położenia suwaków
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
+            txtBxTrackBar1.Text = trackBar1.Value.ToString();
             saved = false;
         }
 
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
+            txtBxTrackBar2.Text = trackBar2.Value.ToString();
             saved = false;
         }
 
         private void trackBar3_Scroll(object sender, EventArgs e)
         {
+            txtBxTrackBar3.Text = trackBar3.Value.ToString();
             saved = false;
         }
 
         private void trackBar4_Scroll(object sender, EventArgs e)
         {
+            txtBxTrackBar4.Text = trackBar4.Value.ToString();
             saved = false;
         }
 
         private void trackBar5_Scroll(object sender, EventArgs e)
         {
+            txtBxTrackBar5.Text = trackBar5.Value.ToString();
             saved = false;
         }
 
         private void trackBar6_Scroll(object sender, EventArgs e)
         {
+            txtBxTrackBar6.Text = trackBar6.Value.ToString();
             saved = false;
         }
 
         private void trackBar7_Scroll(object sender, EventArgs e)
         {
+            txtBxTrackBar7.Text = trackBar7.Value.ToString();
             saved = false;
         }
 
         private void trackBar8_Scroll(object sender, EventArgs e)
         {
+            txtBxTrackBar8.Text = trackBar8.Value.ToString();
             saved = false;
         }
 
@@ -454,6 +491,48 @@ namespace RobotMimiczny
         {
             saved = false;
             currentFace = textBox8.Text;
+        }
+
+
+        //Grupa funkcji obsługująca zmianę tekstu dla opisu suwaka
+        private void txtBxTrackBar1_TextChanged(object sender, EventArgs e)
+        {
+            trackBar1.Value = Int32.Parse(txtBxTrackBar1.Text);
+        }
+
+        private void txtBxTrackBar2_TextChanged(object sender, EventArgs e)
+        {
+            trackBar2.Value = Int32.Parse(txtBxTrackBar2.Text);
+        }
+
+        private void txtBxTrackBar3_TextChanged(object sender, EventArgs e)
+        {
+            trackBar3.Value = Int32.Parse(txtBxTrackBar3.Text);
+        }
+
+        private void txtBxTrackBar4_TextChanged(object sender, EventArgs e)
+        {
+            trackBar4.Value = Int32.Parse(txtBxTrackBar4.Text);
+        }
+
+        private void txtBxTrackBar5_TextChanged(object sender, EventArgs e)
+        {
+            trackBar5.Value = Int32.Parse(txtBxTrackBar5.Text);
+        }
+
+        private void txtBxTrackBar6_TextChanged(object sender, EventArgs e)
+        {
+            trackBar6.Value = Int32.Parse(txtBxTrackBar6.Text);
+        }
+
+        private void txtBxTrackBar7_TextChanged(object sender, EventArgs e)
+        {
+            trackBar7.Value = Int32.Parse(txtBxTrackBar7.Text);
+        }
+
+        private void txtBxTrackBar8_TextChanged(object sender, EventArgs e)
+        {
+            trackBar8.Value = Int32.Parse(txtBxTrackBar8.Text);
         }
 
 

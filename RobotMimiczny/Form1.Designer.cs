@@ -75,6 +75,14 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.txtBxTrackBar1 = new System.Windows.Forms.TextBox();
+            this.txtBxTrackBar2 = new System.Windows.Forms.TextBox();
+            this.txtBxTrackBar3 = new System.Windows.Forms.TextBox();
+            this.txtBxTrackBar4 = new System.Windows.Forms.TextBox();
+            this.txtBxTrackBar5 = new System.Windows.Forms.TextBox();
+            this.txtBxTrackBar6 = new System.Windows.Forms.TextBox();
+            this.txtBxTrackBar7 = new System.Windows.Forms.TextBox();
+            this.txtBxTrackBar8 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
@@ -192,6 +200,7 @@
             // 
             this.trackBar1.Enabled = false;
             this.trackBar1.Location = new System.Drawing.Point(78, 180);
+            this.trackBar1.Maximum = 100;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(201, 45);
             this.trackBar1.TabIndex = 8;
@@ -201,6 +210,7 @@
             // 
             this.trackBar2.Enabled = false;
             this.trackBar2.Location = new System.Drawing.Point(78, 231);
+            this.trackBar2.Maximum = 100;
             this.trackBar2.Name = "trackBar2";
             this.trackBar2.Size = new System.Drawing.Size(201, 45);
             this.trackBar2.TabIndex = 9;
@@ -389,6 +399,7 @@
             // 
             this.trackBar3.Enabled = false;
             this.trackBar3.Location = new System.Drawing.Point(78, 282);
+            this.trackBar3.Maximum = 100;
             this.trackBar3.Name = "trackBar3";
             this.trackBar3.Size = new System.Drawing.Size(201, 45);
             this.trackBar3.TabIndex = 29;
@@ -398,6 +409,7 @@
             // 
             this.trackBar4.Enabled = false;
             this.trackBar4.Location = new System.Drawing.Point(78, 342);
+            this.trackBar4.Maximum = 100;
             this.trackBar4.Name = "trackBar4";
             this.trackBar4.Size = new System.Drawing.Size(201, 45);
             this.trackBar4.TabIndex = 30;
@@ -407,6 +419,7 @@
             // 
             this.trackBar5.Enabled = false;
             this.trackBar5.Location = new System.Drawing.Point(375, 180);
+            this.trackBar5.Maximum = 100;
             this.trackBar5.Name = "trackBar5";
             this.trackBar5.Size = new System.Drawing.Size(201, 45);
             this.trackBar5.TabIndex = 31;
@@ -416,6 +429,7 @@
             // 
             this.trackBar6.Enabled = false;
             this.trackBar6.Location = new System.Drawing.Point(375, 231);
+            this.trackBar6.Maximum = 100;
             this.trackBar6.Name = "trackBar6";
             this.trackBar6.Size = new System.Drawing.Size(201, 45);
             this.trackBar6.TabIndex = 32;
@@ -425,6 +439,7 @@
             // 
             this.trackBar7.Enabled = false;
             this.trackBar7.Location = new System.Drawing.Point(375, 282);
+            this.trackBar7.Maximum = 100;
             this.trackBar7.Name = "trackBar7";
             this.trackBar7.Size = new System.Drawing.Size(201, 45);
             this.trackBar7.TabIndex = 33;
@@ -434,6 +449,7 @@
             // 
             this.trackBar8.Enabled = false;
             this.trackBar8.Location = new System.Drawing.Point(375, 342);
+            this.trackBar8.Maximum = 100;
             this.trackBar8.Name = "trackBar8";
             this.trackBar8.Size = new System.Drawing.Size(201, 45);
             this.trackBar8.TabIndex = 34;
@@ -493,11 +509,91 @@
             this.label10.TabIndex = 37;
             this.label10.Text = "motor5";
             // 
+            // txtBxTrackBar1
+            // 
+            this.txtBxTrackBar1.Enabled = false;
+            this.txtBxTrackBar1.Location = new System.Drawing.Point(282, 180);
+            this.txtBxTrackBar1.Name = "txtBxTrackBar1";
+            this.txtBxTrackBar1.Size = new System.Drawing.Size(27, 20);
+            this.txtBxTrackBar1.TabIndex = 41;
+            this.txtBxTrackBar1.TextChanged += new System.EventHandler(this.txtBxTrackBar1_TextChanged);
+            // 
+            // txtBxTrackBar2
+            // 
+            this.txtBxTrackBar2.Enabled = false;
+            this.txtBxTrackBar2.Location = new System.Drawing.Point(282, 231);
+            this.txtBxTrackBar2.Name = "txtBxTrackBar2";
+            this.txtBxTrackBar2.Size = new System.Drawing.Size(27, 20);
+            this.txtBxTrackBar2.TabIndex = 43;
+            this.txtBxTrackBar2.TextChanged += new System.EventHandler(this.txtBxTrackBar2_TextChanged);
+            // 
+            // txtBxTrackBar3
+            // 
+            this.txtBxTrackBar3.Enabled = false;
+            this.txtBxTrackBar3.Location = new System.Drawing.Point(282, 284);
+            this.txtBxTrackBar3.Name = "txtBxTrackBar3";
+            this.txtBxTrackBar3.Size = new System.Drawing.Size(27, 20);
+            this.txtBxTrackBar3.TabIndex = 44;
+            this.txtBxTrackBar3.TextChanged += new System.EventHandler(this.txtBxTrackBar3_TextChanged);
+            // 
+            // txtBxTrackBar4
+            // 
+            this.txtBxTrackBar4.Enabled = false;
+            this.txtBxTrackBar4.Location = new System.Drawing.Point(282, 342);
+            this.txtBxTrackBar4.Name = "txtBxTrackBar4";
+            this.txtBxTrackBar4.Size = new System.Drawing.Size(27, 20);
+            this.txtBxTrackBar4.TabIndex = 45;
+            this.txtBxTrackBar4.TextChanged += new System.EventHandler(this.txtBxTrackBar4_TextChanged);
+            // 
+            // txtBxTrackBar5
+            // 
+            this.txtBxTrackBar5.Enabled = false;
+            this.txtBxTrackBar5.Location = new System.Drawing.Point(571, 180);
+            this.txtBxTrackBar5.Name = "txtBxTrackBar5";
+            this.txtBxTrackBar5.Size = new System.Drawing.Size(27, 20);
+            this.txtBxTrackBar5.TabIndex = 46;
+            this.txtBxTrackBar5.TextChanged += new System.EventHandler(this.txtBxTrackBar5_TextChanged);
+            // 
+            // txtBxTrackBar6
+            // 
+            this.txtBxTrackBar6.Enabled = false;
+            this.txtBxTrackBar6.Location = new System.Drawing.Point(571, 231);
+            this.txtBxTrackBar6.Name = "txtBxTrackBar6";
+            this.txtBxTrackBar6.Size = new System.Drawing.Size(27, 20);
+            this.txtBxTrackBar6.TabIndex = 47;
+            this.txtBxTrackBar6.TextChanged += new System.EventHandler(this.txtBxTrackBar6_TextChanged);
+            // 
+            // txtBxTrackBar7
+            // 
+            this.txtBxTrackBar7.Enabled = false;
+            this.txtBxTrackBar7.Location = new System.Drawing.Point(571, 284);
+            this.txtBxTrackBar7.Name = "txtBxTrackBar7";
+            this.txtBxTrackBar7.Size = new System.Drawing.Size(27, 20);
+            this.txtBxTrackBar7.TabIndex = 48;
+            this.txtBxTrackBar7.TextChanged += new System.EventHandler(this.txtBxTrackBar7_TextChanged);
+            // 
+            // txtBxTrackBar8
+            // 
+            this.txtBxTrackBar8.Enabled = false;
+            this.txtBxTrackBar8.Location = new System.Drawing.Point(571, 342);
+            this.txtBxTrackBar8.Name = "txtBxTrackBar8";
+            this.txtBxTrackBar8.Size = new System.Drawing.Size(27, 20);
+            this.txtBxTrackBar8.TabIndex = 49;
+            this.txtBxTrackBar8.TextChanged += new System.EventHandler(this.txtBxTrackBar8_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(779, 419);
+            this.Controls.Add(this.txtBxTrackBar8);
+            this.Controls.Add(this.txtBxTrackBar7);
+            this.Controls.Add(this.txtBxTrackBar6);
+            this.Controls.Add(this.txtBxTrackBar5);
+            this.Controls.Add(this.txtBxTrackBar4);
+            this.Controls.Add(this.txtBxTrackBar3);
+            this.Controls.Add(this.txtBxTrackBar2);
+            this.Controls.Add(this.txtBxTrackBar1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label9);
@@ -602,6 +698,14 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtBxTrackBar1;
+        private System.Windows.Forms.TextBox txtBxTrackBar2;
+        private System.Windows.Forms.TextBox txtBxTrackBar3;
+        private System.Windows.Forms.TextBox txtBxTrackBar4;
+        private System.Windows.Forms.TextBox txtBxTrackBar5;
+        private System.Windows.Forms.TextBox txtBxTrackBar6;
+        private System.Windows.Forms.TextBox txtBxTrackBar7;
+        private System.Windows.Forms.TextBox txtBxTrackBar8;
     }
 }
 
