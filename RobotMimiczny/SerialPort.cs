@@ -67,7 +67,7 @@ namespace RobotMimiczny
         // Zwraca zero
         public int defaultSet()
         {
-            dataBits = "8";
+            dataBits = "8";      
             parity = "none";
             stopBits = "1";
             handshake = "none";
@@ -89,18 +89,19 @@ namespace RobotMimiczny
             _serialPort.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopBits, true);
             _serialPort.Handshake = (Handshake)Enum.Parse(typeof(Handshake), handshake, true);
 
-            name = FindPortName();
+            name = findPortName();
             if (name != "Nie ma urządzenia")    //sprawdzanie czy odnaleziono odpowiedni port 
             {
                 _serialPort.PortName = name;
 
                 _serialPort.ReadTimeout = 500;  //czasy oczekiwania
                 _serialPort.WriteTimeout = 500;
-                _serialPort.NewLine = "$A0";      //sprawdzić czy ustawiono odpowiedni znak konca lini ->ustawić zgodnie z elektronikami
                 _serialPort.Open();
             }
+
             return name;
         }
+
 
         // Zamykanie połączenia z portem
         // Funkcja bez parametrów
@@ -110,12 +111,13 @@ namespace RobotMimiczny
             _serialPort.Close();
         }
 
-        // Odczyt danych
+
+        // Odczyt danych string
         // int iloscZapytan - ilosc prob odczytu danych
         // Zwraca odczytaną linie lub error ("brak odpowiedzi")
-        public string Read(int iloscZapytan)
+        public string read(int iloscZapytan)
         {
-            _serialPort.NewLine = "0xA0";
+            _serialPort.NewLine = "0xA0"; 
             int i = iloscZapytan;
             string message = "brak odpowiedzi";
             _continue = true;
@@ -135,10 +137,61 @@ namespace RobotMimiczny
             return message;
         }
 
+
+        // biotwy odczyt danych
+        // int iloscZapytan - ilosc prob odczytu danych
+        // Zwraca odczytaną linie lub error ("brak odpowiedzi")
+        public string readByByte(int iloscZapytan)
+        {
+            int i = iloscZapytan;
+            int j =1;
+            int [] message = new int[100];
+            string messageInString = "";
+            char temp = '$';
+
+             message[0] = 0x00;
+            _continue = true;
+
+            while (message[j-1]!= 0xA0 && (_continue))
+            {
+                try
+                {
+                    message[j] = _serialPort.ReadByte();
+                }
+                catch (TimeoutException) 
+                {
+                    i--;
+                    j--;
+                }
+                j++;
+                if (i == 0)
+                {
+                    _continue = false;
+                }
+            }
+
+            if (j > 1)
+            {
+                for (int k = 1; k < j - 1; k++)
+                {
+                    messageInString += message[k].ToString();
+                    messageInString += temp.ToString();
+                }
+            }
+
+            else
+            {
+                messageInString = "brak odpowiedzi";
+            }
+
+            return messageInString;
+        }
+
+
         // Wyszukiwanie portu pod które podpięte jest urządzenie
         // Funkcja bez parametrów
         // Zwraca nazwę portu lub komunikat "Nie ma urządzenia"
-        public static string FindPortName()
+        public string findPortName()
         {
             string portName = "Nie ma urządzenia";
             int iloscZapytan = 0;
@@ -149,27 +202,23 @@ namespace RobotMimiczny
                 _serialPort.PortName = s;
                 _serialPort.ReadTimeout = 500;
                 _serialPort.WriteTimeout = 500;
-
+                
 
                 if (s != "COM15") //do wyrzucenia, uzywane przy termianalu
                 {
-                    _serialPort.NewLine = "$A0";              //Pamiętać ustawić odpowiedni znak konca lini ->ustawić zgodnie z elektronikami
                     _serialPort.Open();
-                    //Console.WriteLine(s);
-                    _serialPort.WriteLine("$FF$01$AF");       //Kim jestem ->ustawić zgodnie z elektronikami
                     while (_continue)
                     {
-                        _serialPort.NewLine = "0xA0";          //Pamiętać ustawić odpowiedni znak konca lini ->ustawić zgodnie z elektronikami
                         try
                         {
-                            if (_serialPort.ReadLine() == "0xFF0x010xFF")
+                            if (HAI() == 0)
                             {
                                 portName = s;
                             }
                         }
                         catch (TimeoutException) { }
                         iloscZapytan++;
-                        if (iloscZapytan == 3)
+                        if (iloscZapytan == 1)
                         {
                             iloscZapytan = 0;
                             _continue = false;
@@ -181,7 +230,8 @@ namespace RobotMimiczny
             return portName;
         }
 
-        public string[] SetPortName()
+
+        public string[] findAvailablePorts()
         {
             string[] portNames = new string[50];
             int j = 0;
@@ -193,7 +243,7 @@ namespace RobotMimiczny
                     portNames[j] = s;
                     j++;
                 }
-
+                
             }
             return portNames;
         }
@@ -209,34 +259,36 @@ namespace RobotMimiczny
         // Zwraca zero
         public int sendFace(int[,] sets, int commandNr)
         {
-            string[] command = { "0A", "0B", "0C", "0D", "0F", "10", "11", "AA", "1A" };
+            int[] command = { 0x0A, 0x0B, 0x0C, 0x0D,0x0F,0x10,0x11,0xAA,0x1A };
             int blad = 0;
-
 
             for (int j = 0; j < sets.GetLength(0); j++)
             {
-                _serialPort.NewLine = "$";              //zmiana znaku konca lini na czas wysyłania w celu zachowania formatu ramki
-                _serialPort.WriteLine("$FF$01");       //format ramki ->ustawić zgodnie z elektronikami
+                sendByByte(0xFF, "$");       //format ramki ->ustawić zgodnie z elektronikami
+                sendByByte(0x01, "$");
 
                 if (commandNr == 10)
                 {
-                    _serialPort.WriteLine(command[j]);
+                    sendByByte(command[j], "$");
                 }
                 else
                 {
-                    _serialPort.WriteLine(command[commandNr]);
+                    sendByByte(command[commandNr], "$");
                 }
 
                 for (int i = 0; i < sets.GetLength(1); i++)
                 {
                     if (i == sets.GetLength(1) - 1)
                     {
-                        _serialPort.NewLine = "$A0";            //powrót do starego znaku konca lini ->ustawić zgodnie z elektronikami
+                        sendByByte(sets[j, i], "0xA0");       
                     }
-                    _serialPort.WriteLine(Convert.ToString(sets[j, i]));
+                    else
+                    {
+                        sendByByte(sets[j, i], "$");
+                    }
                 }
             }
-            if (Read(1) == "brak odpowiedzi")
+            if (readByByte(1) == "brak odpowiedzi")
             {
                 blad = 1;
             }
@@ -255,11 +307,13 @@ namespace RobotMimiczny
         {
             string[] faceSets = new string[10];
             string[] blad = new string[10];
+            int[] tab = { 0xFF, 0x01, 0x01 };
 
-            _serialPort.WriteLine("$FF$01$01");
+            sendByByte(tab, "0xA0");
+
             for (int i = 0; i < 8; i++)
             {
-                faceSets[i] = Read(1);
+                faceSets[i] = readByByte(1);
                 if (faceSets[i] == "brak odpowiedzi")
                 {
                     blad[0] = "brak odpowiedzi";
@@ -275,13 +329,58 @@ namespace RobotMimiczny
         // Zwraca 0 jesli wszystko jest ok i 1 jesli nie ma odpowiedzi
         public int HAI()
         {
+            int[] tab = { 0xFF, 0x01, 0x01 };
             int blad = 1;
-            _serialPort.NewLine = "$A0";
-            _serialPort.WriteLine("$FF$01$A0");       //format ramki ->ustawić zgodnie z elektronikami
-            if (Read(3) == "0xFF0x010xFF")
+            sendByByte(tab,"0xA0");       //format ramki ->ustawić zgodnie z elektronikami
+            if (readByByte(3) == "255$1$255$")
             {
-                blad = 0;
+                blad=0;
             }
+            return blad;
+        }
+
+        public int sendByByte(int [] dane, string koniecRamki)
+        {
+            int blad = 0;
+            int i;
+            int dlugosc = dane.Length;
+
+            byte[] data = new byte[dlugosc+1];
+
+            for (i=0; i < dlugosc; i++)
+            {
+                data[i]=(byte)dane[i];
+            }
+            if (koniecRamki == "0xA0")
+            {
+                data[i] = 0xA0;
+                _serialPort.Write(data, 0, data.Length);
+            }
+            else if (koniecRamki == "$")
+            {
+                _serialPort.Write(data, 0, data.Length-1);
+            }
+
+            return blad;
+        }
+
+        public int sendByByte(int dane, string koniecRamki)
+        {
+            int blad = 0;
+            byte[] data = new byte[2];
+
+            data[0] = (byte)dane;
+
+            if (koniecRamki == "0xA0")
+            {
+                data[1] = 0xA0;
+                _serialPort.Write(data, 0, data.Length);
+            }
+            else if (koniecRamki == "$")
+            {
+                _serialPort.Write(data, 0, data.Length - 1);
+            }
+
             return blad;
         }
     }
