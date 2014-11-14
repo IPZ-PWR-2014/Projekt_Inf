@@ -13,7 +13,6 @@ namespace RobotMimiczny
 {
     public partial class Form1 : Form
     {
-
         FacePackage openedFacePackage;
         string currentFace;
         int clickedButton;
@@ -24,7 +23,6 @@ namespace RobotMimiczny
         {
             InitializeComponent();
         }
-
 
         //Funkcja wywoływana po kliknięciu przycisku "Zapisz
         private void btnSaveSettings_Click(object sender, EventArgs e)
@@ -221,12 +219,6 @@ namespace RobotMimiczny
             trackBar7.Value = 0;
             trackBar8.Value = 0;
         }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
 
         private void SetTrackBarsValue(string faceName)
         {
@@ -537,5 +529,55 @@ namespace RobotMimiczny
 
 
 
+
+
+
+
+
+        //Część Maćka
+        Form2 form2 = new Form2();
+        COM komunikacja = new COM();
+        // Pokazanie okna odpowiedzialnego za ustawienia połączenia
+        private void ustawieniaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            form2.Show();
+        }
+
+        // Timer sprawdzający co 5s czy połączenie jest nadal aktywne za pomocą metody HAI oraz czy zostały zmienione parametry połączenia
+        private void SprawdzeniePolaczenia_Tick(object sender, EventArgs e)
+        {
+            if (form2.przeslij == 1)
+            {
+                komunikacja.setHandshake(form2.parametry[4]);
+                komunikacja.setParity(form2.parametry[3]);
+                komunikacja.setbaudRate(Convert.ToInt16(form2.parametry[0]));
+                komunikacja.setDataBits(Convert.ToInt16(form2.parametry[1]));
+                komunikacja.setStopBits(Convert.ToInt16(form2.parametry[2]));
+                form2.przeslij = 0;
+            }
+
+            if (komunikacja.HAI() == 0)
+            {
+                label13.Text = "Aktywne";
+                label12.BackColor = System.Drawing.Color.Green;
+            }
+            else
+            {
+                label13.Text = "Nieaktywne";
+                label12.BackColor = System.Drawing.Color.Red;
+            }
+        }
+
+        // Zainicjalizowanie połączenia
+        private void połączToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            komunikacja.initialization();
+        }
+
+        // Zakończenie połączenia
+        private void rozłączToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            komunikacja.close();
+        }
     }
 }

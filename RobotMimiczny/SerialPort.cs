@@ -2,7 +2,7 @@
 using System.IO.Ports;
 using System.Threading;
 
-namespace Komunikacja
+namespace RobotMimiczny
 {
     class COM
     {
