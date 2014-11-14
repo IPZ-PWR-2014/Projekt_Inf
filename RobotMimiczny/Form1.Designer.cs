@@ -107,8 +107,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuToolStripMenuItem,
-            this.pomocToolStripMenuItem,
-            this.toolStripMenuItem1});
+            this.toolStripMenuItem1,
+            this.pomocToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(779, 24);
@@ -621,6 +621,11 @@
             this.txtBxTrackBar8.Size = new System.Drawing.Size(27, 20);
             this.txtBxTrackBar8.TabIndex = 49;
             this.txtBxTrackBar8.TextChanged += new System.EventHandler(this.txtBxTrackBar8_TextChanged);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.SprawdzeniePolaczenia_Tick);
             // 
             // label11
             // 

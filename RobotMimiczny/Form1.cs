@@ -531,9 +531,6 @@ namespace RobotMimiczny
 
 
 
-
-
-
         //Część Maćka
         Form2 form2 = new Form2();
         COM komunikacja = new COM();
@@ -548,36 +545,36 @@ namespace RobotMimiczny
         {
             if (form2.przeslij == 1)
             {
-                komunikacja.setHandshake(form2.parametry[4]);
-                komunikacja.setParity(form2.parametry[3]);
-                komunikacja.setbaudRate(Convert.ToInt16(form2.parametry[0]));
-                komunikacja.setDataBits(Convert.ToInt16(form2.parametry[1]));
-                komunikacja.setStopBits(Convert.ToInt16(form2.parametry[2]));
+                komunikacja.baudRate = form2.parametry[0];
+                komunikacja.dataBits = form2.parametry[1];
+                komunikacja.stopBits = form2.parametry[2];
+                komunikacja.parity = form2.parametry[3];
+                komunikacja.handshake = form2.parametry[4];
                 form2.przeslij = 0;
             }
 
-            if (komunikacja.HAI() == 0)
-            {
-                label13.Text = "Aktywne";
-                label12.BackColor = System.Drawing.Color.Green;
-            }
-            else
-            {
-                label13.Text = "Nieaktywne";
-                label12.BackColor = System.Drawing.Color.Red;
-            }
+            //if (komunikacja.HAI() == 0)
+            //{
+            //    label13.Text = "Aktywne";
+            //    label12.BackColor = System.Drawing.Color.Green;
+            //}
+            //else
+            //{
+            //    label13.Text = "Nieaktywne";
+            //    label12.BackColor = System.Drawing.Color.Red;
+            //}
         }
 
         // Zainicjalizowanie połączenia
         private void połączToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            komunikacja.initialization();
+            komunikacja.initializeTransmission();
         }
 
         // Zakończenie połączenia
         private void rozłączToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            komunikacja.close();
+            komunikacja.closeTransmision();
         }
     }
 }
