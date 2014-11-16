@@ -10,15 +10,15 @@ namespace RobotMimiczny
         private static bool _continue;
         private static SerialPort _serialPort;
 
-
-        private string _dataBits = "8";      //parametry połączenia ->ustawić zgodnie z elektronikami
+        // domyślne parametry transmisji
+        private string _dataBits = "8";
         private string _parity = "none";
         private string _stopBits = "1";
         private string _handshake = "none";
         private string _baudRate = "9600";
-        public string _defaultPortName = "COM14";
+        private string _defaultPortName = "COM14";
 
-        // parametry transmisji
+        // właściwości
         public string dataBits { get { return _dataBits; } set { _dataBits = value.ToString(); } }
         public string parity { get { return _parity; } set { _parity = value.ToString(); } }
         public string stopBits { get { return _stopBits; } set { _stopBits = value.ToString(); } }
@@ -92,7 +92,7 @@ namespace RobotMimiczny
         }
 
 
-        // Odczyt obdieranej wiadomości bit po bitcie
+        // Odczyt odbieranej wiadomości bit po bitcie
         // int iloscZapytan - ilosc prob odczytu danych
         // Zwraca odczytaną linie lub error ("brak odpowiedzi")
         public string readByByte(int iloscZapytan)

@@ -538,6 +538,11 @@ namespace RobotMimiczny
         private void ustawieniaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             form2.Show();
+            form2.BaudRate.Text = komunikacja.baudRate;
+            form2.DataBits.Text = komunikacja.dataBits;
+            form2.StopBits.Text = komunikacja.stopBits;
+            form2.Parity.Text = komunikacja.parity;
+            form2.FlowControl.Text = komunikacja.handshake;
         }
 
         // Timer sprawdzający co 5s czy połączenie jest nadal aktywne za pomocą metody HAI oraz czy zostały zmienione parametry połączenia
@@ -568,6 +573,11 @@ namespace RobotMimiczny
         // Zainicjalizowanie połączenia
         private void połączToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            komunikacja.baudRate = form2.parametry[0];
+            komunikacja.dataBits = form2.parametry[1];
+            komunikacja.stopBits = form2.parametry[2];
+            komunikacja.parity = form2.parametry[3];
+            komunikacja.handshake = form2.parametry[4];
             komunikacja.initializeTransmission();
             timer1.Enabled = true;
             komunikacja.HAI();
@@ -577,11 +587,6 @@ namespace RobotMimiczny
         private void rozłączToolStripMenuItem_Click(object sender, EventArgs e)
         {
             komunikacja.closeTransmision();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            textBox9.Text = komunikacja.findAllAvailablePorts()[0];
         }
     }
 }
