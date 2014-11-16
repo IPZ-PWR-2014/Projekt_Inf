@@ -553,28 +553,35 @@ namespace RobotMimiczny
                 form2.przeslij = 0;
             }
 
-            //if (komunikacja.HAI() == 0)
-            //{
-            //    label13.Text = "Aktywne";
-            //    label12.BackColor = System.Drawing.Color.Green;
-            //}
-            //else
-            //{
-            //    label13.Text = "Nieaktywne";
-            //    label12.BackColor = System.Drawing.Color.Red;
-            //}
+            if (komunikacja.HAI() == 0)
+            {
+                label13.Text = "Aktywne";
+                label12.BackColor = System.Drawing.Color.Green;
+            }
+            else
+            {
+                label13.Text = "Nieaktywne";
+                label12.BackColor = System.Drawing.Color.Red;
+            }
         }
 
         // Zainicjalizowanie połączenia
         private void połączToolStripMenuItem_Click(object sender, EventArgs e)
         {
             komunikacja.initializeTransmission();
+            timer1.Enabled = true;
+            komunikacja.HAI();
         }
 
         // Zakończenie połączenia
         private void rozłączToolStripMenuItem_Click(object sender, EventArgs e)
         {
             komunikacja.closeTransmision();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            textBox9.Text = komunikacja.findAllAvailablePorts()[0];
         }
     }
 }
