@@ -16,7 +16,7 @@ namespace RobotMimiczny
         private string _stopBits = "1";
         private string _handshake = "none";
         private string _baudRate = "9600";
-        private string _defaultPortName = "COM14";
+        private string _defaultPortName = "nie ma portu";
 
         // właściwości
         public string dataBits { get { return _dataBits; } set { _dataBits = value.ToString(); } }
@@ -40,6 +40,7 @@ namespace RobotMimiczny
             stopBits = "1";
             handshake = "none";
             baudRate = "9600";
+            defaultPortName = "brak portu";
         }
 
 
@@ -146,7 +147,7 @@ namespace RobotMimiczny
         // Zwraca 0 jesli wszystko jest ok i 1 jesli nie ma odpowiedzi
         public int HAI()
         {
-            int[] tab = { 0xFF, 0x01, 0x01 };
+            int[] tab = { 0xFF, 0x01, 0xAF };
             int blad = 1;
             sendByByte(tab, newLine);       //format ramki ->ustawić zgodnie z elektronikami
             if (readByByte(3) == defaultAnswer)
@@ -221,6 +222,7 @@ namespace RobotMimiczny
                 _serialPort.Open();
             }
 
+            defaultPortName = name;
             return name;
         }
 
@@ -242,6 +244,8 @@ namespace RobotMimiczny
             _serialPort.ReadTimeout = waitTime;  //czasy oczekiwania
             _serialPort.WriteTimeout = waitTime;
             _serialPort.Open();
+
+            defaultPortName = name;
 
             return name;
         }
@@ -294,7 +298,6 @@ namespace RobotMimiczny
             }
             return blad;
         }
-
 
         // Metoda pobierająca ustawienia z uC
         // Zwraca tablice jednowymiarowa z nieobrobionymi stringami 
