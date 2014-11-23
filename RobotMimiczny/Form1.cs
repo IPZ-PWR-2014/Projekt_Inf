@@ -24,6 +24,10 @@ namespace RobotMimiczny
             InitializeComponent();
         }
 
+
+        
+
+
         //Funkcja wywoływana po kliknięciu przycisku "Zapisz
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
@@ -70,9 +74,9 @@ namespace RobotMimiczny
                 if (result == DialogResult.Yes)
                 {
                     menuItemSavePackageToFile_Click(null, null);
-                    
+
                 }
-                savedToFile = true;   
+                savedToFile = true;
             }
         }
 
@@ -151,7 +155,7 @@ namespace RobotMimiczny
         //Funkcja pobierająca tablicę nazw aktualnie otwartego zestawu i wpisująca je jako podpisy przycisków
         private void GetFacesName()
         {
-            string []faceTable = openedFacePackage.GetFacesTable();
+            string[] faceTable = openedFacePackage.GetFacesTable();
             textBox1.Text = faceTable[0];
             textBox2.Text = faceTable[1];
             textBox3.Text = faceTable[2];
@@ -203,6 +207,38 @@ namespace RobotMimiczny
 
         private void menuItemImportPackageFromDevice_Click(object sender, EventArgs e)
         {
+            SaveControl();
+            SaveControlForNewPackage();
+
+            int [,]split;
+            string [] dataTables=komunikacja.readSettings();
+            split=new int[dataTables.Length,8];
+            for (int i = 0; i < dataTables.Length; i++)
+            {
+                string[] temp = dataTables[i].Split('x');
+                for (int j = 0; j < 8; j++)
+                {
+                    split[i, j] = Convert.ToInt32(temp[j + 2].Substring(0,2),16);
+                }
+            }
+
+            openedFacePackage = new FacePackage();
+            for (int i=0;i<dataTables.Length;i++)
+            {
+                for (int j=0;j<8;j++)
+                {
+                    openedFacePackage.SetSetting(i,j,split[i,j]);
+                }
+            }
+
+            EnableAllButtons();
+            EnableAllTrackBars();
+            EnableTextBoxesForTrackBars();
+
+            btnSaveSettings.Enabled = true;
+            menuItemSavePackageToFile.Enabled = true;
+
+            btnFace1_Click(sender, e);
 
         }
 
@@ -279,16 +315,16 @@ namespace RobotMimiczny
         //Udostępnienie pól do zmiany suwaków
         private void EnableTextBoxesForTrackBars()
         {
-            txtBxTrackBar1.Enabled=true;
-            txtBxTrackBar2.Enabled=true;
-            txtBxTrackBar3.Enabled=true;
-            txtBxTrackBar4.Enabled=true;
-            txtBxTrackBar5.Enabled=true;
-            txtBxTrackBar6.Enabled=true;
-            txtBxTrackBar7.Enabled=true;
-            txtBxTrackBar8.Enabled=true;
+            txtBxTrackBar1.Enabled = true;
+            txtBxTrackBar2.Enabled = true;
+            txtBxTrackBar3.Enabled = true;
+            txtBxTrackBar4.Enabled = true;
+            txtBxTrackBar5.Enabled = true;
+            txtBxTrackBar6.Enabled = true;
+            txtBxTrackBar7.Enabled = true;
+            txtBxTrackBar8.Enabled = true;
         }
-            
+
         //Ustawienie wartości w opisach suwaków
         private void SetValuesInTextBoxesFromTrackBars()
         {
@@ -312,7 +348,7 @@ namespace RobotMimiczny
             SetTrackBarsValue(textBox1.Text);
             BlockAllTextBoxes();
             textBox1.Enabled = true;
-            clickedButton = 0; 
+            clickedButton = 0;
         }
 
         private void btnFace2_Click(object sender, EventArgs e)
@@ -382,7 +418,7 @@ namespace RobotMimiczny
             SetTrackBarsValue(textBox8.Text);
             BlockAllTextBoxes();
             textBox8.Enabled = true;
-            clickedButton = 7; 
+            clickedButton = 7;
         }
 
 
@@ -489,42 +525,131 @@ namespace RobotMimiczny
         //Grupa funkcji obsługująca zmianę tekstu dla opisu suwaka
         private void txtBxTrackBar1_TextChanged(object sender, EventArgs e)
         {
-            trackBar1.Value = Int32.Parse(txtBxTrackBar1.Text);
+            if (txtBxTrackBar1.Text.Equals(""))
+                return;
+            int number;
+            bool result = Int32.TryParse(txtBxTrackBar1.Text, out number);
+            if (result && number >= 0 && number <= 100)
+            {
+                trackBar1.Value = number;
+            }
+            else
+            {
+                MessageBox.Show("Niepoprawna wartość");
+            }
+
         }
 
         private void txtBxTrackBar2_TextChanged(object sender, EventArgs e)
         {
-            trackBar2.Value = Int32.Parse(txtBxTrackBar2.Text);
+            if (txtBxTrackBar2.Text.Equals(""))
+                return;
+            int number;
+            bool result = Int32.TryParse(txtBxTrackBar2.Text, out number);
+            if (result && number >= 0 && number <= 100)
+            {
+                trackBar2.Value = number;
+            }
+            else
+            {
+                MessageBox.Show("Niepoprawna wartość");
+            }
         }
 
         private void txtBxTrackBar3_TextChanged(object sender, EventArgs e)
         {
-            trackBar3.Value = Int32.Parse(txtBxTrackBar3.Text);
+            if (txtBxTrackBar3.Text.Equals(""))
+                return;
+            int number;
+            bool result = Int32.TryParse(txtBxTrackBar3.Text, out number);
+            if (result && number >= 0 && number <= 100)
+            {
+                trackBar3.Value = number;
+            }
+            else
+            {
+                MessageBox.Show("Niepoprawna wartość");
+            }
         }
 
         private void txtBxTrackBar4_TextChanged(object sender, EventArgs e)
         {
-            trackBar4.Value = Int32.Parse(txtBxTrackBar4.Text);
+            if (txtBxTrackBar4.Text.Equals(""))
+                return;
+            int number;
+            bool result = Int32.TryParse(txtBxTrackBar4.Text, out number);
+            if (result && number >= 0 && number <= 100)
+            {
+                trackBar4.Value = number;
+            }
+            else
+            {
+                MessageBox.Show("Niepoprawna wartość");
+            }
         }
 
         private void txtBxTrackBar5_TextChanged(object sender, EventArgs e)
         {
-            trackBar5.Value = Int32.Parse(txtBxTrackBar5.Text);
+            if (txtBxTrackBar5.Text.Equals(""))
+                return;
+            int number;
+            bool result = Int32.TryParse(txtBxTrackBar5.Text, out number);
+            if (result && number >= 0 && number <= 100)
+            {
+                trackBar5.Value = number;
+            }
+            else
+            {
+                MessageBox.Show("Niepoprawna wartość");
+            }
         }
 
         private void txtBxTrackBar6_TextChanged(object sender, EventArgs e)
         {
-            trackBar6.Value = Int32.Parse(txtBxTrackBar6.Text);
+            if (txtBxTrackBar6.Text.Equals(""))
+                return;
+            int number;
+            bool result = Int32.TryParse(txtBxTrackBar6.Text, out number);
+            if (result && number >= 0 && number <= 100)
+            {
+                trackBar6.Value = number;
+            }
+            else
+            {
+                MessageBox.Show("Niepoprawna wartość");
+            }
         }
 
         private void txtBxTrackBar7_TextChanged(object sender, EventArgs e)
         {
-            trackBar7.Value = Int32.Parse(txtBxTrackBar7.Text);
+            if (txtBxTrackBar7.Text.Equals(""))
+                return;
+            int number;
+            bool result = Int32.TryParse(txtBxTrackBar7.Text, out number);
+            if (result && number >= 0 && number <= 100)
+            {
+                trackBar7.Value = number;
+            }
+            else
+            {
+                MessageBox.Show("Niepoprawna wartość");
+            }
         }
 
         private void txtBxTrackBar8_TextChanged(object sender, EventArgs e)
         {
-            trackBar8.Value = Int32.Parse(txtBxTrackBar8.Text);
+            if (txtBxTrackBar8.Text.Equals(""))
+                return;
+            int number;
+            bool result = Int32.TryParse(txtBxTrackBar8.Text, out number);
+            if (result && number >= 0 && number <= 100)
+            {
+                trackBar8.Value = number;
+            }
+            else
+            {
+                MessageBox.Show("Niepoprawna wartość");
+            }
         }
 
 
@@ -562,16 +687,20 @@ namespace RobotMimiczny
                 komunikacja.handshake = form2.parametry[4];
                 form2.przeslij = 0;
             }
-
+           
             if (komunikacja.HAI() == 0)
             {
                 label13.Text = "Aktywne";
                 label12.BackColor = System.Drawing.Color.Green;
+                menuItemExportPackageToDevice.Enabled = true;
+                menuItemImportPackageFromDevice.Enabled = true;
             }
             else
             {
                 label13.Text = "Nieaktywne";
                 label12.BackColor = System.Drawing.Color.Red;
+                menuItemExportPackageToDevice.Enabled = false;
+                menuItemImportPackageFromDevice.Enabled = false;
             }
         }
 
@@ -592,6 +721,20 @@ namespace RobotMimiczny
         private void rozłączToolStripMenuItem_Click(object sender, EventArgs e)
         {
             komunikacja.closeTransmision();
+            menuItemExportPackageToDevice.Enabled = false;
+            menuItemImportPackageFromDevice.Enabled = false;
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Form1_Closed(object sender, System.EventArgs e)
+        {
+            SaveControl();
+            SaveControlForNewPackage();
+        }
+        
     }
 }
