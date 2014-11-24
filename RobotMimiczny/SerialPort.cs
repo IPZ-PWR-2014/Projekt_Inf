@@ -7,6 +7,11 @@ namespace RobotMimiczny
 {
     class COM
     {
+        public COM()
+        {
+            setDefaultParameters();
+        }
+
         // klasy statyczne transmisji
         private static bool _continue;
         private static SerialPort _serialPort;
