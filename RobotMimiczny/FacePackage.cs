@@ -40,7 +40,7 @@ namespace RobotMimiczny
 
 
         //Funkcja wypełniajaca zestaw domyślnymi nazwami i zerowymi ustawieniami
-        public void NewEmpyFacePackage()
+        public void NewEmptyFacePackage()
         {
             for (int j = 0; j < 8; j++)
             {

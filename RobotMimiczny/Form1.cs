@@ -89,7 +89,7 @@ namespace RobotMimiczny
             SaveControlForNewPackage();
 
             openedFacePackage = new FacePackage();
-            openedFacePackage.NewEmpyFacePackage();
+            openedFacePackage.NewEmptyFacePackage();
 
             EnableAllButtons();
             EnableTextBoxesForTrackBars();
@@ -206,22 +206,23 @@ namespace RobotMimiczny
 
             int [,]split;
             string [] dataTables=komunikacja.readSettings();
-            split=new int[dataTables.Length,8];
-            for (int i = 0; i < dataTables.Length; i++)
+            split=new int[8,8];
+            for (int i = 0; i <8; i++)
             {
-                string[] temp = dataTables[i].Split('x');
+                string[] temp = dataTables[i].Split('$');
                 for (int j = 0; j < 8; j++)
                 {
-                    split[i, j] = Convert.ToInt32(temp[j + 2].Substring(0,2),16);
+                    split[i, j] = Convert.ToInt32(temp[j + 2]);
                 }
             }
 
             openedFacePackage = new FacePackage();
-            for (int i=0;i<dataTables.Length;i++)
+            openedFacePackage.NewEmptyFacePackage();
+            for (int i=0;i<8;i++)
             {
                 for (int j=0;j<8;j++)
                 {
-                    openedFacePackage.SetSetting(i,j,split[i,j]);
+                    openedFacePackage.SetSetting(i,j+1,split[i,j]);
                 }
             }
 
@@ -745,6 +746,7 @@ namespace RobotMimiczny
             form2.StopBits.Text = komunikacja.stopBits;
             form2.Parity.Text = komunikacja.parity;
             form2.FlowControl.Text = komunikacja.handshake;
+            form2.Port.Items.Clear();
             foreach (string s in komunikacja.findAllAvailablePorts())
                 form2.Port.Items.Add(s);
             form2.Port.SelectedIndex = 0;
@@ -782,11 +784,11 @@ namespace RobotMimiczny
         // Zainicjalizowanie połączenia
         private void połączToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            komunikacja.baudRate = form2.parametry[0];
-            komunikacja.dataBits = form2.parametry[1];
-            komunikacja.stopBits = form2.parametry[2];
-            komunikacja.parity = form2.parametry[3];
-            komunikacja.handshake = form2.parametry[4];
+            //komunikacja.baudRate = form2.parametry[0];
+            //komunikacja.dataBits = form2.parametry[1];
+            //komunikacja.stopBits = form2.parametry[2];
+            //komunikacja.parity = form2.parametry[3];
+            //komunikacja.handshake = form2.parametry[4];
             komunikacja.initializeTransmission();
             timer1.Enabled = true;
             komunikacja.HAI();

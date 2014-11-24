@@ -111,9 +111,6 @@
             // 
             this.BaudRate.FormattingEnabled = true;
             this.BaudRate.Items.AddRange(new object[] {
-            "110",
-            "300",
-            "1200",
             "2400",
             "4800",
             "9600",

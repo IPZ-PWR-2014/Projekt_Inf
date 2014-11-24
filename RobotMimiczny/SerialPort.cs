@@ -312,9 +312,9 @@ namespace RobotMimiczny
 
         // Metoda pobierająca ustawienia z uC
         // Zwraca tablice jednowymiarowa z nieobrobionymi stringami 
-        //                          (format stringow: "0xFF0x010x0A0x000x220x000x000x000x000x000x000x000x000x000x000x000x000x000x00"
-        //                           gdzie: 0xFF0x01 - komenda
-        //                                  0x0A - numer miny
+        //                          (format stringow: "
+        //                           gdzie:  - komenda
+        //                                  0$0A - numer miny
         //                                  reszta - nastawy serw
         public string[] readSettings()
         {
