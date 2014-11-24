@@ -24,10 +24,6 @@ namespace RobotMimiczny
             InitializeComponent();
         }
 
-
-        
-
-
         //Funkcja wywoływana po kliknięciu przycisku "Zapisz
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
@@ -50,7 +46,7 @@ namespace RobotMimiczny
         {
             if (!saved)
             {
-                const string message = "Bieżące ustawienia serw, nie zostały zapisane, czy chcesz je zapisać?";
+                const string message = "Bieżące ustawienia silników, nie zostały zapisane, czy chcesz je zapisać?";
                 const string caption = "";
                 var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -80,13 +76,11 @@ namespace RobotMimiczny
             }
         }
 
-
         //Funkcja wykonująca bieżące ustawienia na podłączonym zestawie
         private void btnExecuteFace_Click(object sender, EventArgs e)
         {
 
         }
-
 
         //Funkcja wywoływana po wybraniu z menu opcji nowego zestawu, tworzy nową, pustą konfigurację
         private void menuItemNewPackage_Click(object sender, EventArgs e)
@@ -166,7 +160,6 @@ namespace RobotMimiczny
             textBox8.Text = faceTable[7];
         }
 
-
         //Funkcja wywoływana po wybraniu z menu opcji zapisu do pliku, zapisuje aktualnie otwartą konfigurację do pliku tekstowego
         private void menuItemSavePackageToFile_Click(object sender, EventArgs e)
         {
@@ -199,6 +192,7 @@ namespace RobotMimiczny
                 }
             }
         }
+
 
         private void menuItemExportPackageToDevice_Click(object sender, EventArgs e)
         {
@@ -271,7 +265,6 @@ namespace RobotMimiczny
 
 
         }
-
 
         //Zablokowanie textBoxes dla podpisów min
         private void BlockAllTextBoxes()
@@ -535,7 +528,17 @@ namespace RobotMimiczny
             }
             else
             {
-                MessageBox.Show("Niepoprawna wartość");
+                if (number < 50)
+                {
+                    trackBar1.Value = 0;
+                    txtBxTrackBar1.Text = "0";
+                }
+                else if (number >= 50)
+                {
+                    trackBar1.Value = 100;
+                    txtBxTrackBar1.Text = "100";
+                }
+                MessageBox.Show("Wpisz wartość z przedziału 1-100");
             }
 
         }
@@ -552,7 +555,17 @@ namespace RobotMimiczny
             }
             else
             {
-                MessageBox.Show("Niepoprawna wartość");
+                if (number < 50)
+                {
+                    trackBar2.Value = 0;
+                    txtBxTrackBar2.Text = "0";
+                }
+                else if (number >= 50)
+                {
+                    trackBar2.Value = 100;
+                    txtBxTrackBar2.Text = "100";
+                }
+                MessageBox.Show("Wpisz wartość z przedziału 1-100");
             }
         }
 
@@ -568,7 +581,17 @@ namespace RobotMimiczny
             }
             else
             {
-                MessageBox.Show("Niepoprawna wartość");
+                if (number < 50)
+                {
+                    trackBar3.Value = 0;
+                    txtBxTrackBar3.Text = "0";
+                }
+                else if (number >= 50)
+                {
+                    trackBar3.Value = 100;
+                    txtBxTrackBar3.Text = "100";
+                }
+                MessageBox.Show("Wpisz wartość z przedziału 1-100");
             }
         }
 
@@ -584,7 +607,17 @@ namespace RobotMimiczny
             }
             else
             {
-                MessageBox.Show("Niepoprawna wartość");
+                if (number < 50)
+                {
+                    trackBar4.Value = 0;
+                    txtBxTrackBar4.Text = "0";
+                }
+                else if (number >= 50)
+                {
+                    trackBar4.Value = 100;
+                    txtBxTrackBar4.Text = "100";
+                }
+                MessageBox.Show("Wpisz wartość z przedziału 1-100");
             }
         }
 
@@ -600,7 +633,17 @@ namespace RobotMimiczny
             }
             else
             {
-                MessageBox.Show("Niepoprawna wartość");
+                if (number < 50)
+                {
+                    trackBar5.Value = 0;
+                    txtBxTrackBar5.Text = "0";
+                }
+                else if (number >= 50)
+                {
+                    trackBar5.Value = 100;
+                    txtBxTrackBar5.Text = "100";
+                }
+                MessageBox.Show("Wpisz wartość z przedziału 1-100");
             }
         }
 
@@ -616,7 +659,17 @@ namespace RobotMimiczny
             }
             else
             {
-                MessageBox.Show("Niepoprawna wartość");
+                if (number < 50)
+                {
+                    trackBar6.Value = 0;
+                    txtBxTrackBar6.Text = "0";
+                }
+                else if (number >= 50)
+                {
+                    trackBar6.Value = 100;
+                    txtBxTrackBar6.Text = "100";
+                }
+                MessageBox.Show("Wpisz wartość z przedziału 1-100");
             }
         }
 
@@ -632,7 +685,17 @@ namespace RobotMimiczny
             }
             else
             {
-                MessageBox.Show("Niepoprawna wartość");
+                if (number < 50)
+                {
+                    trackBar7.Value = 0;
+                    txtBxTrackBar7.Text = "0";
+                }
+                else if (number >= 50)
+                {
+                    trackBar7.Value = 100;
+                    txtBxTrackBar7.Text = "100";
+                }
+                MessageBox.Show("Wpisz wartość z przedziału 1-100");
             }
         }
 
@@ -648,7 +711,17 @@ namespace RobotMimiczny
             }
             else
             {
-                MessageBox.Show("Niepoprawna wartość");
+                if (number < 50)
+                {
+                    trackBar8.Value = 0;
+                    txtBxTrackBar8.Text = "0";
+                }
+                else if (number >= 50)
+                {
+                    trackBar8.Value = 100;
+                    txtBxTrackBar8.Text = "100";
+                }
+                MessageBox.Show("Wpisz wartość z przedziału 1-100");
             }
         }
 
@@ -672,7 +745,9 @@ namespace RobotMimiczny
             form2.StopBits.Text = komunikacja.stopBits;
             form2.Parity.Text = komunikacja.parity;
             form2.FlowControl.Text = komunikacja.handshake;
-            form2.Port.Text = komunikacja.defaultPortName;
+            foreach (string s in komunikacja.findAllAvailablePorts())
+                form2.Port.Items.Add(s);
+            form2.Port.SelectedIndex = 0;
         }
 
         // Timer sprawdzający co 5s czy połączenie jest nadal aktywne za pomocą metody HAI oraz czy zostały zmienione parametry połączenia
@@ -707,11 +782,11 @@ namespace RobotMimiczny
         // Zainicjalizowanie połączenia
         private void połączToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //komunikacja.baudRate = form2.parametry[0];
-            //komunikacja.dataBits = form2.parametry[1];
-            //komunikacja.stopBits = form2.parametry[2];
-            //komunikacja.parity = form2.parametry[3];
-            //komunikacja.handshake = form2.parametry[4];
+            komunikacja.baudRate = form2.parametry[0];
+            komunikacja.dataBits = form2.parametry[1];
+            komunikacja.stopBits = form2.parametry[2];
+            komunikacja.parity = form2.parametry[3];
+            komunikacja.handshake = form2.parametry[4];
             komunikacja.initializeTransmission();
             timer1.Enabled = true;
             komunikacja.HAI();

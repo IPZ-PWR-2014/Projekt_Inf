@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO.Ports;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace RobotMimiczny
 {
@@ -254,7 +255,12 @@ namespace RobotMimiczny
         // Metoda kończy połączenie
         public void closeTransmision()
         {
-            _serialPort.Close();
+            if (_defaultPortName.Contains("nie ma portu"))
+            {
+                ;
+            }
+            else
+                _serialPort.Close();
         }
 
 
@@ -328,20 +334,16 @@ namespace RobotMimiczny
 
         //Wyszukiwanie dostepnych portów COM
         //Zwraca tablicę z nazwami dostepnych portów
-        public string[] findAllAvailablePorts()
+        public List<string> findAllAvailablePorts()
         {
-            string[] portNames = new string[50];
-            int j = 0;
-
+            List<string> portNames = new List<string>();
+            
             foreach (string s in SerialPort.GetPortNames())
             {
-                if (j < 50)         //zapewnienie nie przepelnienia talbicy
-                {
-                    portNames[j] = s;
-                    j++;
-                }
-
+                portNames.Add(s);
             }
+
+           // portNames = "Brak portów";
             return portNames;
         }
     }
