@@ -151,7 +151,6 @@
             // 
             // menuItemExportPackageToDevice
             // 
-            this.menuItemExportPackageToDevice.Enabled = false;
             this.menuItemExportPackageToDevice.Name = "menuItemExportPackageToDevice";
             this.menuItemExportPackageToDevice.Size = new System.Drawing.Size(233, 22);
             this.menuItemExportPackageToDevice.Text = "Eksport zestawu na urzadzenie";
@@ -713,8 +712,8 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.Closed += new System.EventHandler(this.Form1_Closed);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();

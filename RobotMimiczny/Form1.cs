@@ -79,7 +79,17 @@ namespace RobotMimiczny
         //Funkcja wykonująca bieżące ustawienia na podłączonym zestawie
         private void btnExecuteFace_Click(object sender, EventArgs e)
         {
+            int [,] dataToSend = new int [1,16];
+            dataToSend[0,0]=trackBar1.Value;
+            dataToSend[0,1]=trackBar2.Value;
+            dataToSend[0,2]=trackBar3.Value;
+            dataToSend[0,3]=trackBar4.Value;
+            dataToSend[0,4]=trackBar5.Value;
+            dataToSend[0,5]=trackBar6.Value;
+            dataToSend[0,6]=trackBar7.Value;
+            dataToSend[0,7]=trackBar8.Value;
 
+            komunikacja.send(dataToSend, 10);
         }
 
         //Funkcja wywoływana po wybraniu z menu opcji nowego zestawu, tworzy nową, pustą konfigurację
@@ -96,6 +106,7 @@ namespace RobotMimiczny
             EnableAllTrackBars();
             btnSaveSettings.Enabled = true;
             menuItemSavePackageToFile.Enabled = true;
+            btnExecuteFace.Enabled = true;
 
             btnFace1_Click(sender, e);
 
@@ -131,6 +142,7 @@ namespace RobotMimiczny
 
                             btnSaveSettings.Enabled = true;
                             menuItemSavePackageToFile.Enabled = true;
+                            btnExecuteFace.Enabled = true;
 
                             btnFace1_Click(sender, e);
 
@@ -196,7 +208,25 @@ namespace RobotMimiczny
 
         private void menuItemExportPackageToDevice_Click(object sender, EventArgs e)
         {
+            SaveControl();
 
+            int[,] dataToSend = new int[8,16];
+
+            for (int i = 0; i < 8; i++)
+            {
+                dataToSend[0, i] = openedFacePackage.GetSettingsList(textBox1.Text)[i];
+                dataToSend[1, i] = openedFacePackage.GetSettingsList(textBox2.Text)[i];
+                dataToSend[2, i] = openedFacePackage.GetSettingsList(textBox3.Text)[i];
+                dataToSend[3, i] = openedFacePackage.GetSettingsList(textBox4.Text)[i];
+                dataToSend[4, i] = openedFacePackage.GetSettingsList(textBox5.Text)[i];
+                dataToSend[5, i] = openedFacePackage.GetSettingsList(textBox6.Text)[i];
+                dataToSend[6, i] = openedFacePackage.GetSettingsList(textBox7.Text)[i];
+                dataToSend[7, i] = openedFacePackage.GetSettingsList(textBox8.Text)[i];
+            }
+
+            komunikacja.send(dataToSend, 9);
+
+             
         }
 
         private void menuItemImportPackageFromDevice_Click(object sender, EventArgs e)
@@ -232,8 +262,10 @@ namespace RobotMimiczny
 
             btnSaveSettings.Enabled = true;
             menuItemSavePackageToFile.Enabled = true;
+            btnExecuteFace.Enabled = true;
 
             btnFace1_Click(sender, e);
+            saved = true;
 
         }
 
