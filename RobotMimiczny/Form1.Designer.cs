@@ -151,6 +151,7 @@
             // 
             // menuItemExportPackageToDevice
             // 
+            this.menuItemExportPackageToDevice.Enabled = false;
             this.menuItemExportPackageToDevice.Name = "menuItemExportPackageToDevice";
             this.menuItemExportPackageToDevice.Size = new System.Drawing.Size(233, 22);
             this.menuItemExportPackageToDevice.Text = "Eksport zestawu na urzadzenie";
