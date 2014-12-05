@@ -264,8 +264,10 @@ namespace RobotMimiczny
             {
                 ;
             }
-            else
+            else if (String.IsNullOrEmpty(_defaultPortName))//dodane - wysypywało się jeśli nie był żadnej próby połaczenia
+            {
                 _serialPort.Close();
+            }
         }
 
 

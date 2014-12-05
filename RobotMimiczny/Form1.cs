@@ -41,6 +41,24 @@ namespace RobotMimiczny
             saved = true;
         }
 
+        //Udostępnienie przycisków, suwaków itp. po wczytaniu/utworzeniu konfiguracji
+        private void PrepareWindowForEditPackage()
+        {
+            EnableAllButtons();
+            EnableTextBoxesForTrackBars();
+            EnableAllTrackBars();
+
+            btnSaveSettings.Enabled = true;
+            menuItemSavePackageToFile.Enabled = true;
+            btnExecuteFace.Enabled = true;
+            chBxRun.Enabled = true;
+
+            btnFace1_Click(null, null);
+
+            saved = true;
+            savedToFile = false;
+        }
+
         //Sprawdzenie czy bieżące ustawienie są zapisane dla aktualnie edytowanego zestawu, wywoływana przed zmianą edytowanej miny
         private void SaveControl()
         {
@@ -79,15 +97,15 @@ namespace RobotMimiczny
         //Funkcja wykonująca bieżące ustawienia na podłączonym zestawie
         private void btnExecuteFace_Click(object sender, EventArgs e)
         {
-            int [,] dataToSend = new int [1,16];
-            dataToSend[0,0]=trackBar1.Value;
-            dataToSend[0,1]=trackBar2.Value;
-            dataToSend[0,2]=trackBar3.Value;
-            dataToSend[0,3]=trackBar4.Value;
-            dataToSend[0,4]=trackBar5.Value;
-            dataToSend[0,5]=trackBar6.Value;
-            dataToSend[0,6]=trackBar7.Value;
-            dataToSend[0,7]=trackBar8.Value;
+            int[,] dataToSend = new int[1, 16];
+            dataToSend[0, 0] = trackBar1.Value;
+            dataToSend[0, 1] = trackBar2.Value;
+            dataToSend[0, 2] = trackBar3.Value;
+            dataToSend[0, 3] = trackBar4.Value;
+            dataToSend[0, 4] = trackBar5.Value;
+            dataToSend[0, 5] = trackBar6.Value;
+            dataToSend[0, 6] = trackBar7.Value;
+            dataToSend[0, 7] = trackBar8.Value;
 
             komunikacja.send(dataToSend, 10);
         }
@@ -101,17 +119,8 @@ namespace RobotMimiczny
             openedFacePackage = new FacePackage();
             openedFacePackage.NewEmptyFacePackage();
 
-            EnableAllButtons();
-            EnableTextBoxesForTrackBars();
-            EnableAllTrackBars();
-            btnSaveSettings.Enabled = true;
-            menuItemSavePackageToFile.Enabled = true;
-            btnExecuteFace.Enabled = true;
+            PrepareWindowForEditPackage();
 
-            btnFace1_Click(sender, e);
-
-            saved = true;
-            savedToFile = false;
         }
 
         //Funkcja wywoływana po wybraniu z menu opcji wczytania zestawu z pliku, tworzy konfigurację na podstawie jego zawartości
@@ -136,18 +145,7 @@ namespace RobotMimiczny
                         openedFacePackage = new FacePackage();
                         if (openedFacePackage.ReadFromFile(myStream))
                         {
-                            EnableAllButtons();
-                            EnableAllTrackBars();
-                            EnableTextBoxesForTrackBars();
-
-                            btnSaveSettings.Enabled = true;
-                            menuItemSavePackageToFile.Enabled = true;
-                            btnExecuteFace.Enabled = true;
-
-                            btnFace1_Click(sender, e);
-
-                            saved = true;
-                            savedToFile = true;
+                            PrepareWindowForEditPackage();
                         }
                     }
                 }
@@ -210,7 +208,7 @@ namespace RobotMimiczny
         {
             SaveControl();
 
-            int[,] dataToSend = new int[8,16];
+            int[,] dataToSend = new int[8, 16];
 
             for (int i = 0; i < 8; i++)
             {
@@ -225,8 +223,9 @@ namespace RobotMimiczny
             }
 
             komunikacja.send(dataToSend, 9);
+            MessageBox.Show("Dane zostały wyeksportowane poprawnie");
 
-             
+
         }
 
         private void menuItemImportPackageFromDevice_Click(object sender, EventArgs e)
@@ -234,10 +233,10 @@ namespace RobotMimiczny
             SaveControl();
             SaveControlForNewPackage();
 
-            int [,]split;
-            string [] dataTables=komunikacja.readSettings();
-            split=new int[8,8];
-            for (int i = 0; i <8; i++)
+            int[,] split;
+            string[] dataTables = komunikacja.readSettings();
+            split = new int[8, 8];
+            for (int i = 0; i < 8; i++)
             {
                 string[] temp = dataTables[i].Split('$');
                 for (int j = 0; j < 8; j++)
@@ -248,25 +247,38 @@ namespace RobotMimiczny
 
             openedFacePackage = new FacePackage();
             openedFacePackage.NewEmptyFacePackage();
-            for (int i=0;i<8;i++)
+            for (int i = 0; i < 8; i++)
             {
-                for (int j=0;j<8;j++)
+                for (int j = 0; j < 8; j++)
                 {
-                    openedFacePackage.SetSetting(i,j+1,split[i,j]);
+                    openedFacePackage.SetSetting(i, j + 1, split[i, j]);
                 }
             }
 
-            EnableAllButtons();
-            EnableAllTrackBars();
-            EnableTextBoxesForTrackBars();
+            MessageBox.Show("Dane zostały wczytane poprawnie");
 
-            btnSaveSettings.Enabled = true;
-            menuItemSavePackageToFile.Enabled = true;
-            btnExecuteFace.Enabled = true;
+            PrepareWindowForEditPackage();
 
-            btnFace1_Click(sender, e);
-            saved = true;
+        }
 
+        //Funkcja obsługująca zdarzenie zmiany statusu zaznaczenia checkBoxa
+        private void chBxRun_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chBxRun.Checked)
+            {
+                btnExecuteFace.Enabled = false;
+                timer2.Enabled = true;
+            }
+            else
+            {
+                btnExecuteFace.Enabled = true;
+                timer2.Enabled = false;
+            }
+        }
+
+        private void RunMode_Tick(object sender, EventArgs e)
+        {
+            btnExecuteFace_Click(null, null);
         }
 
 
@@ -374,6 +386,7 @@ namespace RobotMimiczny
             SetTrackBarsValue(textBox1.Text);
             BlockAllTextBoxes();
             textBox1.Enabled = true;
+            btnFace1.Select();
             clickedButton = 0;
         }
 
@@ -796,7 +809,7 @@ namespace RobotMimiczny
                 komunikacja.handshake = form2.parametry[4];
                 form2.przeslij = 0;
             }
-           
+
             if (komunikacja.HAI() == 0)
             {
                 label13.Text = "Aktywne";
@@ -836,14 +849,17 @@ namespace RobotMimiczny
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void Form1_Closed(object sender, System.EventArgs e)
         {
             SaveControl();
             SaveControlForNewPackage();
+            rozłączToolStripMenuItem_Click(sender, e);
         }
-        
+
+       
+
     }
 }
