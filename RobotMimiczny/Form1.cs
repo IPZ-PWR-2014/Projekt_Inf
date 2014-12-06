@@ -210,8 +210,7 @@ namespace RobotMimiczny
         {
             SaveControl();
 
-            int[,] dataToSend = new int[8,16];
-Poprawki z listy z ostatnich zajęć (bez obslugi zamykania połączenia przy wyjatkach) + mała edycja klasy Michała, zweryfikujcie
+            int[,] dataToSend = new int[8,8];
 
             for (int i = 0; i < 8; i++)
             {
