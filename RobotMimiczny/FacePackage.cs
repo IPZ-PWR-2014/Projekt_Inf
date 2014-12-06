@@ -27,7 +27,6 @@ namespace RobotMimiczny
                     servoSetting[i] = nServoSetting[i];
                 }
             }
-
         }
 
         Face[] faces;
@@ -37,7 +36,6 @@ namespace RobotMimiczny
         {
             faces = new Face[8];
         }
-
 
         //Funkcja wypełniajaca zestaw domyślnymi nazwami i zerowymi ustawieniami
         public void NewEmptyFacePackage()
@@ -66,7 +64,6 @@ namespace RobotMimiczny
             }
             return nameList;
         }
-
 
         //Funkcja odczytująca zestaw min z pliku (.txt)
         public bool ReadFromFile(Stream myStream)
@@ -116,7 +113,6 @@ namespace RobotMimiczny
         {
             faces[number] = new Face(name, settings);
         }
-
 
         //Funkcja zwracająca tablicę ustawień serw dla danej miny
         public int[] GetSettingsList(string name)

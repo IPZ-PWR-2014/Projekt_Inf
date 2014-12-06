@@ -18,6 +18,12 @@ namespace RobotMimiczny
         public Form2()
         {
             InitializeComponent();
+            parametry[5] = Port.Text;
+            parametry[0] = BaudRate.Text;
+            parametry[1] = DataBits.Text;
+            parametry[2] = StopBits.Text;
+            parametry[3] = Parity.Text;
+            parametry[4] = FlowControl.Text;
         }
 
         // Przycisk ANULUJ - zamyka okno

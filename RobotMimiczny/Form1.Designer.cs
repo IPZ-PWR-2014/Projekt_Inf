@@ -34,8 +34,6 @@
             this.menuItemNewPackage = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemOpenPackageFromFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemSavePackageToFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemExportPackageToDevice = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemImportPackageFromDevice = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,6 +92,8 @@
             this.label13 = new System.Windows.Forms.Label();
             this.chBxRun = new System.Windows.Forms.CheckBox();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.menuItemExportPackageToDevice = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemImportPackageFromDevice = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
@@ -122,9 +122,7 @@
             this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuItemNewPackage,
             this.menuItemOpenPackageFromFile,
-            this.menuItemSavePackageToFile,
-            this.menuItemExportPackageToDevice,
-            this.menuItemImportPackageFromDevice});
+            this.menuItemSavePackageToFile});
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
             this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.menuToolStripMenuItem.Text = "Menu";
@@ -132,14 +130,14 @@
             // menuItemNewPackage
             // 
             this.menuItemNewPackage.Name = "menuItemNewPackage";
-            this.menuItemNewPackage.Size = new System.Drawing.Size(233, 22);
+            this.menuItemNewPackage.Size = new System.Drawing.Size(191, 22);
             this.menuItemNewPackage.Text = "Nowy zestaw";
             this.menuItemNewPackage.Click += new System.EventHandler(this.menuItemNewPackage_Click);
             // 
             // menuItemOpenPackageFromFile
             // 
             this.menuItemOpenPackageFromFile.Name = "menuItemOpenPackageFromFile";
-            this.menuItemOpenPackageFromFile.Size = new System.Drawing.Size(233, 22);
+            this.menuItemOpenPackageFromFile.Size = new System.Drawing.Size(191, 22);
             this.menuItemOpenPackageFromFile.Text = "Otwórz zestaw z pliku";
             this.menuItemOpenPackageFromFile.Click += new System.EventHandler(this.menuItemOpenPackageFromFile_Click);
             // 
@@ -147,32 +145,18 @@
             // 
             this.menuItemSavePackageToFile.Enabled = false;
             this.menuItemSavePackageToFile.Name = "menuItemSavePackageToFile";
-            this.menuItemSavePackageToFile.Size = new System.Drawing.Size(233, 22);
+            this.menuItemSavePackageToFile.Size = new System.Drawing.Size(191, 22);
             this.menuItemSavePackageToFile.Text = "Zapisz zestaw do pliku";
             this.menuItemSavePackageToFile.Click += new System.EventHandler(this.menuItemSavePackageToFile_Click);
-            // 
-            // menuItemExportPackageToDevice
-            // 
-            this.menuItemExportPackageToDevice.Enabled = false;
-            this.menuItemExportPackageToDevice.Name = "menuItemExportPackageToDevice";
-            this.menuItemExportPackageToDevice.Size = new System.Drawing.Size(233, 22);
-            this.menuItemExportPackageToDevice.Text = "Eksport zestawu na urzadzenie";
-            this.menuItemExportPackageToDevice.Click += new System.EventHandler(this.menuItemExportPackageToDevice_Click);
-            // 
-            // menuItemImportPackageFromDevice
-            // 
-            this.menuItemImportPackageFromDevice.Enabled = false;
-            this.menuItemImportPackageFromDevice.Name = "menuItemImportPackageFromDevice";
-            this.menuItemImportPackageFromDevice.Size = new System.Drawing.Size(233, 22);
-            this.menuItemImportPackageFromDevice.Text = "Import zestawu z urzadzenia";
-            this.menuItemImportPackageFromDevice.Click += new System.EventHandler(this.menuItemImportPackageFromDevice_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem3,
             this.toolStripMenuItem4,
-            this.toolStripMenuItem5});
+            this.toolStripMenuItem5,
+            this.menuItemImportPackageFromDevice,
+            this.menuItemExportPackageToDevice});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(75, 20);
             this.toolStripMenuItem1.Text = "Połączenie";
@@ -180,21 +164,21 @@
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(131, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(233, 22);
             this.toolStripMenuItem3.Text = "Ustawienia";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.ustawieniaToolStripMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(131, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(233, 22);
             this.toolStripMenuItem4.Text = "Połącz";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.połączToolStripMenuItem_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(131, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(233, 22);
             this.toolStripMenuItem5.Text = "Rozłącz";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.rozłączToolStripMenuItem_Click);
             // 
@@ -628,11 +612,6 @@
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.SprawdzeniePolaczenia_Tick);
-            //
-            //timer2
-            //
-            this.timer2.Interval = 1000;
-            this.timer2.Tick += new System.EventHandler(this.RunMode_Tick);
             // 
             // label11
             // 
@@ -676,6 +655,27 @@
             this.chBxRun.Text = "Tryb Run";
             this.chBxRun.UseVisualStyleBackColor = true;
             this.chBxRun.CheckedChanged += new System.EventHandler(this.chBxRun_CheckedChanged);
+            // 
+            // timer2
+            // 
+            this.timer2.Interval = 1000;
+            this.timer2.Tick += new System.EventHandler(this.RunMode_Tick);
+            // 
+            // menuItemExportPackageToDevice
+            // 
+            this.menuItemExportPackageToDevice.Enabled = false;
+            this.menuItemExportPackageToDevice.Name = "menuItemExportPackageToDevice";
+            this.menuItemExportPackageToDevice.Size = new System.Drawing.Size(233, 22);
+            this.menuItemExportPackageToDevice.Text = "Eksport zestawu na urzadzenie";
+            this.menuItemExportPackageToDevice.Click += new System.EventHandler(this.menuItemExportPackageToDevice_Click);
+            // 
+            // menuItemImportPackageFromDevice
+            // 
+            this.menuItemImportPackageFromDevice.Enabled = false;
+            this.menuItemImportPackageFromDevice.Name = "menuItemImportPackageFromDevice";
+            this.menuItemImportPackageFromDevice.Size = new System.Drawing.Size(233, 22);
+            this.menuItemImportPackageFromDevice.Text = "Import zestawu z urzadzenia";
+            this.menuItemImportPackageFromDevice.Click += new System.EventHandler(this.menuItemImportPackageFromDevice_Click);
             // 
             // Form1
             // 
@@ -757,8 +757,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemNewPackage;
         private System.Windows.Forms.ToolStripMenuItem menuItemOpenPackageFromFile;
         private System.Windows.Forms.ToolStripMenuItem menuItemSavePackageToFile;
-        private System.Windows.Forms.ToolStripMenuItem menuItemExportPackageToDevice;
-        private System.Windows.Forms.ToolStripMenuItem menuItemImportPackageFromDevice;
         private System.Windows.Forms.ToolStripMenuItem pomocToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSaveSettings;
@@ -817,6 +815,8 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.CheckBox chBxRun;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.ToolStripMenuItem menuItemImportPackageFromDevice;
+        private System.Windows.Forms.ToolStripMenuItem menuItemExportPackageToDevice;
     }
 }
 

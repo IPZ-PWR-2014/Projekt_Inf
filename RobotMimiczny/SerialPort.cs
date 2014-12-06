@@ -22,7 +22,7 @@ namespace RobotMimiczny
         private string _stopBits = "1";
         private string _handshake = "none";
         private string _baudRate = "9600";
-        private string _defaultPortName = "nie ma portu";
+        private string _defaultPortName = "brak portu";
 
         // właściwości
         public string dataBits { get { return _dataBits; } set { _dataBits = value.ToString(); } }
@@ -49,7 +49,6 @@ namespace RobotMimiczny
             defaultPortName = "brak portu";
         }
 
-
         // Metoda transmitująca jedną wartość
         public int sendByByte(int dane, int koniecRamki)
         {
@@ -70,7 +69,6 @@ namespace RobotMimiczny
 
             return blad;
         }
-
 
         // Metoda transmituje wektor danych
         public int sendByByte(int[] dane, int koniecRamki)
@@ -97,7 +95,6 @@ namespace RobotMimiczny
 
             return blad;
         }
-
 
         // Odczyt odbieranej wiadomości bit po bitcie
         // int iloscZapytan - ilosc prob odczytu danych
@@ -148,7 +145,6 @@ namespace RobotMimiczny
             return messageInString;
         }
 
-
         // Metoda Who Am I
         // Zwraca 0 jesli wszystko jest ok i 1 jesli nie ma odpowiedzi
         public int HAI()
@@ -163,12 +159,11 @@ namespace RobotMimiczny
             return blad;
         }
 
-
         // Metoda wyszukująca pod który port COM podpięte jest urządzenie
         // Zwraca nazwę portu lub komunikat "Nie ma urządzenia"
         public string findActivePortName()
         {
-            string portName = "Nie ma urządzenia";
+            string portName = "brak portu";
             int iloscZapytan = 0;
 
             foreach (string s in SerialPort.GetPortNames())
@@ -205,7 +200,6 @@ namespace RobotMimiczny
             return portName;
         }
 
-
         // Metoda nawiązująca połączenie automatyczne
         // Funkcja bez parametrów
         // Zwraca nazwę portu lub komunikat "Nie ma urządzenia"
@@ -220,7 +214,7 @@ namespace RobotMimiczny
             _serialPort.Handshake = (Handshake)Enum.Parse(typeof(Handshake), handshake, true);
 
             name = findActivePortName();
-            if (name != "Nie ma urządzenia")    //sprawdzanie czy odnaleziono odpowiedni port 
+            if (name != "brak portu")    //sprawdzanie czy odnaleziono odpowiedni port 
             {
                 _serialPort.PortName = name;
                 _serialPort.ReadTimeout = waitTime;  //czasy oczekiwania
@@ -231,7 +225,6 @@ namespace RobotMimiczny
             defaultPortName = name;
             return name;
         }
-
 
         // Metoda nawiązująca połączenie z podanym portem COM
         // Funkcja bez parametrów
@@ -256,11 +249,10 @@ namespace RobotMimiczny
             return name;
         }
 
-
         // Metoda kończy połączenie
         public void closeTransmision()
         {
-            if (_defaultPortName.Contains("nie ma portu"))
+            if (_defaultPortName.Contains("brak portu"))
             {
                 ;
             }
@@ -270,9 +262,9 @@ namespace RobotMimiczny
             }
         }
 
-
         // Metoda wysyłająca dane
-        // int[,] sets      - tablica danych typu int (dla commandNr 1-8 i 10 - tablica [1][16] dla commandNr 9 tablica [8][16]
+        // int[,] sets      - tablica danych typu int (dla commandNr 1-8 i 10 - tablica [1][16]
+        //                    dla commandNr 9 tablica [8][16]
         // int commandNr    - Numer Komendy
         //                  - 0-7 -> zapis min 1-8
         //                  - 9 -> zapis 8 min na raz
@@ -280,7 +272,7 @@ namespace RobotMimiczny
         // Zwraca 0 lub 1 w wypadku błędu
         public int send(int[,] sets, int commandNr)
         {
-            int[] command = { 0x0A, 0x0B, 0x0C, 0x0D, 0x0F, 0x10, 0x11, 0xAA, 0x1A };
+            int[] command = { 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x11, 0xAA };
             int[] temp = new int[sets.GetLength(1)];
             int blad = 0;
 
@@ -294,9 +286,13 @@ namespace RobotMimiczny
                 sendByByte(0xFF, dolar);       //format ramki ->ustawić zgodnie z elektronikami
                 sendByByte(0x01, dolar);
 
-                if (commandNr == 10)
+                if (commandNr == 9)
                 {
                     sendByByte(command[j], dolar);
+                }
+                else if (commandNr == 10)
+                {
+                    sendByByte(command[8], dolar);
                 }
                 else
                 {
@@ -337,7 +333,6 @@ namespace RobotMimiczny
             }
             return faceSets;
         }
-
 
         //Wyszukiwanie dostepnych portów COM
         //Zwraca tablicę z nazwami dostepnych portów
