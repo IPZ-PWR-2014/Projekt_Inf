@@ -280,7 +280,7 @@ namespace RobotMimiczny
         // Zwraca 0 lub 1 w wypadku błędu
         public int send(int[,] sets, int commandNr)
         {
-            int[] command = { 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x11, 0xAA };
+            int[] command = { 0x0A, 0x0B, 0x0C, 0x0D, 0x0F, 0x10, 0x11, 0xAA, 0x1A };
             int[] temp = new int[sets.GetLength(1)];
             int blad = 0;
 
@@ -294,13 +294,9 @@ namespace RobotMimiczny
                 sendByByte(0xFF, dolar);       //format ramki ->ustawić zgodnie z elektronikami
                 sendByByte(0x01, dolar);
 
-                if (commandNr == 9)
+                if (commandNr == 10)
                 {
                     sendByByte(command[j], dolar);
-                }
-                else if (commandNr == 10)
-                {
-                    sendByByte(command[8], dolar);
                 }
                 else
                 {
