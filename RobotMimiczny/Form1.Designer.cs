@@ -92,8 +92,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.chBxRun = new System.Windows.Forms.CheckBox();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
@@ -628,11 +626,6 @@
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.SprawdzeniePolaczenia_Tick);
-            //
-            //timer2
-            //
-            this.timer2.Interval = 1000;
-            this.timer2.Tick += new System.EventHandler(this.RunMode_Tick);
             // 
             // label11
             // 
@@ -665,24 +658,11 @@
             this.label13.TabIndex = 52;
             this.label13.Text = "Nieaktywne";
             // 
-            // chBxRun
-            // 
-            this.chBxRun.AutoSize = true;
-            this.chBxRun.Enabled = false;
-            this.chBxRun.Location = new System.Drawing.Point(619, 258);
-            this.chBxRun.Name = "chBxRun";
-            this.chBxRun.Size = new System.Drawing.Size(70, 17);
-            this.chBxRun.TabIndex = 53;
-            this.chBxRun.Text = "Tryb Run";
-            this.chBxRun.UseVisualStyleBackColor = true;
-            this.chBxRun.CheckedChanged += new System.EventHandler(this.chBxRun_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(779, 419);
-            this.Controls.Add(this.chBxRun);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
@@ -815,8 +795,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.CheckBox chBxRun;
-        private System.Windows.Forms.Timer timer2;
     }
 }
 
