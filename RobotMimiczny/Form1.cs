@@ -210,7 +210,7 @@ namespace RobotMimiczny
         {
             SaveControl();
 
-            int[,] dataToSend = new int[8,16];
+            int[,] dataToSend = new int[8,8];
 
             for (int i = 0; i < 8; i++)
             {
@@ -242,7 +242,7 @@ namespace RobotMimiczny
                 string[] temp = dataTables[i].Split('$');
                 for (int j = 0; j < 8; j++)
                 {
-                    split[i, j] = Convert.ToInt32(temp[j + 2]);
+                    split[i, j] = Convert.ToInt32(temp[j + 3]);
                 }
             }
 
@@ -362,6 +362,7 @@ namespace RobotMimiczny
             txtBxTrackBar6.Text = trackBar6.Value.ToString();
             txtBxTrackBar7.Text = trackBar7.Value.ToString();
             txtBxTrackBar8.Text = trackBar8.Value.ToString();
+            saved = true;
         }
 
 
@@ -558,6 +559,7 @@ namespace RobotMimiczny
             if (result && number >= 0 && number <= 100)
             {
                 trackBar1.Value = number;
+                saved = false;
             }
             else
             {
@@ -585,6 +587,7 @@ namespace RobotMimiczny
             if (result && number >= 0 && number <= 100)
             {
                 trackBar2.Value = number;
+                saved = false;
             }
             else
             {
@@ -611,6 +614,7 @@ namespace RobotMimiczny
             if (result && number >= 0 && number <= 100)
             {
                 trackBar3.Value = number;
+                saved = false;
             }
             else
             {
@@ -637,6 +641,7 @@ namespace RobotMimiczny
             if (result && number >= 0 && number <= 100)
             {
                 trackBar4.Value = number;
+                saved = false;
             }
             else
             {
@@ -663,6 +668,7 @@ namespace RobotMimiczny
             if (result && number >= 0 && number <= 100)
             {
                 trackBar5.Value = number;
+                saved = false;
             }
             else
             {
@@ -689,6 +695,7 @@ namespace RobotMimiczny
             if (result && number >= 0 && number <= 100)
             {
                 trackBar6.Value = number;
+                saved = false;
             }
             else
             {
@@ -715,6 +722,7 @@ namespace RobotMimiczny
             if (result && number >= 0 && number <= 100)
             {
                 trackBar7.Value = number;
+                saved = false;
             }
             else
             {
@@ -741,6 +749,7 @@ namespace RobotMimiczny
             if (result && number >= 0 && number <= 100)
             {
                 trackBar8.Value = number;
+                saved = false;
             }
             else
             {
