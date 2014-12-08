@@ -230,6 +230,7 @@ namespace RobotMimiczny
             MessageBox.Show("Dane zostały wyeksportowane poprawnie");
         }
 
+
         private void menuItemImportPackageFromDevice_Click(object sender, EventArgs e)
         {
             SaveControl();
@@ -844,6 +845,12 @@ namespace RobotMimiczny
             komunikacja.closeTransmision();
             menuItemExportPackageToDevice.Enabled = false;
             menuItemImportPackageFromDevice.Enabled = false;
+
+            label13.Text = "Nieaktywne";
+            label12.BackColor = System.Drawing.Color.Red;
+            menuItemExportPackageToDevice.Enabled = false;
+            menuItemImportPackageFromDevice.Enabled = false;
+            timer1.Enabled = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
