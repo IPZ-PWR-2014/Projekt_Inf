@@ -2,6 +2,7 @@
 using System.IO.Ports;
 using System.Threading;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace RobotMimiczny
 {
@@ -276,6 +277,19 @@ namespace RobotMimiczny
             int[] temp = new int[sets.GetLength(1)];
             int blad = 0;
 
+            try
+            {
+                if (readByByte(1) == "brak odpowiedzi")
+                {
+                    blad = 1;
+                }
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Błąd komunikacji, sprawdź połączenie z zestawem", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 1;
+            }
+
             for (int j = 0; j < sets.GetLength(0); j++)
             {
                 for (int i = 0; i < sets.GetLength(1); i++)
@@ -301,10 +315,7 @@ namespace RobotMimiczny
 
                 sendByByte(temp, newLine);
             }
-            if (readByByte(1) == "brak odpowiedzi")
-            {
-                blad = 1;
-            }
+            
             return blad;
         }
 

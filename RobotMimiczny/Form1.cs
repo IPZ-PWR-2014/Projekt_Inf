@@ -94,11 +94,9 @@ namespace RobotMimiczny
                 savedToFile = true;
             }
         }
-
-        //Funkcja wykonująca bieżące ustawienia na podłączonym zestawie
-        private void btnExecuteFace_Click(object sender, EventArgs e)
-        {
-            int[,] dataToSend = new int[1, 16];
+       private void SendActualDataToDevice()
+       {
+           int[,] dataToSend = new int[1, 16];
             dataToSend[0, 0] = trackBar1.Value;
             dataToSend[0, 1] = trackBar2.Value;
             dataToSend[0, 2] = trackBar3.Value;
@@ -108,7 +106,18 @@ namespace RobotMimiczny
             dataToSend[0, 6] = trackBar7.Value;
             dataToSend[0, 7] = trackBar8.Value;
 
-            komunikacja.send(dataToSend, 10);
+           timer2.Enabled=false;
+           if(komunikacja.send(dataToSend, 10)!=1&&chBxRun.Checked)
+           {
+               timer2.Enabled=true;
+           }
+       }
+       
+
+        //Funkcja wykonująca bieżące ustawienia na podłączonym zestawie
+        private void btnExecuteFace_Click(object sender, EventArgs e)
+        {
+            SendActualDataToDevice();
         }
 
         //Funkcja wywoływana po wybraniu z menu opcji nowego zestawu, tworzy nową,
@@ -278,7 +287,7 @@ namespace RobotMimiczny
 
         private void RunMode_Tick(object sender, EventArgs e)
         {
-            btnExecuteFace_Click(null, null);
+            SendActualDataToDevice();
         }
 
         //Funkcja ustawiająca wartości wszystkich suwaków na 0
