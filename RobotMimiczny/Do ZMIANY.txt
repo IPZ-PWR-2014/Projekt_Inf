@@ -1,0 +1,11 @@
+- tryb run i wykonaj mine - poprawic enabled po rozlacz
+
+- puste pole przy trackbarze
+
+- ujednolicenie funkcji
+
+- informacja o nieaktywnosci, obsluga oczekiwania, kursor czekania
+
+- metoda do ³aczenia / roz³¹czania (obs³uga buttonów, checkboxa RUN, itd. )
+
+- ponowne polaczenie - wyjatek system.format.exception
