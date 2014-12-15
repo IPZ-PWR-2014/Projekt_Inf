@@ -18,6 +18,7 @@ namespace RobotMimiczny
         int clickedButton;
         bool saved = true;
         bool savedToFile = true;
+        int licznik = 0;
 
         public Form1()
         {
@@ -94,6 +95,7 @@ namespace RobotMimiczny
                 savedToFile = true;
             }
         }
+
        private void SendActualDataToDevice()
        {
            int[,] dataToSend = new int[1, 16];
@@ -105,6 +107,7 @@ namespace RobotMimiczny
             dataToSend[0, 5] = trackBar6.Value;
             dataToSend[0, 6] = trackBar7.Value;
             dataToSend[0, 7] = trackBar8.Value;
+
 
            timer2.Enabled=false;
            if(komunikacja.send(dataToSend, 10)!=1&&chBxRun.Checked)
@@ -220,6 +223,7 @@ namespace RobotMimiczny
         private void menuItemExportPackageToDevice_Click(object sender, EventArgs e)
         {
             SaveControl();
+            timer1.Enabled = false;
 
             int[,] dataToSend = new int[8, 16];
 
@@ -237,6 +241,7 @@ namespace RobotMimiczny
 
             komunikacja.send(dataToSend, 9);
             MessageBox.Show("Dane zostały wyeksportowane poprawnie");
+            timer1.Enabled = true;
         }
 
 
@@ -819,6 +824,7 @@ namespace RobotMimiczny
                 label12.BackColor = System.Drawing.Color.Green;
                 menuItemExportPackageToDevice.Enabled = true;
                 menuItemImportPackageFromDevice.Enabled = true;
+                licznik = 0;
             }
             else
             {
@@ -826,6 +832,12 @@ namespace RobotMimiczny
                 label12.BackColor = System.Drawing.Color.Red;
                 menuItemExportPackageToDevice.Enabled = false;
                 menuItemImportPackageFromDevice.Enabled = false;
+
+                if (++licznik > 10)
+                {
+                    timer1.Enabled = false;
+                    komunikacja.closeTransmision();
+                }
             }
         }
 
@@ -838,11 +850,11 @@ namespace RobotMimiczny
             else
             {
                 timer1.Enabled = true;
-                komunikacja.baudRate = form2.parametry[0];
-                komunikacja.dataBits = form2.parametry[1];
-                komunikacja.stopBits = form2.parametry[2];
-                komunikacja.parity = form2.parametry[3];
-                komunikacja.handshake = form2.parametry[4];
+                //komunikacja.baudRate = form2.parametry[0];
+                //komunikacja.dataBits = form2.parametry[1];
+                //komunikacja.stopBits = form2.parametry[2];
+                //komunikacja.parity = form2.parametry[3];
+                //komunikacja.handshake = form2.parametry[4];
                 form2.przeslij = 0;
                 komunikacja.HAI();
             }

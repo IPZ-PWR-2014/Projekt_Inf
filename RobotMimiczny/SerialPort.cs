@@ -261,6 +261,8 @@ namespace RobotMimiczny
             {
                 _serialPort.Close();
             }
+
+            _serialPort.Close();
         }
 
         // Metoda wysyłająca dane
@@ -314,6 +316,7 @@ namespace RobotMimiczny
                 }
 
                 sendByByte(temp, newLine);
+                blad = 0;
             }
             
             return blad;
@@ -336,6 +339,9 @@ namespace RobotMimiczny
             for (int i = 0; i < 8; i++)
             {
                 faceSets[i] = readByByte(1);
+
+                //if (Int16.Parse(faceSets[i]) > 100) faceSets[i] = "100" ;
+
                 if (faceSets[i] == "brak odpowiedzi")
                 {
                     blad[0] = "brak odpowiedzi";

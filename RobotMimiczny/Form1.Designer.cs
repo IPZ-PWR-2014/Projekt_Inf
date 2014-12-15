@@ -38,6 +38,8 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemImportPackageFromDevice = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemExportPackageToDevice = new System.Windows.Forms.ToolStripMenuItem();
             this.pomocToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSaveSettings = new System.Windows.Forms.Button();
@@ -92,8 +94,6 @@
             this.label13 = new System.Windows.Forms.Label();
             this.chBxRun = new System.Windows.Forms.CheckBox();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.menuItemExportPackageToDevice = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemImportPackageFromDevice = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
@@ -181,6 +181,22 @@
             this.toolStripMenuItem5.Size = new System.Drawing.Size(233, 22);
             this.toolStripMenuItem5.Text = "Rozłącz";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.rozłączToolStripMenuItem_Click);
+            // 
+            // menuItemImportPackageFromDevice
+            // 
+            this.menuItemImportPackageFromDevice.Enabled = false;
+            this.menuItemImportPackageFromDevice.Name = "menuItemImportPackageFromDevice";
+            this.menuItemImportPackageFromDevice.Size = new System.Drawing.Size(233, 22);
+            this.menuItemImportPackageFromDevice.Text = "Import zestawu z urzadzenia";
+            this.menuItemImportPackageFromDevice.Click += new System.EventHandler(this.menuItemImportPackageFromDevice_Click);
+            // 
+            // menuItemExportPackageToDevice
+            // 
+            this.menuItemExportPackageToDevice.Enabled = false;
+            this.menuItemExportPackageToDevice.Name = "menuItemExportPackageToDevice";
+            this.menuItemExportPackageToDevice.Size = new System.Drawing.Size(233, 22);
+            this.menuItemExportPackageToDevice.Text = "Eksport zestawu na urzadzenie";
+            this.menuItemExportPackageToDevice.Click += new System.EventHandler(this.menuItemExportPackageToDevice_Click);
             // 
             // pomocToolStripMenuItem
             // 
@@ -658,24 +674,8 @@
             // 
             // timer2
             // 
-            this.timer2.Interval = 1000;
+            this.timer2.Interval = 300;
             this.timer2.Tick += new System.EventHandler(this.RunMode_Tick);
-            // 
-            // menuItemExportPackageToDevice
-            // 
-            this.menuItemExportPackageToDevice.Enabled = false;
-            this.menuItemExportPackageToDevice.Name = "menuItemExportPackageToDevice";
-            this.menuItemExportPackageToDevice.Size = new System.Drawing.Size(233, 22);
-            this.menuItemExportPackageToDevice.Text = "Eksport zestawu na urzadzenie";
-            this.menuItemExportPackageToDevice.Click += new System.EventHandler(this.menuItemExportPackageToDevice_Click);
-            // 
-            // menuItemImportPackageFromDevice
-            // 
-            this.menuItemImportPackageFromDevice.Enabled = false;
-            this.menuItemImportPackageFromDevice.Name = "menuItemImportPackageFromDevice";
-            this.menuItemImportPackageFromDevice.Size = new System.Drawing.Size(233, 22);
-            this.menuItemImportPackageFromDevice.Text = "Import zestawu z urzadzenia";
-            this.menuItemImportPackageFromDevice.Click += new System.EventHandler(this.menuItemImportPackageFromDevice_Click);
             // 
             // Form1
             // 
