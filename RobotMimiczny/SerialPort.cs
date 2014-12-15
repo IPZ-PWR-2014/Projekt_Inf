@@ -51,50 +51,56 @@ namespace RobotMimiczny
         }
 
         // Metoda transmitująca jedną wartość
-        public int sendByByte(int dane, int koniecRamki)
+        private void sendByByte(int dane, int koniecRamki)
         {
-            int blad = 0;
             byte[] data = new byte[2];
 
             data[0] = (byte)dane;
-
-            if (koniecRamki == 0xA0)
+            if (_serialPort.IsOpen == true)
             {
-                data[1] = 0xA0;
-                _serialPort.Write(data, 0, data.Length);
+                if (koniecRamki == 0xA0)
+                {
+                    data[1] = 0xA0;
+                    _serialPort.Write(data, 0, data.Length);
+                }
+                else if (koniecRamki == 0x24)
+                {
+                    _serialPort.Write(data, 0, data.Length - 1);
+                }
             }
-            else if (koniecRamki == 0x24)
+            else
             {
-                _serialPort.Write(data, 0, data.Length - 1);
-            }
 
-            return blad;
+            }
         }
 
         // Metoda transmituje wektor danych
-        public int sendByByte(int[] dane, int koniecRamki)
+        private void sendByByte(int[] dane, int koniecRamki)
         {
-            int blad = 0;
             int i;
             int dlugosc = dane.Length;
 
             byte[] data = new byte[dlugosc + 1];
+            if (_serialPort.IsOpen == true)
+            {
+                for (i = 0; i < dlugosc; i++)
+                {
+                    data[i] = (byte)dane[i];
+                }
+                if (koniecRamki == 0xA0)
+                {
+                    data[i] = 0xA0;
+                    _serialPort.Write(data, 0, data.Length);
+                }
+                else if (koniecRamki == 0x24)
+                {
+                    _serialPort.Write(data, 0, data.Length - 1);
+                }
+            }
+            else
+            {
 
-            for (i = 0; i < dlugosc; i++)
-            {
-                data[i] = (byte)dane[i];
             }
-            if (koniecRamki == 0xA0)
-            {
-                data[i] = 0xA0;
-                _serialPort.Write(data, 0, data.Length);
-            }
-            else if (koniecRamki == 0x24)
-            {
-                _serialPort.Write(data, 0, data.Length - 1);
-            }
-
-            return blad;
         }
 
         // Odczyt odbieranej wiadomości bit po bitcie
@@ -110,37 +116,43 @@ namespace RobotMimiczny
 
             message[0] = 0x00;
             _continue = true;
-
-            while (message[j - 1] != newLine && (_continue))
+            if (HAI() == 0)
             {
-                try
+                while (message[j - 1] != newLine && (_continue))
                 {
-                    message[j] = _serialPort.ReadByte();
+                    try
+                    {
+                        message[j] = _serialPort.ReadByte();
+                    }
+                    catch (TimeoutException)
+                    {
+                        i--;
+                        j--;
+                    }
+                    j++;
+                    if (i == 0)
+                    {
+                        _continue = false;
+                    }
                 }
-                catch (TimeoutException)
+
+                if (j > 1)
                 {
-                    i--;
-                    j--;
+                    for (int k = 1; k < j - 1; k++)
+                    {
+                        messageInString += message[k].ToString();
+                        messageInString += temp.ToString();
+                    }
                 }
-                j++;
-                if (i == 0)
+
+                else
                 {
-                    _continue = false;
+                    messageInString = "brak odpowiedzi";
                 }
             }
-
-            if (j > 1)
-            {
-                for (int k = 1; k < j - 1; k++)
-                {
-                    messageInString += message[k].ToString();
-                    messageInString += temp.ToString();
-                }
-            }
-
             else
             {
-                messageInString = "brak odpowiedzi";
+                messageInString = "brak urządzenia";
             }
 
             return messageInString;
@@ -152,10 +164,13 @@ namespace RobotMimiczny
         {
             int[] tab = { 0xFF, 0x01, 0xAF };
             int blad = 1;
-            sendByByte(tab, newLine);       //format ramki ->ustawić zgodnie z elektronikami
-            if (readByByte(3) == defaultAnswer)
+            if (_serialPort.IsOpen == true)
             {
-                blad = 0;
+                sendByByte(tab, newLine);       
+                if (readByByte(3) == defaultAnswer)
+                {
+                    blad = 0;
+                }
             }
             return blad;
         }
@@ -174,8 +189,7 @@ namespace RobotMimiczny
                 _serialPort.ReadTimeout = waitTime;
                 _serialPort.WriteTimeout = waitTime;
 
-
-                if (s != "COM15") //do wyrzucenia, uzywane przy termianalu
+                if (_serialPort.IsOpen == false)
                 {
                     _serialPort.Open();
                     while (_continue)
@@ -265,6 +279,18 @@ namespace RobotMimiczny
             _serialPort.Close();
         }
 
+        // Metoda kończy połączenie 
+        //
+        // PROSZĘ ZOBACZYĆ  CZY TAKIE COŚ DZIAŁA
+        //
+        public void closeTransmision1()
+        {
+            if (_serialPort.IsOpen == true)
+            {
+                _serialPort.Close();
+            }
+        }
+
         // Metoda wysyłająca dane
         // int[,] sets      - tablica danych typu int (dla commandNr 1-8 i 10 - tablica [1][16]
         //                    dla commandNr 9 tablica [8][16]
@@ -277,49 +303,44 @@ namespace RobotMimiczny
         {
             int[] command = { 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x11, 0xAA };
             int[] temp = new int[sets.GetLength(1)];
-            int blad = 0;
-
-            try
-            {
-                if (readByByte(1) == "brak odpowiedzi")
-                {
-                    blad = 1;
-                }
-            }
-            catch (NullReferenceException)
-            {
-                MessageBox.Show("Błąd komunikacji, sprawdź połączenie z zestawem", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return 1;
-            }
 
             for (int j = 0; j < sets.GetLength(0); j++)
             {
-                for (int i = 0; i < sets.GetLength(1); i++)
+                if (HAI() == 0)
                 {
-                    temp[i] = sets[j, i];
-                }
+                    for (int i = 0; i < sets.GetLength(1); i++)
+                    {
+                        temp[i] = sets[j, i];
+                    }
 
-                sendByByte(0xFF, dolar);       //format ramki ->ustawić zgodnie z elektronikami
-                sendByByte(0x01, dolar);
+                    sendByByte(0xFF, dolar);       //format ramki ->ustawić zgodnie z elektronikami
+                    sendByByte(0x01, dolar);
 
-                if (commandNr == 9)
-                {
-                    sendByByte(command[j], dolar);
-                }
-                else if (commandNr == 10)
-                {
-                    sendByByte(command[8], dolar);
+                    if (commandNr == 9)
+                    {
+                        sendByByte(command[j], dolar);
+                    }
+                    else if (commandNr == 10)
+                    {
+                        sendByByte(command[8], dolar);
+                    }
+                    else
+                    {
+                        sendByByte(command[commandNr], dolar);
+                    }
+
+                    sendByByte(temp, newLine);
+                    Thread.Sleep(100);
                 }
                 else
                 {
-                    sendByByte(command[commandNr], dolar);
+                    MessageBox.Show("Błąd komunikacji, sprawdź połączenie z zestawem", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return 1;
                 }
 
-                sendByByte(temp, newLine);
-                blad = 0;
             }
-            
-            return blad;
+
+            return 0;
         }
 
         // Metoda pobierająca ustawienia z uC
@@ -334,21 +355,29 @@ namespace RobotMimiczny
             string[] blad = new string[10];
             int[] tab = { 0xFF, 0x01, 0x01 };
 
-            sendByByte(tab, newLine);
-
-            for (int i = 0; i < 8; i++)
+            if (HAI() == 0)
             {
-                faceSets[i] = readByByte(1);
+                sendByByte(tab, newLine);
 
-                //if (Int16.Parse(faceSets[i]) > 100) faceSets[i] = "100" ;
-
-                if (faceSets[i] == "brak odpowiedzi")
+                for (int i = 0; i < 8; i++)
                 {
-                    blad[0] = "brak odpowiedzi";
-                    return blad;
+                    faceSets[i] = readByByte(1);
+
+                    if (faceSets[i] == "brak odpowiedzi")
+                    {
+                        blad[0] = "brak odpowiedzi";
+                        return blad;
+                    }
                 }
+                return faceSets;
             }
-            return faceSets;
+            else
+            {
+                MessageBox.Show("Błąd komunikacji, sprawdź połączenie z zestawem", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                blad[0] = "brak odpowiedzi";
+                return blad;
+            }
+
         }
 
         //Wyszukiwanie dostepnych portów COM
@@ -356,13 +385,11 @@ namespace RobotMimiczny
         public List<string> findAllAvailablePorts()
         {
             List<string> portNames = new List<string>();
-            
+
             foreach (string s in SerialPort.GetPortNames())
             {
                 portNames.Add(s);
             }
-
-           // portNames = "Brak portów";
             return portNames;
         }
     }
