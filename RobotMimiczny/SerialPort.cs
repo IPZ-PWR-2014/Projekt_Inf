@@ -116,44 +116,39 @@ namespace RobotMimiczny
 
             message[0] = 0x00;
             _continue = true;
-            if (HAI() == 0)
+
+            while (message[j - 1] != newLine && (_continue))
             {
-                while (message[j - 1] != newLine && (_continue))
+                try
                 {
-                    try
-                    {
-                        message[j] = _serialPort.ReadByte();
-                    }
-                    catch (TimeoutException)
-                    {
-                        i--;
-                        j--;
-                    }
-                    j++;
-                    if (i == 0)
-                    {
-                        _continue = false;
-                    }
+                    message[j] = _serialPort.ReadByte();
                 }
-
-                if (j > 1)
+                catch (TimeoutException)
                 {
-                    for (int k = 1; k < j - 1; k++)
-                    {
-                        messageInString += message[k].ToString();
-                        messageInString += temp.ToString();
-                    }
+                    i--;
+                    j--;
                 }
-
-                else
+                j++;
+                if (i == 0)
                 {
-                    messageInString = "brak odpowiedzi";
+                    _continue = false;
                 }
             }
+
+            if (j > 1)
+            {
+                for (int k = 1; k < j - 1; k++)
+                {
+                    messageInString += message[k].ToString();
+                    messageInString += temp.ToString();
+                }
+            }
+
             else
             {
-                messageInString = "brak urządzenia";
+                messageInString = "brak odpowiedzi";
             }
+
 
             return messageInString;
         }
@@ -166,7 +161,7 @@ namespace RobotMimiczny
             int blad = 1;
             if (_serialPort.IsOpen == true)
             {
-                sendByByte(tab, newLine);       
+                sendByByte(tab, newLine);
                 if (readByByte(3) == defaultAnswer)
                 {
                     blad = 0;
