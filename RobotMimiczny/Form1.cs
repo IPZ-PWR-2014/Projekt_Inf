@@ -844,7 +844,7 @@ namespace RobotMimiczny
         // Zainicjalizowanie połączenia
         private void połączToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Cursor.Current = Cursors.WaitCursor;
             if (komunikacja.initializeTransmission().Equals("brak portu"))
                 MessageBox.Show("Nie można utworzyć połączenia z urządzeniem.","Błąd połączenia");
             else
@@ -858,12 +858,13 @@ namespace RobotMimiczny
                 form2.przeslij = 0;
                 komunikacja.HAI();
             }
+            Cursor.Current = Cursors.Default;
         }
 
         // Zakończenie połączenia
         private void rozłączToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            komunikacja.closeTransmision();
+            komunikacja.closeTransmision1();
             menuItemExportPackageToDevice.Enabled = false;
             menuItemImportPackageFromDevice.Enabled = false;
 
@@ -871,6 +872,9 @@ namespace RobotMimiczny
             label12.BackColor = System.Drawing.Color.Red;
             menuItemExportPackageToDevice.Enabled = false;
             menuItemImportPackageFromDevice.Enabled = false;
+            chBxRun.Enabled = false;
+            btnExecuteFace.Enabled = false;
+
             timer1.Enabled = false;
         }
 
