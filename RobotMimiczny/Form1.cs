@@ -258,7 +258,7 @@ namespace RobotMimiczny
                 string[] temp = dataTables[i].Split('$');
                 for (int j = 0; j < 8; j++)
                 {
-                    split[i, j] = Convert.ToInt32(temp[j + 2]);
+                    split[i, j] = Convert.ToInt32(temp[j + 3]);
                 }
             }
 

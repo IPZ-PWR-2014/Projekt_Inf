@@ -184,7 +184,9 @@ namespace RobotMimiczny
                 _serialPort.ReadTimeout = waitTime;
                 _serialPort.WriteTimeout = waitTime;
 
-                if (_serialPort.IsOpen == false)
+
+                bool p = _serialPort.IsOpen;
+                if (p == false)
                 {
                     _serialPort.Open();
                     while (_continue)
