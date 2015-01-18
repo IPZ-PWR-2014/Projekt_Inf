@@ -25,6 +25,8 @@ namespace RobotMimiczny
         private string _baudRate = "9600";
         private string _defaultPortName = "brak portu";
 
+        private string PortNameHAI = "brak portu";
+
         // właściwości
         public string dataBits { get { return _dataBits; } set { _dataBits = value.ToString(); } }
         public string parity { get { return _parity; } set { _parity = value.ToString(); } }
@@ -68,10 +70,6 @@ namespace RobotMimiczny
                     _serialPort.Write(data, 0, data.Length - 1);
                 }
             }
-            else
-            {
-
-            }
         }
 
         // Metoda transmituje wektor danych
@@ -97,16 +95,12 @@ namespace RobotMimiczny
                     _serialPort.Write(data, 0, data.Length - 1);
                 }
             }
-            else
-            {
-
-            }
         }
 
         // Odczyt odbieranej wiadomości bit po bitcie
         // int iloscZapytan - ilosc prob odczytu danych
         // Zwraca odczytaną linie lub error ("brak odpowiedzi")
-        public string readByByte(int iloscZapytan)
+        private string readByByte(int iloscZapytan)
         {
             int i = iloscZapytan;
             int j = 1;
@@ -159,12 +153,15 @@ namespace RobotMimiczny
         {
             int[] tab = { 0xFF, 0x01, 0xAF };
             int blad = 1;
-            if (_serialPort.IsOpen == true)
+            if (PortNameHAI != "brak portu")
             {
-                sendByByte(tab, newLine);
-                if (readByByte(3) == defaultAnswer)
+                if (_serialPort.IsOpen == true)
                 {
-                    blad = 0;
+                    sendByByte(tab, newLine);
+                    if (readByByte(3) == defaultAnswer)
+                    {
+                        blad = 0;
+                    }
                 }
             }
             return blad;
@@ -172,7 +169,7 @@ namespace RobotMimiczny
 
         // Metoda wyszukująca pod który port COM podpięte jest urządzenie
         // Zwraca nazwę portu lub komunikat "Nie ma urządzenia"
-        public string findActivePortName()
+        private string findActivePortName()
         {
             string portName = "brak portu";
             int iloscZapytan = 0;
@@ -181,6 +178,7 @@ namespace RobotMimiczny
             {
                 _continue = true;
                 _serialPort.PortName = s;
+                PortNameHAI = s;
                 _serialPort.ReadTimeout = waitTime;
                 _serialPort.WriteTimeout = waitTime;
 
@@ -207,6 +205,7 @@ namespace RobotMimiczny
                         }
                     }
                     _serialPort.Close();
+                    if (portName != "brak portu") break;
                 }
             }
             return portName;
@@ -264,27 +263,10 @@ namespace RobotMimiczny
         // Metoda kończy połączenie
         public void closeTransmision()
         {
-            if (_defaultPortName.Contains("brak portu"))
-            {
-                ;
-            }
-            else if (String.IsNullOrEmpty(_defaultPortName))//dodane - wysypywało się jeśli nie był żadnej próby połaczenia
-            {
-                _serialPort.Close();
-            }
-
-            _serialPort.Close();
-        }
-
-        // Metoda kończy połączenie 
-        //
-        // PROSZĘ ZOBACZYĆ  CZY TAKIE COŚ DZIAŁA
-        //
-        public void closeTransmision1()
-        {
             if (_serialPort.IsOpen == true)
             {
                 _serialPort.Close();
+                PortNameHAI = "brak portu";
             }
         }
 

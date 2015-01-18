@@ -54,7 +54,7 @@ namespace RobotMimiczny
             btnExecuteFace.Enabled = true;
             chBxRun.Enabled = true;
 
-            btnFace1_Click(null, null);
+            klikWTwarz(null, null);
 
             saved = true;
             savedToFile = false;
@@ -390,402 +390,232 @@ namespace RobotMimiczny
         }
 
 
-
-        //Grupa funkcji obsługująca kliknięcia przycisków,
-        //ustawia na suwakach wartości dla aktualnie wybranej miny
-        private void btnFace1_Click(object sender, EventArgs e)
+        //klikanie przycisków
+        private void klikWTwarz(object sender, EventArgs e)
         {
             SaveControl();
             GetFacesName();
-            SetTrackBarsValue(textBox1.Text);
             BlockAllTextBoxes();
-            textBox1.Enabled = true;
-            btnFace1.Select();
-            clickedButton = 0;
+
+            int numer = 49;
+
+            System.Windows.Forms.Button a = (System.Windows.Forms.Button)sender;
+            System.Windows.Forms.TextBox b;
+
+            if (a != null)
+            {
+                numer = a.Name[a.Name.Length - 1];
+            }
+                
+            clickedButton = numer - 49;
+
+            switch (numer)
+            {
+                case 49:
+                    b = textBox1;
+                    break;
+                case 50:
+                    b = textBox2;
+                    break;
+                case 51:
+                    b = textBox3;
+                    break;
+                case 52:
+                    b = textBox4;
+                    break;
+                case 53:
+                    b = textBox5;
+                    break;
+                case 54:
+                    b = textBox6;
+                    break;
+                case 55:
+                    b = textBox7;
+                    break;
+                case 56:
+                    b = textBox8;
+                    break;
+                default:
+                    b = textBox1;
+                    break;
+            }
+
+            SetTrackBarsValue(b.Text);
+            b.Enabled = true;
         }
 
-        private void btnFace2_Click(object sender, EventArgs e)
-        {
-            SaveControl();
-            GetFacesName();
-            SetTrackBarsValue(textBox2.Text);
-            BlockAllTextBoxes();
-            textBox2.Enabled = true;
-            clickedButton = 1;
-        }
+        ////ustawia na suwakach wartości dla aktualnie wybranej miny
+        //private void btnFace1_Click(object sender, EventArgs e)
+        //{
+        //    SaveControl();
+        //    GetFacesName();
+        //    SetTrackBarsValue(textBox1.Text);
+        //    BlockAllTextBoxes();
+        //    textBox1.Enabled = true;
+        //    clickedButton = 0;
+        //}
 
-        private void btnFace3_Click(object sender, EventArgs e)
+        //zmiana polozenia suwaka
+        private void zmianaPolozeniaSuwaka(object sender, EventArgs e)
         {
-            SaveControl();
-            GetFacesName();
-            SetTrackBarsValue(textBox3.Text);
-            BlockAllTextBoxes();
-            textBox3.Enabled = true;
-            clickedButton = 2;
-        }
+            System.Windows.Forms.TrackBar a = (System.Windows.Forms.TrackBar)sender;
+            System.Windows.Forms.TextBox b;
 
-        private void btnFace4_Click(object sender, EventArgs e)
-        {
-            SaveControl();
-            GetFacesName();
-            SetTrackBarsValue(textBox4.Text);
-            BlockAllTextBoxes();
-            textBox4.Enabled = true;
-            clickedButton = 3;
-        }
+            int numer = a.Name[a.Name.Length - 1];
 
-        private void btnFace5_Click(object sender, EventArgs e)
-        {
-            SaveControl();
-            GetFacesName();
-            SetTrackBarsValue(textBox5.Text);
-            BlockAllTextBoxes();
-            textBox5.Enabled = true;
-            clickedButton = 4;
-        }
+            clickedButton = numer - 49;
 
-        private void btnFace6_Click(object sender, EventArgs e)
-        {
-            SaveControl();
-            GetFacesName();
-            SetTrackBarsValue(textBox6.Text);
-            BlockAllTextBoxes();
-            textBox6.Enabled = true;
-            clickedButton = 5;
-        }
+            switch (numer)
+            {
+                case 49:
+                    b = txtBxTrackBar1;
+                    break;
+                case 50:
+                    b = txtBxTrackBar2;
+                    break;
+                case 51:
+                    b = txtBxTrackBar3;
+                    break;
+                case 52:
+                    b = txtBxTrackBar4;
+                    break;
+                case 53:
+                    b = txtBxTrackBar5;
+                    break;
+                case 54:
+                    b = txtBxTrackBar6;
+                    break;
+                case 55:
+                    b = txtBxTrackBar7;
+                    break;
+                case 56:
+                    b = txtBxTrackBar8;
+                    break;
+                default:
+                    b = txtBxTrackBar1;
+                    break;
+            }
 
-        private void btnFace7_Click(object sender, EventArgs e)
-        {
-            SaveControl();
-            GetFacesName();
-            SetTrackBarsValue(textBox7.Text);
-            BlockAllTextBoxes();
-            textBox7.Enabled = true;
-            clickedButton = 6;
-        }
-
-        private void btnFace8_Click(object sender, EventArgs e)
-        {
-            SaveControl();
-            GetFacesName();
-            SetTrackBarsValue(textBox8.Text);
-            BlockAllTextBoxes();
-            textBox8.Enabled = true;
-            clickedButton = 7;
-        }
-
-
-        //Grupa funkcji obsługujących zmiany położenia suwaków
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
-            txtBxTrackBar1.Text = trackBar1.Value.ToString();
+            b.Text = a.Value.ToString();
             saved = false;
         }
 
-        private void trackBar2_Scroll(object sender, EventArgs e)
+        ////Grupa funkcji obsługujących zmiany położenia suwaków
+        //private void trackBar1_Scroll(object sender, EventArgs e)
+        //{
+        //    txtBxTrackBar1.Text = trackBar1.Value.ToString();
+        //    saved = false;
+        //}
+
+        
+        //zmiana podpisu pod przyciskiem
+        private void zmianaNazwyMiny(object sender, EventArgs e)
         {
-            txtBxTrackBar2.Text = trackBar2.Value.ToString();
+            System.Windows.Forms.TextBox a=(System.Windows.Forms.TextBox)sender;
             saved = false;
+            currentFace = a.Text;
         }
 
-        private void trackBar3_Scroll(object sender, EventArgs e)
+        //private void textBox1_TextChanged(object sender, EventArgs e)
+        //{
+        //    zmianaNazwyMiny(sender, e);
+        //}
+
+        //zmiana tekstu opisu suwaka
+        private void zmianaWartosciTrackbara(object sender, EventArgs e)
         {
-            txtBxTrackBar3.Text = trackBar3.Value.ToString();
-            saved = false;
-        }
+            System.Windows.Forms.TextBox a = (System.Windows.Forms.TextBox)sender;
+            System.Windows.Forms.TrackBar b;
 
-        private void trackBar4_Scroll(object sender, EventArgs e)
-        {
-            txtBxTrackBar4.Text = trackBar4.Value.ToString();
-            saved = false;
-        }
+            int numer = a.Name[a.Name.Length-1];
 
-        private void trackBar5_Scroll(object sender, EventArgs e)
-        {
-            txtBxTrackBar5.Text = trackBar5.Value.ToString();
-            saved = false;
-        }
-
-        private void trackBar6_Scroll(object sender, EventArgs e)
-        {
-            txtBxTrackBar6.Text = trackBar6.Value.ToString();
-            saved = false;
-        }
-
-        private void trackBar7_Scroll(object sender, EventArgs e)
-        {
-            txtBxTrackBar7.Text = trackBar7.Value.ToString();
-            saved = false;
-        }
-
-        private void trackBar8_Scroll(object sender, EventArgs e)
-        {
-            txtBxTrackBar8.Text = trackBar8.Value.ToString();
-            saved = false;
-        }
-
-
-        //Grupa funkcji obsługująca zmianę podpisu pod przyciskiem
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            saved = false;
-            currentFace = textBox1.Text;
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-            saved = false;
-            currentFace = textBox2.Text;
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-            saved = false;
-            currentFace = textBox3.Text;
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-            saved = false;
-            currentFace = textBox4.Text;
-        }
-
-        private void textBox5_TextChanged(object sender, EventArgs e)
-        {
-            saved = false;
-            currentFace = textBox5.Text;
-        }
-
-        private void textBox6_TextChanged(object sender, EventArgs e)
-        {
-            saved = false;
-            currentFace = textBox6.Text;
-        }
-
-        private void textBox7_TextChanged(object sender, EventArgs e)
-        {
-            saved = false;
-            currentFace = textBox7.Text;
-        }
-
-        private void textBox8_TextChanged(object sender, EventArgs e)
-        {
-            saved = false;
-            currentFace = textBox8.Text;
-        }
+            switch(numer)
+            {
+                case 49:
+                    b=trackBar1;
+                    break;
+                case 50:
+                    b=trackBar2;
+                    break;
+                case 51:
+                    b=trackBar3;
+                    break;
+                case 52:
+                    b=trackBar4;
+                    break;
+                case 53:
+                    b=trackBar5;
+                    break;
+                case 54:
+                    b=trackBar6;
+                    break;
+                case 55:
+                    b=trackBar7;
+                    break;
+                case 56:
+                    b=trackBar8;
+                    break;
+                default:
+                    b = trackBar1;
+                    break;
+            }
 
 
-        //Grupa funkcji obsługująca zmianę tekstu dla opisu suwaka
-        private void txtBxTrackBar1_TextChanged(object sender, EventArgs e)
-        {
-            if (txtBxTrackBar1.Text.Equals(""))
+            if (a.Text.Equals(""))
                 return;
             int number;
-            bool result = Int32.TryParse(txtBxTrackBar1.Text, out number);
+            bool result = Int32.TryParse(a.Text, out number);
             if (result && number >= 0 && number <= 100)
             {
-                trackBar1.Value = number;
+                b.Value = number;
             }
             else
             {
                 if (number < 50)
                 {
-                    trackBar1.Value = 0;
-                    txtBxTrackBar1.Text = "0";
+                    b.Value = 0;
+                    a.Text = "0";
                 }
                 else if (number >= 50)
                 {
-                    trackBar1.Value = 100;
-                    txtBxTrackBar1.Text = "100";
-                }
-                MessageBox.Show("Wpisz wartość z przedziału 1-100");
-            }
-
-        }
-
-        private void txtBxTrackBar2_TextChanged(object sender, EventArgs e)
-        {
-            if (txtBxTrackBar2.Text.Equals(""))
-                return;
-            int number;
-            bool result = Int32.TryParse(txtBxTrackBar2.Text, out number);
-            if (result && number >= 0 && number <= 100)
-            {
-                trackBar2.Value = number;
-            }
-            else
-            {
-                if (number < 50)
-                {
-                    trackBar2.Value = 0;
-                    txtBxTrackBar2.Text = "0";
-                }
-                else if (number >= 50)
-                {
-                    trackBar2.Value = 100;
-                    txtBxTrackBar2.Text = "100";
+                    b.Value = 100;
+                    a.Text = "100";
                 }
                 MessageBox.Show("Wpisz wartość z przedziału 1-100");
             }
         }
 
-        private void txtBxTrackBar3_TextChanged(object sender, EventArgs e)
-        {
-            if (txtBxTrackBar3.Text.Equals(""))
-                return;
-            int number;
-            bool result = Int32.TryParse(txtBxTrackBar3.Text, out number);
-            if (result && number >= 0 && number <= 100)
-            {
-                trackBar3.Value = number;
-            }
-            else
-            {
-                if (number < 50)
-                {
-                    trackBar3.Value = 0;
-                    txtBxTrackBar3.Text = "0";
-                }
-                else if (number >= 50)
-                {
-                    trackBar3.Value = 100;
-                    txtBxTrackBar3.Text = "100";
-                }
-                MessageBox.Show("Wpisz wartość z przedziału 1-100");
-            }
-        }
+        ////Grupa funkcji obsługująca zmianę tekstu dla opisu suwaka
+        //private void txtBxTrackBar2_TextChanged(object sender, EventArgs e)
+        //{
+        //    if (txtBxTrackBar2.Text.Equals(""))
+        //        return;
+        //    int number;
+        //    bool result = Int32.TryParse(txtBxTrackBar2.Text, out number);
+        //    if (result && number >= 0 && number <= 100)
+        //    {
+        //        trackBar2.Value = number;
+        //    }
+        //    else
+        //    {
+        //        if (number < 50)
+        //        {
+        //            trackBar2.Value = 0;
+        //            txtBxTrackBar2.Text = "0";
+        //        }
+        //        else if (number >= 50)
+        //        {
+        //            trackBar2.Value = 100;
+        //            txtBxTrackBar2.Text = "100";
+        //        }
+        //        MessageBox.Show("Wpisz wartość z przedziału 1-100");
+        //    }
+        //}
 
-        private void txtBxTrackBar4_TextChanged(object sender, EventArgs e)
-        {
-            if (txtBxTrackBar4.Text.Equals(""))
-                return;
-            int number;
-            bool result = Int32.TryParse(txtBxTrackBar4.Text, out number);
-            if (result && number >= 0 && number <= 100)
-            {
-                trackBar4.Value = number;
-            }
-            else
-            {
-                if (number < 50)
-                {
-                    trackBar4.Value = 0;
-                    txtBxTrackBar4.Text = "0";
-                }
-                else if (number >= 50)
-                {
-                    trackBar4.Value = 100;
-                    txtBxTrackBar4.Text = "100";
-                }
-                MessageBox.Show("Wpisz wartość z przedziału 1-100");
-            }
-        }
-
-        private void txtBxTrackBar5_TextChanged(object sender, EventArgs e)
-        {
-            if (txtBxTrackBar5.Text.Equals(""))
-                return;
-            int number;
-            bool result = Int32.TryParse(txtBxTrackBar5.Text, out number);
-            if (result && number >= 0 && number <= 100)
-            {
-                trackBar5.Value = number;
-            }
-            else
-            {
-                if (number < 50)
-                {
-                    trackBar5.Value = 0;
-                    txtBxTrackBar5.Text = "0";
-                }
-                else if (number >= 50)
-                {
-                    trackBar5.Value = 100;
-                    txtBxTrackBar5.Text = "100";
-                }
-                MessageBox.Show("Wpisz wartość z przedziału 1-100");
-            }
-        }
-
-        private void txtBxTrackBar6_TextChanged(object sender, EventArgs e)
-        {
-            if (txtBxTrackBar6.Text.Equals(""))
-                return;
-            int number;
-            bool result = Int32.TryParse(txtBxTrackBar6.Text, out number);
-            if (result && number >= 0 && number <= 100)
-            {
-                trackBar6.Value = number;
-            }
-            else
-            {
-                if (number < 50)
-                {
-                    trackBar6.Value = 0;
-                    txtBxTrackBar6.Text = "0";
-                }
-                else if (number >= 50)
-                {
-                    trackBar6.Value = 100;
-                    txtBxTrackBar6.Text = "100";
-                }
-                MessageBox.Show("Wpisz wartość z przedziału 1-100");
-            }
-        }
-
-        private void txtBxTrackBar7_TextChanged(object sender, EventArgs e)
-        {
-            if (txtBxTrackBar7.Text.Equals(""))
-                return;
-            int number;
-            bool result = Int32.TryParse(txtBxTrackBar7.Text, out number);
-            if (result && number >= 0 && number <= 100)
-            {
-                trackBar7.Value = number;
-            }
-            else
-            {
-                if (number < 50)
-                {
-                    trackBar7.Value = 0;
-                    txtBxTrackBar7.Text = "0";
-                }
-                else if (number >= 50)
-                {
-                    trackBar7.Value = 100;
-                    txtBxTrackBar7.Text = "100";
-                }
-                MessageBox.Show("Wpisz wartość z przedziału 1-100");
-            }
-        }
-
-        private void txtBxTrackBar8_TextChanged(object sender, EventArgs e)
-        {
-            if (txtBxTrackBar8.Text.Equals(""))
-                return;
-            int number;
-            bool result = Int32.TryParse(txtBxTrackBar8.Text, out number);
-            if (result && number >= 0 && number <= 100)
-            {
-                trackBar8.Value = number;
-            }
-            else
-            {
-                if (number < 50)
-                {
-                    trackBar8.Value = 0;
-                    txtBxTrackBar8.Text = "0";
-                }
-                else if (number >= 50)
-                {
-                    trackBar8.Value = 100;
-                    txtBxTrackBar8.Text = "100";
-                }
-                MessageBox.Show("Wpisz wartość z przedziału 1-100");
-            }
-        }
-
+        
         //Część Maćka
+
+
         Form2 form2 = new Form2();
         COM komunikacja = new COM();
         // Pokazanie okna odpowiedzialnego za ustawienia połączenia
@@ -833,6 +663,8 @@ namespace RobotMimiczny
                 menuItemExportPackageToDevice.Enabled = false;
                 menuItemImportPackageFromDevice.Enabled = false;
 
+                toolStripMenuItem4.Enabled = true;
+
                 if (++licznik > 10)
                 {
                     timer1.Enabled = false;
@@ -859,12 +691,13 @@ namespace RobotMimiczny
                 komunikacja.HAI();
             }
             Cursor.Current = Cursors.Default;
+            toolStripMenuItem4.Enabled = false;
         }
 
         // Zakończenie połączenia
         private void rozłączToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            komunikacja.closeTransmision1();
+            komunikacja.closeTransmision();
             menuItemExportPackageToDevice.Enabled = false;
             menuItemImportPackageFromDevice.Enabled = false;
 
@@ -876,6 +709,8 @@ namespace RobotMimiczny
             btnExecuteFace.Enabled = false;
 
             timer1.Enabled = false;
+
+            toolStripMenuItem4.Enabled = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)

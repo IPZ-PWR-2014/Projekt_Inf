@@ -247,7 +247,7 @@
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(201, 45);
             this.trackBar1.TabIndex = 8;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            this.trackBar1.Scroll += new System.EventHandler(this.zmianaPolozeniaSuwaka);
             // 
             // trackBar2
             // 
@@ -257,7 +257,7 @@
             this.trackBar2.Name = "trackBar2";
             this.trackBar2.Size = new System.Drawing.Size(201, 45);
             this.trackBar2.TabIndex = 9;
-            this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
+            this.trackBar2.Scroll += new System.EventHandler(this.zmianaPolozeniaSuwaka);
             // 
             // label2
             // 
@@ -293,7 +293,7 @@
             this.btnFace1.Size = new System.Drawing.Size(70, 60);
             this.btnFace1.TabIndex = 13;
             this.btnFace1.UseVisualStyleBackColor = true;
-            this.btnFace1.Click += new System.EventHandler(this.btnFace1_Click);
+            this.btnFace1.Click += new System.EventHandler(this.klikWTwarz);
             // 
             // btnFace2
             // 
@@ -304,7 +304,7 @@
             this.btnFace2.Size = new System.Drawing.Size(70, 60);
             this.btnFace2.TabIndex = 14;
             this.btnFace2.UseVisualStyleBackColor = true;
-            this.btnFace2.Click += new System.EventHandler(this.btnFace2_Click);
+            this.btnFace2.Click += new System.EventHandler(this.klikWTwarz);
             // 
             // btnFace3
             // 
@@ -314,7 +314,7 @@
             this.btnFace3.Size = new System.Drawing.Size(70, 60);
             this.btnFace3.TabIndex = 15;
             this.btnFace3.UseVisualStyleBackColor = true;
-            this.btnFace3.Click += new System.EventHandler(this.btnFace3_Click);
+            this.btnFace3.Click += new System.EventHandler(this.klikWTwarz);
             // 
             // btnFace4
             // 
@@ -324,7 +324,7 @@
             this.btnFace4.Size = new System.Drawing.Size(70, 60);
             this.btnFace4.TabIndex = 16;
             this.btnFace4.UseVisualStyleBackColor = true;
-            this.btnFace4.Click += new System.EventHandler(this.btnFace4_Click);
+            this.btnFace4.Click += new System.EventHandler(this.klikWTwarz);
             // 
             // btnFace5
             // 
@@ -334,7 +334,7 @@
             this.btnFace5.Size = new System.Drawing.Size(70, 60);
             this.btnFace5.TabIndex = 17;
             this.btnFace5.UseVisualStyleBackColor = true;
-            this.btnFace5.Click += new System.EventHandler(this.btnFace5_Click);
+            this.btnFace5.Click += new System.EventHandler(this.klikWTwarz);
             // 
             // btnFace6
             // 
@@ -344,7 +344,7 @@
             this.btnFace6.Size = new System.Drawing.Size(70, 60);
             this.btnFace6.TabIndex = 18;
             this.btnFace6.UseVisualStyleBackColor = true;
-            this.btnFace6.Click += new System.EventHandler(this.btnFace6_Click);
+            this.btnFace6.Click += new System.EventHandler(this.klikWTwarz);
             // 
             // btnFace7
             // 
@@ -354,7 +354,7 @@
             this.btnFace7.Size = new System.Drawing.Size(70, 60);
             this.btnFace7.TabIndex = 19;
             this.btnFace7.UseVisualStyleBackColor = true;
-            this.btnFace7.Click += new System.EventHandler(this.btnFace7_Click);
+            this.btnFace7.Click += new System.EventHandler(this.klikWTwarz);
             // 
             // btnFace8
             // 
@@ -364,7 +364,7 @@
             this.btnFace8.Size = new System.Drawing.Size(70, 60);
             this.btnFace8.TabIndex = 20;
             this.btnFace8.UseVisualStyleBackColor = true;
-            this.btnFace8.Click += new System.EventHandler(this.btnFace8_Click);
+            this.btnFace8.Click += new System.EventHandler(this.klikWTwarz);
             // 
             // textBox1
             // 
@@ -373,7 +373,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(69, 20);
             this.textBox1.TabIndex = 21;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.TextChanged += new System.EventHandler(this.zmianaNazwyMiny);
             // 
             // textBox2
             // 
@@ -382,7 +382,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(69, 20);
             this.textBox2.TabIndex = 22;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.textBox2.TextChanged += new System.EventHandler(this.zmianaNazwyMiny);
             // 
             // textBox3
             // 
@@ -391,7 +391,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(69, 20);
             this.textBox3.TabIndex = 23;
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            this.textBox3.TextChanged += new System.EventHandler(this.zmianaNazwyMiny);
             // 
             // textBox4
             // 
@@ -400,7 +400,7 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(69, 20);
             this.textBox4.TabIndex = 24;
-            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            this.textBox4.TextChanged += new System.EventHandler(this.zmianaNazwyMiny);
             // 
             // textBox5
             // 
@@ -409,7 +409,7 @@
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(69, 20);
             this.textBox5.TabIndex = 25;
-            this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
+            this.textBox5.TextChanged += new System.EventHandler(this.zmianaNazwyMiny);
             // 
             // textBox6
             // 
@@ -418,7 +418,7 @@
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(69, 20);
             this.textBox6.TabIndex = 26;
-            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
+            this.textBox6.TextChanged += new System.EventHandler(this.zmianaNazwyMiny);
             // 
             // textBox7
             // 
@@ -427,7 +427,7 @@
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(69, 20);
             this.textBox7.TabIndex = 27;
-            this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
+            this.textBox7.TextChanged += new System.EventHandler(this.zmianaNazwyMiny);
             // 
             // textBox8
             // 
@@ -436,7 +436,7 @@
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(69, 20);
             this.textBox8.TabIndex = 28;
-            this.textBox8.TextChanged += new System.EventHandler(this.textBox8_TextChanged);
+            this.textBox8.TextChanged += new System.EventHandler(this.zmianaNazwyMiny);
             // 
             // trackBar3
             // 
@@ -446,7 +446,7 @@
             this.trackBar3.Name = "trackBar3";
             this.trackBar3.Size = new System.Drawing.Size(201, 45);
             this.trackBar3.TabIndex = 29;
-            this.trackBar3.Scroll += new System.EventHandler(this.trackBar3_Scroll);
+            this.trackBar3.Scroll += new System.EventHandler(this.zmianaPolozeniaSuwaka);
             // 
             // trackBar4
             // 
@@ -456,7 +456,7 @@
             this.trackBar4.Name = "trackBar4";
             this.trackBar4.Size = new System.Drawing.Size(201, 45);
             this.trackBar4.TabIndex = 30;
-            this.trackBar4.Scroll += new System.EventHandler(this.trackBar4_Scroll);
+            this.trackBar4.Scroll += new System.EventHandler(this.zmianaPolozeniaSuwaka);
             // 
             // trackBar5
             // 
@@ -466,7 +466,7 @@
             this.trackBar5.Name = "trackBar5";
             this.trackBar5.Size = new System.Drawing.Size(201, 45);
             this.trackBar5.TabIndex = 31;
-            this.trackBar5.Scroll += new System.EventHandler(this.trackBar5_Scroll);
+            this.trackBar5.Scroll += new System.EventHandler(this.zmianaPolozeniaSuwaka);
             // 
             // trackBar6
             // 
@@ -476,7 +476,7 @@
             this.trackBar6.Name = "trackBar6";
             this.trackBar6.Size = new System.Drawing.Size(201, 45);
             this.trackBar6.TabIndex = 32;
-            this.trackBar6.Scroll += new System.EventHandler(this.trackBar6_Scroll);
+            this.trackBar6.Scroll += new System.EventHandler(this.zmianaPolozeniaSuwaka);
             // 
             // trackBar7
             // 
@@ -486,7 +486,7 @@
             this.trackBar7.Name = "trackBar7";
             this.trackBar7.Size = new System.Drawing.Size(201, 45);
             this.trackBar7.TabIndex = 33;
-            this.trackBar7.Scroll += new System.EventHandler(this.trackBar7_Scroll);
+            this.trackBar7.Scroll += new System.EventHandler(this.zmianaPolozeniaSuwaka);
             // 
             // trackBar8
             // 
@@ -496,7 +496,7 @@
             this.trackBar8.Name = "trackBar8";
             this.trackBar8.Size = new System.Drawing.Size(201, 45);
             this.trackBar8.TabIndex = 34;
-            this.trackBar8.Scroll += new System.EventHandler(this.trackBar8_Scroll);
+            this.trackBar8.Scroll += new System.EventHandler(this.zmianaPolozeniaSuwaka);
             // 
             // label5
             // 
@@ -559,7 +559,7 @@
             this.txtBxTrackBar1.Name = "txtBxTrackBar1";
             this.txtBxTrackBar1.Size = new System.Drawing.Size(27, 20);
             this.txtBxTrackBar1.TabIndex = 41;
-            this.txtBxTrackBar1.TextChanged += new System.EventHandler(this.txtBxTrackBar1_TextChanged);
+            this.txtBxTrackBar1.TextChanged += new System.EventHandler(this.zmianaWartosciTrackbara);
             // 
             // txtBxTrackBar2
             // 
@@ -568,7 +568,7 @@
             this.txtBxTrackBar2.Name = "txtBxTrackBar2";
             this.txtBxTrackBar2.Size = new System.Drawing.Size(27, 20);
             this.txtBxTrackBar2.TabIndex = 43;
-            this.txtBxTrackBar2.TextChanged += new System.EventHandler(this.txtBxTrackBar2_TextChanged);
+            this.txtBxTrackBar2.TextChanged += new System.EventHandler(this.zmianaWartosciTrackbara);
             // 
             // txtBxTrackBar3
             // 
@@ -577,7 +577,7 @@
             this.txtBxTrackBar3.Name = "txtBxTrackBar3";
             this.txtBxTrackBar3.Size = new System.Drawing.Size(27, 20);
             this.txtBxTrackBar3.TabIndex = 44;
-            this.txtBxTrackBar3.TextChanged += new System.EventHandler(this.txtBxTrackBar3_TextChanged);
+            this.txtBxTrackBar3.TextChanged += new System.EventHandler(this.zmianaWartosciTrackbara);
             // 
             // txtBxTrackBar4
             // 
@@ -586,7 +586,7 @@
             this.txtBxTrackBar4.Name = "txtBxTrackBar4";
             this.txtBxTrackBar4.Size = new System.Drawing.Size(27, 20);
             this.txtBxTrackBar4.TabIndex = 45;
-            this.txtBxTrackBar4.TextChanged += new System.EventHandler(this.txtBxTrackBar4_TextChanged);
+            this.txtBxTrackBar4.TextChanged += new System.EventHandler(this.zmianaWartosciTrackbara);
             // 
             // txtBxTrackBar5
             // 
@@ -595,7 +595,7 @@
             this.txtBxTrackBar5.Name = "txtBxTrackBar5";
             this.txtBxTrackBar5.Size = new System.Drawing.Size(27, 20);
             this.txtBxTrackBar5.TabIndex = 46;
-            this.txtBxTrackBar5.TextChanged += new System.EventHandler(this.txtBxTrackBar5_TextChanged);
+            this.txtBxTrackBar5.TextChanged += new System.EventHandler(this.zmianaWartosciTrackbara);
             // 
             // txtBxTrackBar6
             // 
@@ -604,7 +604,7 @@
             this.txtBxTrackBar6.Name = "txtBxTrackBar6";
             this.txtBxTrackBar6.Size = new System.Drawing.Size(27, 20);
             this.txtBxTrackBar6.TabIndex = 47;
-            this.txtBxTrackBar6.TextChanged += new System.EventHandler(this.txtBxTrackBar6_TextChanged);
+            this.txtBxTrackBar6.TextChanged += new System.EventHandler(this.zmianaWartosciTrackbara);
             // 
             // txtBxTrackBar7
             // 
@@ -613,7 +613,7 @@
             this.txtBxTrackBar7.Name = "txtBxTrackBar7";
             this.txtBxTrackBar7.Size = new System.Drawing.Size(27, 20);
             this.txtBxTrackBar7.TabIndex = 48;
-            this.txtBxTrackBar7.TextChanged += new System.EventHandler(this.txtBxTrackBar7_TextChanged);
+            this.txtBxTrackBar7.TextChanged += new System.EventHandler(this.zmianaWartosciTrackbara);
             // 
             // txtBxTrackBar8
             // 
@@ -622,7 +622,7 @@
             this.txtBxTrackBar8.Name = "txtBxTrackBar8";
             this.txtBxTrackBar8.Size = new System.Drawing.Size(27, 20);
             this.txtBxTrackBar8.TabIndex = 49;
-            this.txtBxTrackBar8.TextChanged += new System.EventHandler(this.txtBxTrackBar8_TextChanged);
+            this.txtBxTrackBar8.TextChanged += new System.EventHandler(this.zmianaWartosciTrackbara);
             // 
             // timer1
             // 
