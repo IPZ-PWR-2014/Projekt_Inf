@@ -263,11 +263,15 @@ namespace RobotMimiczny
         // Metoda kończy połączenie
         public void closeTransmision()
         {
-            if (_serialPort.IsOpen == true)
+            try
             {
-                _serialPort.Close();
-                PortNameHAI = "brak portu";
+                if (_serialPort.IsOpen == true)
+                {
+                    _serialPort.Close();
+                    PortNameHAI = "brak portu";
+                }
             }
+            catch { }
         }
 
         // Metoda wysyłająca dane
