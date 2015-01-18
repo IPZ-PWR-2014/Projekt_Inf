@@ -518,7 +518,8 @@ namespace RobotMimiczny
 
         //private void textBox1_TextChanged(object sender, EventArgs e)
         //{
-        //    zmianaNazwyMiny(sender, e);
+        //    saved = false;
+        //    currentFace = textBox1.Text;
         //}
 
         //zmiana tekstu opisu suwaka
