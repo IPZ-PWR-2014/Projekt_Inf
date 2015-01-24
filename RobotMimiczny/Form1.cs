@@ -19,6 +19,8 @@ namespace RobotMimiczny
         bool saved = true;
         bool savedToFile = true;
         int licznik = 0;
+        Form2 form2 = new Form2();
+        COM komunikacja = new COM();
 
         public Form1()
         {
@@ -51,7 +53,6 @@ namespace RobotMimiczny
 
             btnSaveSettings.Enabled = true;
             menuItemSavePackageToFile.Enabled = true;
-            
 
             klikWTwarz(null, null);
 
@@ -89,15 +90,15 @@ namespace RobotMimiczny
                 if (result == DialogResult.Yes)
                 {
                     menuItemSavePackageToFile_Click(null, null);
-
                 }
                 savedToFile = true;
             }
         }
 
-       private void SendActualDataToDevice()
-       {
-           int[,] dataToSend = new int[1, 16];
+        //Funkcja wysyła dane na urządzenie
+        private void SendActualDataToDevice()
+        {
+            int[,] dataToSend = new int[1, 16];
             dataToSend[0, 0] = trackBar1.Value;
             dataToSend[0, 1] = trackBar2.Value;
             dataToSend[0, 2] = trackBar3.Value;
@@ -107,14 +108,12 @@ namespace RobotMimiczny
             dataToSend[0, 6] = trackBar7.Value;
             dataToSend[0, 7] = trackBar8.Value;
 
-
-           timer2.Enabled=false;
-           if(komunikacja.send(dataToSend, 10)!=1&&chBxRun.Checked)
-           {
-               timer2.Enabled=true;
-           }
-       }
-       
+            timer2.Enabled = false;
+            if (komunikacja.send(dataToSend, 10) != 1 && chBxRun.Checked)
+            {
+                timer2.Enabled = true;
+            }
+        }
 
         //Funkcja wykonująca bieżące ustawienia na podłączonym zestawie
         private void btnExecuteFace_Click(object sender, EventArgs e)
@@ -220,7 +219,7 @@ namespace RobotMimiczny
             }
         }
 
-
+        //Funkcja wywoływana po wybraniu z menu opcji eksportu zestawu do urządzenia
         private void menuItemExportPackageToDevice_Click(object sender, EventArgs e)
         {
             SaveControl();
@@ -245,7 +244,7 @@ namespace RobotMimiczny
             timer1.Enabled = true;
         }
 
-
+        //Funkcja wywoływana po wybraniu z menu opcji importu zestawu z urządzenia
         private void menuItemImportPackageFromDevice_Click(object sender, EventArgs e)
         {
             SaveControl();
@@ -291,6 +290,7 @@ namespace RobotMimiczny
             }
         }
 
+        //Funkcja wywoływana przez timer2 do przesyłania danych na urządzenie w trybie run
         private void RunMode_Tick(object sender, EventArgs e)
         {
             SendActualDataToDevice();
@@ -309,6 +309,7 @@ namespace RobotMimiczny
             trackBar8.Value = 0;
         }
 
+        //Funkcja ustawiająca wartości wszystkich suwaków na wartośći ustawione dla danej miny
         private void SetTrackBarsValue(string faceName)
         {
             currentFace = faceName;
@@ -321,8 +322,6 @@ namespace RobotMimiczny
             trackBar7.Value = openedFacePackage.GetSetting(faceName, 7);
             trackBar8.Value = openedFacePackage.GetSetting(faceName, 8);
             SetValuesInTextBoxesFromTrackBars();
-
-
         }
 
         //Zablokowanie textBoxes dla podpisów min
@@ -390,8 +389,7 @@ namespace RobotMimiczny
             txtBxTrackBar8.Text = trackBar8.Value.ToString();
         }
 
-
-        //klikanie przycisków
+        //klikanie przycisków wyboru miny
         private void klikWTwarz(object sender, EventArgs e)
         {
             SaveControl();
@@ -407,8 +405,6 @@ namespace RobotMimiczny
             {
                 numer = a.Name[a.Name.Length - 1];
             }
-                
-            
 
             switch (numer)
             {
@@ -445,17 +441,6 @@ namespace RobotMimiczny
             b.Enabled = true;
             clickedButton = numer - 49;
         }
-
-        ////ustawia na suwakach wartości dla aktualnie wybranej miny
-        //private void btnFace1_Click(object sender, EventArgs e)
-        //{
-        //    SaveControl();
-        //    GetFacesName();
-        //    SetTrackBarsValue(textBox1.Text);
-        //    BlockAllTextBoxes();
-        //    textBox1.Enabled = true;
-        //    clickedButton = 0;
-        //}
 
         //zmiana polozenia suwaka
         private void zmianaPolozeniaSuwaka(object sender, EventArgs e)
@@ -500,27 +485,13 @@ namespace RobotMimiczny
             saved = false;
         }
 
-        ////Grupa funkcji obsługujących zmiany położenia suwaków
-        //private void trackBar1_Scroll(object sender, EventArgs e)
-        //{
-        //    txtBxTrackBar1.Text = trackBar1.Value.ToString();
-        //    saved = false;
-        //}
-
-        
         //zmiana podpisu pod przyciskiem
         private void zmianaNazwyMiny(object sender, EventArgs e)
         {
-            System.Windows.Forms.TextBox a=(System.Windows.Forms.TextBox)sender;
+            System.Windows.Forms.TextBox a = (System.Windows.Forms.TextBox)sender;
             saved = false;
             currentFace = a.Text;
         }
-
-        //private void textBox1_TextChanged(object sender, EventArgs e)
-        //{
-        //    saved = false;
-        //    currentFace = textBox1.Text;
-        //}
 
         //zmiana tekstu opisu suwaka
         private void zmianaWartosciTrackbara(object sender, EventArgs e)
@@ -528,33 +499,33 @@ namespace RobotMimiczny
             System.Windows.Forms.TextBox a = (System.Windows.Forms.TextBox)sender;
             System.Windows.Forms.TrackBar b;
 
-            int numer = a.Name[a.Name.Length-1];
+            int numer = a.Name[a.Name.Length - 1];
 
-            switch(numer)
+            switch (numer)
             {
                 case 49:
-                    b=trackBar1;
+                    b = trackBar1;
                     break;
                 case 50:
-                    b=trackBar2;
+                    b = trackBar2;
                     break;
                 case 51:
-                    b=trackBar3;
+                    b = trackBar3;
                     break;
                 case 52:
-                    b=trackBar4;
+                    b = trackBar4;
                     break;
                 case 53:
-                    b=trackBar5;
+                    b = trackBar5;
                     break;
                 case 54:
-                    b=trackBar6;
+                    b = trackBar6;
                     break;
                 case 55:
-                    b=trackBar7;
+                    b = trackBar7;
                     break;
                 case 56:
-                    b=trackBar8;
+                    b = trackBar8;
                     break;
                 default:
                     b = trackBar1;
@@ -586,39 +557,6 @@ namespace RobotMimiczny
             }
         }
 
-        ////Grupa funkcji obsługująca zmianę tekstu dla opisu suwaka
-        //private void txtBxTrackBar2_TextChanged(object sender, EventArgs e)
-        //{
-        //    if (txtBxTrackBar2.Text.Equals(""))
-        //        return;
-        //    int number;
-        //    bool result = Int32.TryParse(txtBxTrackBar2.Text, out number);
-        //    if (result && number >= 0 && number <= 100)
-        //    {
-        //        trackBar2.Value = number;
-        //    }
-        //    else
-        //    {
-        //        if (number < 50)
-        //        {
-        //            trackBar2.Value = 0;
-        //            txtBxTrackBar2.Text = "0";
-        //        }
-        //        else if (number >= 50)
-        //        {
-        //            trackBar2.Value = 100;
-        //            txtBxTrackBar2.Text = "100";
-        //        }
-        //        MessageBox.Show("Wpisz wartość z przedziału 1-100");
-        //    }
-        //}
-
-        
-        //Część Maćka
-
-
-        Form2 form2 = new Form2();
-        COM komunikacja = new COM();
         // Pokazanie okna odpowiedzialnego za ustawienia połączenia
         private void ustawieniaToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -631,7 +569,7 @@ namespace RobotMimiczny
             form2.Port.Items.Clear();
             foreach (string s in komunikacja.findAllAvailablePorts())
                 form2.Port.Items.Add(s);
-            if(form2.Port.Items.Count>0)
+            if (form2.Port.Items.Count > 0)
                 form2.Port.SelectedIndex = 0;
         }
 
@@ -648,7 +586,7 @@ namespace RobotMimiczny
                 komunikacja.handshake = form2.parametry[4];
                 form2.przeslij = 0;
             }
-           
+
             if (komunikacja.HAI() == 0)
             {
                 label13.Text = "Aktywne";
@@ -679,15 +617,10 @@ namespace RobotMimiczny
         {
             Cursor.Current = Cursors.WaitCursor;
             if (komunikacja.initializeTransmission().Equals("brak portu"))
-                MessageBox.Show("Nie można utworzyć połączenia z urządzeniem.","Błąd połączenia");
+                MessageBox.Show("Nie można utworzyć połączenia z urządzeniem.", "Błąd połączenia");
             else
             {
                 timer1.Enabled = true;
-                //komunikacja.baudRate = form2.parametry[0];
-                //komunikacja.dataBits = form2.parametry[1];
-                //komunikacja.stopBits = form2.parametry[2];
-                //komunikacja.parity = form2.parametry[3];
-                //komunikacja.handshake = form2.parametry[4];
                 form2.przeslij = 0;
                 if (komunikacja.HAI() == 0)
                 {
@@ -698,7 +631,6 @@ namespace RobotMimiczny
                 }
             }
             Cursor.Current = Cursors.Default;
-            
         }
 
         // Zakończenie połączenia
@@ -720,6 +652,7 @@ namespace RobotMimiczny
             toolStripMenuItem4.Enabled = true;
         }
 
+        //Zamykanie okna aplikacji
         private void Form1_Closed(object sender, System.EventArgs e)
         {
             SaveControl();
