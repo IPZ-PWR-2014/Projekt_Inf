@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace RobotMimiczny
 {
-    // Klasa służąca do obsługi głównego okna
+    // Klasa służąca do obsługi zestawów min
     class FacePackage
     {
         //Struktura przechowująca dane dotyczące miny
@@ -164,7 +164,5 @@ namespace RobotMimiczny
             }
             return 0;
         }
-
     }
-
 }

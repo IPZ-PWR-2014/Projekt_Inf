@@ -25,6 +25,11 @@ namespace RobotMimiczny
         private string _baudRate = "9600";
         private string _defaultPortName = "brak portu";
 
+        //zmienne ułatwiające działanie
+        private int waitTime = 500;
+        private int newLine = 0xA0;
+        private int dolar = 0x24;
+        private string defaultAnswer = "255$1$255$";
         private string PortNameHAI = "brak portu";
 
         // właściwości
@@ -34,12 +39,6 @@ namespace RobotMimiczny
         public string handshake { get { return _handshake; } set { _handshake = value.ToString(); } }
         public string baudRate { get { return _baudRate; } set { _baudRate = value.ToString(); } }
         public string defaultPortName { get { return _defaultPortName; } set { _defaultPortName = value.ToString(); } }
-
-        private int waitTime = 500;
-        private int newLine = 0xA0;
-        private int dolar = 0x24;
-        private string defaultAnswer = "255$1$255$";
-
 
         // Metoda ustawia wartości domyślne parametrów transmisji
         public void setDefaultParameters()
