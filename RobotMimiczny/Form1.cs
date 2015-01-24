@@ -713,11 +713,6 @@ namespace RobotMimiczny
             toolStripMenuItem4.Enabled = true;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            
-        }
-
         private void Form1_Closed(object sender, System.EventArgs e)
         {
             SaveControl();
