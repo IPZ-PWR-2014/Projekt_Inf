@@ -160,6 +160,7 @@ namespace RobotMimiczny
                         {
                             PrepareWindowForEditPackage();
                         }
+                        myStream.Close();
                     }
                 }
                 catch (Exception ex)
@@ -213,6 +214,7 @@ namespace RobotMimiczny
                             writer.WriteLine();
                         }
                         savedToFile = true;
+                        
                     }
                 }
             }
