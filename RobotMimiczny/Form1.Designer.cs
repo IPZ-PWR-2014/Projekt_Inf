@@ -181,6 +181,7 @@
             // 
             // toolStripMenuItem5
             // 
+            this.toolStripMenuItem5.Enabled = false;
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.Size = new System.Drawing.Size(233, 22);
             this.toolStripMenuItem5.Text = "Rozłącz";

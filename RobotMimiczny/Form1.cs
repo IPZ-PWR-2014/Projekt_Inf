@@ -51,8 +51,7 @@ namespace RobotMimiczny
 
             btnSaveSettings.Enabled = true;
             menuItemSavePackageToFile.Enabled = true;
-            btnExecuteFace.Enabled = true;
-            chBxRun.Enabled = true;
+            
 
             klikWTwarz(null, null);
 
@@ -688,10 +687,16 @@ namespace RobotMimiczny
                 //komunikacja.parity = form2.parametry[3];
                 //komunikacja.handshake = form2.parametry[4];
                 form2.przeslij = 0;
-                komunikacja.HAI();
+                if (komunikacja.HAI() == 0)
+                {
+                    btnExecuteFace.Enabled = true;
+                    chBxRun.Enabled = true;
+                    toolStripMenuItem4.Enabled = false;
+                    toolStripMenuItem5.Enabled = true;
+                }
             }
             Cursor.Current = Cursors.Default;
-            toolStripMenuItem4.Enabled = false;
+            
         }
 
         // Zakończenie połączenia
