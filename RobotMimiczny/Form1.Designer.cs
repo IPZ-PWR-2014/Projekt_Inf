@@ -97,6 +97,7 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.pokazPomocToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
@@ -205,6 +206,8 @@
             // 
             // pomocToolStripMenuItem
             // 
+            this.pomocToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pokazPomocToolStripMenuItem});
             this.pomocToolStripMenuItem.Name = "pomocToolStripMenuItem";
             this.pomocToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.pomocToolStripMenuItem.Text = "Pomoc";
@@ -703,6 +706,13 @@
             this.label14.TabIndex = 55;
             this.label14.Text = resources.GetString("label14.Text");
             // 
+            // pokazPomocToolStripMenuItem
+            // 
+            this.pokazPomocToolStripMenuItem.Name = "pokazPomocToolStripMenuItem";
+            this.pokazPomocToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pokazPomocToolStripMenuItem.Text = "Pokaż pomoc";
+            this.pokazPomocToolStripMenuItem.Click += new System.EventHandler(this.pokazPomocToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -850,6 +860,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemExportPackageToDevice;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ToolStripMenuItem pokazPomocToolStripMenuItem;
     }
 }
 
