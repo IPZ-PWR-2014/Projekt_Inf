@@ -407,7 +407,7 @@ namespace RobotMimiczny
                 numer = a.Name[a.Name.Length - 1];
             }
                 
-            clickedButton = numer - 49;
+            
 
             switch (numer)
             {
@@ -442,6 +442,7 @@ namespace RobotMimiczny
 
             SetTrackBarsValue(b.Text);
             b.Enabled = true;
+            clickedButton = numer - 49;
         }
 
         ////ustawia na suwakach wartości dla aktualnie wybranej miny
@@ -462,8 +463,6 @@ namespace RobotMimiczny
             System.Windows.Forms.TextBox b;
 
             int numer = a.Name[a.Name.Length - 1];
-
-            clickedButton = numer - 49;
 
             switch (numer)
             {
