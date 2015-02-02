@@ -42,6 +42,7 @@
             this.menuItemImportPackageFromDevice = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemExportPackageToDevice = new System.Windows.Forms.ToolStripMenuItem();
             this.pomocToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pokazPomocToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSaveSettings = new System.Windows.Forms.Button();
             this.btnExecuteFace = new System.Windows.Forms.Button();
@@ -97,7 +98,7 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.pokazPomocToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autorzyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
@@ -207,10 +208,18 @@
             // pomocToolStripMenuItem
             // 
             this.pomocToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pokazPomocToolStripMenuItem});
+            this.pokazPomocToolStripMenuItem,
+            this.autorzyToolStripMenuItem});
             this.pomocToolStripMenuItem.Name = "pomocToolStripMenuItem";
             this.pomocToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.pomocToolStripMenuItem.Text = "Pomoc";
+            // 
+            // pokazPomocToolStripMenuItem
+            // 
+            this.pokazPomocToolStripMenuItem.Name = "pokazPomocToolStripMenuItem";
+            this.pokazPomocToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pokazPomocToolStripMenuItem.Text = "Pokaż pomoc";
+            this.pokazPomocToolStripMenuItem.Click += new System.EventHandler(this.pokazPomocToolStripMenuItem_Click);
             // 
             // label1
             // 
@@ -699,24 +708,24 @@
             // 
             // label14
             // 
-            this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(621, 157);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(233, 117);
             this.label14.TabIndex = 55;
             this.label14.Text = resources.GetString("label14.Text");
             // 
-            // pokazPomocToolStripMenuItem
+            // autorzyToolStripMenuItem
             // 
-            this.pokazPomocToolStripMenuItem.Name = "pokazPomocToolStripMenuItem";
-            this.pokazPomocToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.pokazPomocToolStripMenuItem.Text = "Pokaż pomoc";
-            this.pokazPomocToolStripMenuItem.Click += new System.EventHandler(this.pokazPomocToolStripMenuItem_Click);
+            this.autorzyToolStripMenuItem.Name = "autorzyToolStripMenuItem";
+            this.autorzyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.autorzyToolStripMenuItem.Text = "Autorzy";
+            this.autorzyToolStripMenuItem.Click += new System.EventHandler(this.autorzyToolStripMenuItem_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(861, 384);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.pictureBox1);
@@ -769,6 +778,7 @@
             this.Controls.Add(this.btnSaveSettings);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -861,6 +871,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ToolStripMenuItem pokazPomocToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem autorzyToolStripMenuItem;
     }
 }
 

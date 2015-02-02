@@ -663,17 +663,39 @@ namespace RobotMimiczny
         }
 
         //Zamykanie okna aplikacji
-        private void Form1_Closed(object sender, System.EventArgs e)
+        private void Form1_Closed(object sender, EventArgs e)
         {
-            SaveControl();
-            SaveControlForNewPackage();
-            rozłączToolStripMenuItem_Click(sender, e);
+            if (!saved)
+            {
+                const string message = "Bieżące ustawienia silników, nie zostały zapisane, czy chcesz je zapisać?";
+                const string caption = "";
+                var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                //if (result != DialogResult.Cancel)
+                //{
+                    if (result == DialogResult.Yes)
+                    {
+                        btnSaveSettings_Click(null, null);
+                    }
+                    SaveControlForNewPackage();
+                    rozłączToolStripMenuItem_Click(sender, e);
+                ////}
+                //else
+                //{
+                //    e.Cancel;
+                //}
+            }
         }
 
         private void pokazPomocToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form3 form3 = new Form3();
             form3.Show();
+        }
+
+        private void autorzyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Paweł Duda\nJan Karwasiński\nAgnieszka Nowaczyńska\nMaciej Pałka\nŁukasz Rdzeń\nMichał Sarnowski","Autorzy");
         }
     }
 }
