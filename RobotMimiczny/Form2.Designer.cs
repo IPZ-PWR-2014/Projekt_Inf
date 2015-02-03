@@ -224,6 +224,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.MaximumSize = new System.Drawing.Size(225, 222);
+            this.MinimumSize = new System.Drawing.Size(225, 222);
             this.Name = "Form2";
             this.Text = "Ustawienia połączenia";
             this.ResumeLayout(false);
