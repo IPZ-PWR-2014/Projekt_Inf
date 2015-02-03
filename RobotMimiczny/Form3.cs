@@ -32,8 +32,6 @@ namespace RobotMimiczny
 
             line = file.ReadToEnd();
             richTextBox1.Text = line;
-
-           
         }
 
         private void btnOk_Click(object sender, EventArgs e)

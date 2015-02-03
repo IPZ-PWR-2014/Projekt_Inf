@@ -43,6 +43,7 @@
             this.menuItemExportPackageToDevice = new System.Windows.Forms.ToolStripMenuItem();
             this.pomocToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pokazPomocToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autorzyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSaveSettings = new System.Windows.Forms.Button();
             this.btnExecuteFace = new System.Windows.Forms.Button();
@@ -98,7 +99,6 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.autorzyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
@@ -217,9 +217,16 @@
             // pokazPomocToolStripMenuItem
             // 
             this.pokazPomocToolStripMenuItem.Name = "pokazPomocToolStripMenuItem";
-            this.pokazPomocToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pokazPomocToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.pokazPomocToolStripMenuItem.Text = "Pokaż pomoc";
             this.pokazPomocToolStripMenuItem.Click += new System.EventHandler(this.pokazPomocToolStripMenuItem_Click);
+            // 
+            // autorzyToolStripMenuItem
+            // 
+            this.autorzyToolStripMenuItem.Name = "autorzyToolStripMenuItem";
+            this.autorzyToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.autorzyToolStripMenuItem.Text = "Autorzy";
+            this.autorzyToolStripMenuItem.Click += new System.EventHandler(this.autorzyToolStripMenuItem_Click);
             // 
             // label1
             // 
@@ -713,13 +720,6 @@
             this.label14.Size = new System.Drawing.Size(233, 117);
             this.label14.TabIndex = 55;
             this.label14.Text = resources.GetString("label14.Text");
-            // 
-            // autorzyToolStripMenuItem
-            // 
-            this.autorzyToolStripMenuItem.Name = "autorzyToolStripMenuItem";
-            this.autorzyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.autorzyToolStripMenuItem.Text = "Autorzy";
-            this.autorzyToolStripMenuItem.Click += new System.EventHandler(this.autorzyToolStripMenuItem_Click);
             // 
             // Form1
             // 
