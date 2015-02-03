@@ -687,17 +687,15 @@ namespace RobotMimiczny
             }
         }
 
-        //pokazanie okna pomocy
         private void pokazPomocToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form3 form3 = new Form3();
             form3.Show();
         }
 
-        //pokazanie okna autorzy
         private void autorzyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("inż. Paweł Duda\ninż. Jan Karwasiński\ninż. Agnieszka Nowaczyńska\ninż. Maciej Pałka\ninż. Łukasz Rdzeń\ninż. Michał Sarnowski","Autorzy");
+            MessageBox.Show("Paweł Duda\nJan Karwasiński\nAgnieszka Nowaczyńska\nMaciej Pałka\nŁukasz Rdzeń\nMichał Sarnowski","Autorzy");
         }
     }
 }
